@@ -2,7 +2,7 @@
 
 cd `dirname $0`
 
-git submodule update --init --recursive 2>/dev/null
+git submodule update --init --recursive 
 
 git pull
 git submodule foreach git pull origin master
