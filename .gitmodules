@@ -1,0 +1,3 @@
+[submodule "rest/library/backend"]
+	path = rest/library/backend
+	url = https://github.com/podstawski/backend.git
