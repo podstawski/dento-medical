@@ -21,22 +21,6 @@ h1 {
 }
 
 
-.host {
-  text-align: center;
-}
-
-.host img.user-face  {
-    max-width: 150px;
-    margin:0 auto;
-    text-align: center;
-    border-radius: 50%;
-    border: 5px solid #f3f3f3;
-    margin-top:-75px;
-}
-
-.host h1 {
-  font-size: 24px;
-}
 
 .button {
   width: 100%;
@@ -119,13 +103,6 @@ ul#events h5 {
   width: 70%;
 }
 
-.unlistednull, .unlisted0 {
-	display:none;
-}
-.unlisted1 {
-	margin-top:1em;
-}
-
-.guests {
-  margin-top: 1em;
+.body {
+  padding:2em;
 }

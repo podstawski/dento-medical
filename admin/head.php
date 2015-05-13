@@ -44,5 +44,5 @@
     }
     
     echo "</ul></div>";
-    
+    echo '<div class="body">';
    

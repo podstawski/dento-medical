@@ -20,8 +20,12 @@ class CreateTableChurches extends Doctrine_Migration_Base
             ),
             'md5hash' => array(
                 'type' => 'character varying(32)',
-                'notnull' => true,
+                'notnull' => false,
             ),
+            'www' => array(
+                'type' => 'character varying(255)',
+                'notnull' => false,
+            ),            
             'password' => array(
                 'type' => 'character varying(32)',
                 'notnull' => false,
@@ -64,6 +68,10 @@ class CreateTableChurches extends Doctrine_Migration_Base
             ),
             'active' => array(
                 'type' => 'Integer',
+                'notnull' => false,
+            ),
+            'rector' => array(
+                'type' => 'character varying(255)',
                 'notnull' => false,
             ),
 
