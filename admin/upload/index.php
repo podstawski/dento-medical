@@ -7,9 +7,9 @@
     $church=new churchModel();
     $searches=0;
     
-    if (isset($_GET['id']) && $_GET['latlng']) {
+    if (isset($_GET['id']) && ($_GET['latlng'] || $_GET['latlng2'])) {
         $church->get($_GET['id']);
-        $latlng=explode(',',$_GET['latlng']);
+        $latlng=explode(',',$_GET['latlng']?:$_GET['latlng2']);
         $church->lat=$latlng[0];
         $church->lng=$latlng[1];
         $church->save();
