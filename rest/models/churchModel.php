@@ -1,5 +1,5 @@
 <?php
 
 class churchModel extends Model {
-	protected $_table='guests';
+	protected $_table='churches';
 }

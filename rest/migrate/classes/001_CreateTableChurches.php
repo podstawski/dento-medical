@@ -43,7 +43,7 @@ class CreateTableChurches extends Doctrine_Migration_Base
                 'notnull' => false,
             ),
             'address' => array(
-                'type' => 'varchar(200)',
+                'type' => 'varchar',
                 'notnull' => false,
             ),
             'postal' => array(
@@ -54,6 +54,10 @@ class CreateTableChurches extends Doctrine_Migration_Base
                 'type' => 'varchar(200)',
                 'notnull' => false,
             ),
+            'tel' => array(
+                'type' => 'varchar(20)',
+                'notnull' => false,
+            ),            
             'lat' => array(
                 'type' => 'DECIMAL(18,9)',
                 'notnull' => false,
