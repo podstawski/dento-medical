@@ -120,6 +120,8 @@
             $masses=array_merge($masses,analyze_mass([8],$rec['fest']));
             $church->save();
             
+            continue;
+        
             $church->remove_masses();
             foreach ($masses AS $m)
             {
@@ -137,7 +139,6 @@
                 }
             }
             
-            $rec['masses']=$masses;
         }
         
         
