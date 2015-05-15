@@ -18,14 +18,10 @@ class CreateTableMasses extends Doctrine_Migration_Base
                 'type' => 'integer',
                 'notnull' => true,
             ),
-            'dm_from' => array(
+            'moy' => array(
                 'type' => 'Integer',
                 'notnull' => true,
             ),            
-            'dm_to' => array(
-                'type' => 'Integer',
-                'notnull' => true,
-            ),
             'dow' => array(
                 'type' => 'Integer',
                 'notnull' => true,
@@ -48,7 +44,7 @@ class CreateTableMasses extends Doctrine_Migration_Base
             ),            
         ), array('charset'=>'utf8'));
         
-        $this->addIndex($this->_tableName,$this->_tableName.'_church_key',array('fields'=>array('church')));
+        $this->addIndex($this->_tableName,$this->_tableName.'_church_key',array('fields'=>array('church','moy','dow')));
         
         
         $this->createForeignKey($this->_tableName, $this->_fkName1, array(

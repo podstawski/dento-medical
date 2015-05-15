@@ -51,26 +51,29 @@
             foreach($line AS $i=>$r) $rec[$header[$i]]=$r;
             
             if (!$rec['phone']) continue;
-            if (!$rec['address']) continue;
+
+            if (strlen($rec['address'])<8) continue;
             
+            $matches=[];
+            preg_match('/([0-9][0-9]\-[0-9][0-9][0-9])/',$rec['address'],$matches);
+            $postal='';
+            if (isset($matches[1])) $postal=$matches[1];            
+                        
             $phone=preg_replace('/[^0-9]/','',$rec['phone']);
             $md5hash=md5('PL'.substr($phone,0,9));
+            $md5hash=md5('PL'.$postal.','.substr($phone,0,9));
+            
             
             $ch=$church->find_one_by_md5hash($md5hash);
             
             if (!isset($ch['id'])) {
                 $church->load(['name'=>$rec['name'],'md5hash'=>$md5hash,'country'=>'PL'],true);
                 $church->save();
-            }
+            } 
+
+
             
-            if (strlen($rec['address'])<8) continue;
-            
-            $matches=[];
-            preg_match('/([0-9][0-9]\-[0-9][0-9][0-9])/',$rec['address'],$matches);
-            $postal='';
-            if (isset($matches[1])) $postal=$matches[1];
-            
-            if (!$rec['latlng'] && (!$church->lat || !$church->lng) )
+            if (false && !$rec['latlng'] && (!$church->lat || !$church->lng) )
             {
                 if (++$searches==10) break;
                 
@@ -94,8 +97,9 @@
                 
                 if ($latlng['latlng']) $rec['latlng']=$latlng['latlng'];
                 
-                if (!$latlng['latlng'] && count($options))
+                if (!$latlng['latlng'] && count($options)) {
                     die('<pre>'.print_r($rec,1).'</pre>'.form($key,$church->id,$options));
+                }
             }
             
             $church->tel=$phone;
@@ -107,6 +111,12 @@
                     $church->lng=$latlng[1];
                 }
             }
+            
+            
+            $masses=[];
+            $masses=array_merge($masses,analyze_mass([0],$rec['sun']));
+            $masses=array_merge($masses,analyze_mass([1,2,3,4,5,6],$rec['week']));
+            $masses=array_merge($masses,analyze_mass([8],$rec['fest']));
             $church->save();
         }
         

@@ -78,12 +78,40 @@ class CreateTableChurches extends Doctrine_Migration_Base
                 'type' => 'character varying(255)',
                 'notnull' => false,
             ),
+            
+            'sun' => array(
+                'type' => 'varchar(100)',
+                'notnull' => false,
+            ),
+            'week' => array(
+                'type' => 'varchar(100)',
+                'notnull' => false,
+            ),
+            'fest' => array(
+                'type' => 'varchar(100)',
+                'notnull' => false,
+            ),
+            'change_author' => array(
+                'type' => 'varchar(200)',
+                'notnull' => false,
+            ),
+            'change_author_email' => array(
+                'type' => 'varchar(200)',
+                'notnull' => false,
+            ),
+            'change_time' => array(
+                'type' => 'Integer',
+                'notnull' => false,
+            ),
+            'change_ip' => array(
+                'type' => 'varchar(50)',
+                'notnull' => false,
+            ),            
 
         ), array('charset'=>'utf8'));
         
         $this->addIndex($this->_tableName,$this->_tableName.'_email_key',array('fields'=>array('email')));
         $this->addIndex($this->_tableName,$this->_tableName.'_md5hash_key',array('type'=>'unique','fields'=>array('md5hash')));
-        $this->addIndex($this->_tableName,$this->_tableName.'_city_key',array('fields'=>array('country','city')));
         $this->addIndex($this->_tableName,$this->_tableName.'_geo_key',array('fields'=>array('lat','lng')));
         
     }

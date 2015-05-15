@@ -41,10 +41,18 @@ class CreateTableImages extends Doctrine_Migration_Base
             'd_uploaded' => array(
                 'type' => 'Integer',
                 'notnull' => false,
+            ),
+            'ip_uploaded' => array(
+                'type' => 'Varchar(50)',
+                'notnull' => false,
+            ),
+            'author_email' => array(
+                'type' => 'text',
+                'notnull' => false,
             ),            
         ), array('charset'=>'utf8'));
         
-        $this->addIndex($this->_tableName,$this->_tableName.'_church_key',array('fields'=>array('user')));
+        $this->addIndex($this->_tableName,$this->_tableName.'_church_key',array('fields'=>array('church')));
         
         
         $this->createForeignKey($this->_tableName, $this->_fkName1, array(
