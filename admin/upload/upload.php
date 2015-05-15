@@ -86,6 +86,39 @@ function form($key,$id,$options)
     return $result;
 }
 
+function get_time_from_txt($txt)
+{
+    $time=[];
+    if (!preg_match_all('/[0-9]+[.:][0-9][0-9]/',$txt,$time)) return false;
+    if (is_array($time[0])) return $time[0][0];
+    return str_replace('.',':',$time[0]);
+}
+
+function time2int($time)
+{
+    return strtotime("1970-01-01 $time");
+}
+
+function change_params(&$dows,&$months,&$params,$txt)
+{
+    $txt=strtolower($txt);
+    if (strstr($txt,'nie wakacje') || strstr($txt,'wakacje nie') )
+        $months=[1,2,3,4,5,6,9,10,11,12];
+    elseif (strstr($txt,'wakac'))
+        $months=[7,8];
+    elseif (strstr($txt,'młodzie') || strstr($txt,'akadem'))
+        $params['youth']=1;
+    elseif (strstr($txt,'dziec'))
+        $params['kids']=1;
+    elseif (strstr($txt,'sob'))
+        $dows=[6];
+    elseif (strstr($txt,'zim'))
+        $months=[1,2,3,11,12];
+    elseif (strstr($txt,'lat') || strstr($txt,'letn'))
+        $months=[4,5,6,7,8,9,10];
+
+}
+
 function analyze_mass($dows,$txt)
 {
     $o=$txt;
@@ -106,31 +139,47 @@ function analyze_mass($dows,$txt)
     
     $sun=$dows==[0];
     
+    $result=[];
+    
     foreach ($masses AS $mass) {
-        $time=[];
-        if (!preg_match_all('/[0-9]+[.:][0-9][0-9]/',$mass,$time)) continue;
         
-        if (is_array($time[0]) && count($time[0])==1) $time[0]=$time[0][0];
+        $daysofweek=$dows;
+        $months=[1,2,3,4,5,6,7,8,9,10,11,12];
+        $params=[];
         
-        $parenthesis=[];
-        preg_match('/\([^\)]+\)/',$mass,$parenthesis);
-        //mydie($parenthesis);
+        $parenthesis=false;
+        preg_match('/\([^\)]+\)/',$mass,$parenthesis);        
+        $mass=preg_replace('/\([^\)]+\)/','',$mass);
         
-        if (isset($parenthesis[0])) echo "<b>$parenthesis[0]</b>: $mass<br/>";
+        $parenthesis = isset($parenthesis[0])? $parenthesis[0]:'';
         
-        if (is_array($time[0]) && !isset($parenthesis[0])) mydie($time,"$mass <br/> $o");
-        continue;
+        $time=get_time_from_txt($mass);
+        if (!$time) continue;
         
-        if (is_array($time[0])) {
-            mydie($time[0],$mass);
+        change_params($daysofweek,$months,$params,$mass);
+        
+        if ($parenthesis) {
+            $p_time=get_time_from_txt($parenthesis);
+            
+            if ($p_time) {
+                $p_daysofweek=$daysofweek;
+                $p_months=$months;
+                change_params($p_daysofweek,$p_months,$params,$parenthesis);
+                $result[]=['time'=>time2int($p_time),'dows'=>$p_daysofweek,'m'=>$p_months,'params'=>$params];
+                    
+                if ($p_months!=$months)
+                {
+                    $result[]=['time'=>time2int($time),'dows'=>$daysofweek,'m'=>array_diff($months,$p_months),'params'=>$params];
+                }
+            } else {
+                change_params($daysofweek,$months,$params,$parenthesis);    
+                $result[]=['time'=>time2int($time),'dows'=>$daysofweek,'m'=>$months,'params'=>$params];
+            }
         } else {
-            $mass=str_replace($time[0],'',$mass);
-            $time=str_replace('.',':',$time[0]);
-            $epoch_time=strtotime("1970-01-01 $time");
-            mydie($mass.': '.$epoch_time.' = '.date('d-m-Y H:i',$epoch_time),$time);            
-        }        
-
+            $result[]=['time'=>time2int($time),'dows'=>$daysofweek,'m'=>$months,'params'=>$params];    
+        }
+        
     }
     
-    //echo '<pre>'.print_r($masses,2).'</pre>';
+    return $result;
 }

@@ -5,6 +5,7 @@
     include_once __DIR__.'/upload.php';
     
     $church=new churchModel();
+    $mass=new massModel();
     $searches=0;
     
     if (isset($_GET['id']) && ($_GET['latlng'] || $_GET['latlng2'])) {
@@ -73,7 +74,7 @@
 
 
             
-            if (false && !$rec['latlng'] && (!$church->lat || !$church->lng) )
+            if ( !$rec['latlng'] && (!$church->lat || !$church->lng) )
             {
                 if (++$searches==10) break;
                 
@@ -118,6 +119,25 @@
             $masses=array_merge($masses,analyze_mass([1,2,3,4,5,6],$rec['week']));
             $masses=array_merge($masses,analyze_mass([8],$rec['fest']));
             $church->save();
+            
+            $church->remove_masses();
+            foreach ($masses AS $m)
+            {
+                $rec=['church'=>$church->id,'time'=>$m['time']];
+                foreach ($m['params'] AS $param=>$v) $rec[$param]=$v;
+                foreach ($m['dows'] AS $dow)
+                {
+                    foreach($m['m'] AS $moy) {
+                        $rec['dow']=$dow;
+                        $rec['moy']=$moy;
+                        
+                        $mass->load($rec,true);
+                        $mass->save();
+                    }
+                }
+            }
+            
+            $rec['masses']=$masses;
         }
         
         
