@@ -1,3 +1,6 @@
 [submodule "rest/library/backend"]
 	path = rest/library/backend
 	url = https://github.com/podstawski/backend.git
+[submodule "js/pickadate.js"]
+	path = js/pickadate.js
+	url = git://github.com/amsul/pickadate.js.git

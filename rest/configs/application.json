@@ -1,3 +1,16 @@
 {
-    "maps.server_key":"AIzaSyDCJ19tULhkLmrMjKZ5K5FABTLGvOJG8rc"
+    
+    "church.search.limit":10,
+    "church.search.distance":10,
+    
+    "fest.all.free":["1.01","6.01","3.05","15.08","1.11","25.12","25.12"],
+    "fest.all.work":["2.02","29.06"],
+    
+    "fest.2015.free": ["6.04","4.06"],
+    "fest.2015.work":[],
+    
+    "maxmind.user_id":"96262",
+    "maxmind.license_key":"teNhCashA88D",
+
+    "maps.server_key":"AIzaSyDCJ19tULhkLmrMjKZ5K5FABTLGvOJG8rc"   
 }

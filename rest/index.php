@@ -5,7 +5,7 @@
     
     allow_origin('webkameleon.com');
     autoload([__DIR__.'/classes',__DIR__.'/models',__DIR__.'/controllers']);
-    $config=json_config(__DIR__.'/configs/application.config');
+    $config=json_config(__DIR__.'/configs/application.json');
     $method=http_method();
     
     

@@ -140,6 +140,7 @@ function analyze_mass($dows,$txt)
     $sun=$dows==[0];
     
     $result=[];
+    $last_time=0;
     
     foreach ($masses AS $mass) {
         
@@ -155,6 +156,8 @@ function analyze_mass($dows,$txt)
         
         $time=get_time_from_txt($mass);
         if (!$time) continue;
+        
+        if ($sun && $time<$last_time) $daysofweek=[0];
         
         change_params($daysofweek,$months,$params,$mass);
         
@@ -179,6 +182,7 @@ function analyze_mass($dows,$txt)
             $result[]=['time'=>time2int($time),'dows'=>$daysofweek,'m'=>$months,'params'=>$params];    
         }
         
+        $last_time=$time;
     }
     
     return $result;
