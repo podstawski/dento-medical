@@ -19,7 +19,7 @@ class churchModel extends Model {
 		$lng+=0;
 		$distance+=0;
 
-		$sql="SELECT *,geo_distance(lat,lng,$lat,$lng) AS distance";
+		$sql="SELECT *,geo_distance(lat,lng,$lat,$lng) AS distance,churches.id AS church_id";
 		$sql.=" FROM churches";
 		$sql.=" INNER JOIN masses ON masses.church=churches.id AND moy=$m AND dow=$dow AND time>$time";
 		$sql.=" WHERE churches.active=1"; 
@@ -36,7 +36,7 @@ class churchModel extends Model {
 		
 		$churches=$this->conn->fetchAll($sql);
 		
-		//mydie($churches,$sql);
+		//mydie($churches,date('H:i',$time).$sql);
 		
 		return $churches;
 		

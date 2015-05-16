@@ -32,7 +32,7 @@ class churchController extends Controller {
             $year=date('Y',$when);
         
             $now=$this->time2int($this->data('now'))?:$this->time2int(date('H:i'));
-            $time=(date('d-m-Y')==date('d-m-Y',$when))?$now:0;
+            $time=$this->data('date_submit')?0:$now;
 
             
             //earch($lat,$lng,$distance,$time,$m,$dow,$limit,$offset)
@@ -40,6 +40,12 @@ class churchController extends Controller {
             $data=$church->search($geo[0],$geo[1],$distance,$time,$month,$dow,$now,$opt['limit'],$opt['offset'])?:[];
             if (!count($data) && $dow!=$dow_requested)
                 $data=$church->search($geo[0],$geo[1],$distance,$time,$month,$dow_requested,$now,$opt['limit'],$opt['offset'])?:[];
+            if (!count($data) && $dow==$dow_requested)
+            {
+            
+                $data=$church->search($geo[0],$geo[1],$distance,$this->time2int('5:30'),$month,($dow+1)%7,$this->time2int('5:30'),$opt['limit'],$opt['offset'])?:[];
+            }
+            
             
             $this->clear_data($data,true);
         }
@@ -52,6 +58,7 @@ class churchController extends Controller {
     {
         foreach ($data AS &$rec)
         {
+            $rec['name_url']=Tools::str_to_url($rec['name']);
             if (isset($rec['time'])) $rec['time']=$this->int2time($rec['time']);
             if (isset($rec['distance'])) $rec['distance']=round($rec['distance']);
             unset($rec['password']);

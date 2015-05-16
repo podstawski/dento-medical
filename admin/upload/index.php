@@ -68,7 +68,7 @@
             $ch=$church->find_one_by_md5hash($md5hash);
             
             if (!isset($ch['id'])) {
-                $church->load(['name'=>$rec['name'],'md5hash'=>$md5hash,'country'=>'PL'],true);
+                $church->load(['name'=>$rec['name'],'md5hash'=>$md5hash,'country'=>'PL','active'=>1],true);
                 $church->save();
             } 
 
@@ -123,6 +123,7 @@
             //continue;
         
             $church->remove_masses();
+            $mass_cache=[];
             foreach ($masses AS $m)
             {
                 $rec=['church'=>$church->id,'time'=>$m['time']];
@@ -132,6 +133,10 @@
                     foreach($m['m'] AS $moy) {
                         $rec['dow']=$dow;
                         $rec['moy']=$moy;
+                        
+                        $mass_token=$m['time'].'-'.$dow.'-'.$moy;
+                        if (isset($mass_cache[$mass_token])) continue;
+                        $mass_cache[$mass_token]=true;
                         
                         $mass->load($rec,true);
                         $mass->save();

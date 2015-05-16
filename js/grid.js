@@ -53,7 +53,7 @@ function kiedymsza_grid_load(txt)
         }
         var div='<div id="kiedymsza_grid_scroll_to"></div>';
         
-        if (r.total>kiedymsza_grid_offset && kiedymsza_grid_lazyload) $('#'+kiedymsza_grid_results).append(div);
+        if (data.length>0 && kiedymsza_grid_lazyload) $('#'+kiedymsza_grid_results).append(div);
         
         var navi='<ul>';
         var pages=Math.ceil(r.total/r.limit);
