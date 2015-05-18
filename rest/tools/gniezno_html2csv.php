@@ -1,5 +1,7 @@
 <?php
 
+    //pudel.webkameleon.com/kiedymsza/rest/tools/gn.csv
+
     function url_get($url)
     {
         $cache=__DIR__.'/.cache/'.md5('PO:'.$url).'.html';
@@ -29,13 +31,15 @@
                 $name=$html;
             }
             
-                $t=false;
-                while ($t || $name[0]=='<' || $name[0]==' ')
-                {
-                    if ($name[0]=='<') $t=true;
-                    if ($name[0]=='>') $t=false;
-                    $name=substr($name,1);
-                }            
+            if (!strlen($name)) continue;
+            
+            $t=false;
+            while ($t || $name[0]=='<' || $name[0]==' ')
+            {
+                if ($name[0]=='<') $t=true;
+                if ($name[0]=='>') $t=false;
+                $name=substr($name,1);
+            }            
             
             
             $end=strpos($name,'<');
@@ -53,11 +57,11 @@
         return $name;
     }
     
-    $match_array=['name'=>'<span class="bold1a"><strong>|<span class="bold1a"><strong>|<p style="text-align: justify;"><strong>|<p style="text-align: justify;">|<p><strong>|<strong><span class="bold1a">|<p align="left"><strong>',
+    $match_array=['name'=>'<span class="bold1a"><strong>|<span class="bold1a"><strong>|<p style="text-align: justify;"><strong>|<p style="text-align: justify;">|<p align="left"><strong>|<p><strong>|<strong><span class="bold1a">|<p align="left"><strong>',
                   'address'=>'<td width="100%"><b><font size="2"><b>|<td width="100%"><b><font size="2">',
                   'www'=>'www: <a href="',
                   'email'=>'e-mail: <a href="',
-                  'phone'=>'<b>Tel.:</b>',
+                  'phone'=>'<b>Tel.:</b>|tel.',
                   'rector'=>'Proboszcz|Administrator|proboszcz',
                   'sun'=>'iedziele:|niedziele i  święta:|niedziele i uroczystości:|niedziela:|niedziele i  święta:|niedziele i&nbsp; święta:',
                   'week'=>'dni powszednie:',
@@ -88,9 +92,14 @@
             }
             $html=substr($html,$pos);
             
+            $html=str_replace('&nbsp;',' ',$html);
+            
             $rec=[];
             foreach ($match_array AS $k=>$v) $rec[$k]=find_on_tag($html,$v);
             $rec['url']=$url;
+            
+            $name=find_on_tag(substr($html,0,strpos($html,'<br')),$match_array['name']);
+            if ($name) $rec['name']=$name;
             
             if (!$rec['name']) continue;
             if (!$rec['sun']) continue;

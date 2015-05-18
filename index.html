@@ -21,16 +21,19 @@
   <link rel="stylesheet" href="js/pickadate.js/lib/themes/default.date.css" id="theme_date">    
     
     
+  <!-- fonts -->
+  <link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+  <!-- /fonts -->
+  
+  <link rel="stylesheet" href="css/kiedymsza.css">
+
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
   <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-  <!-- fonts -->
-  <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-  <!-- /fonts -->
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
   
-  <link rel="stylesheet" href="css/kiedymsza.css">
-    
+  
   <script src="js/pickadate.js/lib/picker.js"></script>
   <script src="js/pickadate.js/lib/picker.date.js"></script>
   <script src="js/pickadate.js/lib/picker.time.js"></script>
@@ -42,20 +45,60 @@
 
 <body>
 
-<form id="kiedyMszaForm">
-  <input name="geo" id="geo" type="hidden"/>
-  <input type="text" class="date" placeholder="kiedy msza ..." name="date"/>
-</form>
+<div class="head">
+  
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="o-projekcie/">O projekcie</a>
+        </li>
+        <li>
+          <a href="zaloguj/">Login</a>
+        </li>
+        <li>
+          <a href="mapa/">Mapa</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  <form id="kiedyMszaForm">
+  <div class="container">
+    
+    <div class="row">
+      <div class="col-sm-6">
+        
+          <input name="geo" id="geo" type="hidden"/>
+          <input type="text" class="date" placeholder="kiedy msza ..." name="date"/>
+        
+      </div>
+      
+      <div class="col-sm-6">
+        <input type="text" class="where" placeholder="gdzie jestem ..." id="where"/>
+      
+        <input id="navigator_missing" readonly value="Proszę wyraź zgodę na udostępnienie swojej lokalizacji"/>
+      </div>
+    </div>  
+  
+  </div
+  </form>
 
-<div id="navigator_missing">
-  Proszę wyraź zgodę na udostępnienie swojej lokalizacji
+  
 </div>
 
-<div id="kiedymsza_results" class=""></div>
+
+
+<div id="kiedymsza_results" class="container"></div>
 <div id="kiedymsza_results_template" style="display:none">
-<div>
-  [time] <a href="kosciol/[name_url],[church_id]">[name]</a> ([address]) ... [distance] km
-</div>
+  <div class="row">
+    <div class="col-sm-2 time">[time]</div>
+    <div class="col-sm-8 church">
+      <h4><a href="kosciol/[name_url],[church_id]">[name]</a></h4>
+      <span class="address">[address]</span>
+    </div>
+    <div class="col-sm-2 distance">[distance] km</div>
+  </div>
 </div>
 
 
