@@ -41,4 +41,28 @@ class churchModel extends Model {
 		return $churches;
 		
 	}
+	
+	public function export()
+	{
+		$mass=new massModel();
+		$churches=$this->getAll()?:[];
+		
+		foreach($churches AS &$church)
+		{
+			$church['masses']=$mass->select(['church'=>$church['id']])?:[];
+			
+			unset($church['id']);
+			
+			foreach ($church['masses'] AS &$mass)
+			{
+				unset($mass['id']);
+				unset($mass['church']);
+			}
+		
+			
+		}
+		mydie($churches);
+        
+		return $churches;
+	}
 }

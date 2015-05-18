@@ -82,5 +82,7 @@ class churchController extends Controller {
         if (strlen($t[1])==1) $t[1]='0'.$t[1];
         $time=implode(':',$t);
         return strtotime("1970-01-01 $time");
-    }   
+    }
+    
+
 }

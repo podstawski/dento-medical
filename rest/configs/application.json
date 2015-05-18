@@ -15,6 +15,7 @@
     "fb.app_id": "955693664451085",
     "fb.app_secret":"7da3ce3efd069f540b9d49888df6c870",
 
+    "protocol":"http",
     
     "maps.server_key":"AIzaSyDCJ19tULhkLmrMjKZ5K5FABTLGvOJG8rc"   
 }

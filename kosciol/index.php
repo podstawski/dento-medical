@@ -49,11 +49,27 @@
           <!-- Carousel items -->
           <div class="carousel-inner">
             <div class="active item">
+                
+		<form id="upload" method="post" action="../rest/image" enctype="multipart/form-data">
+                    <div id="drop">
+                            <a>Dodaj zdjęcie</a>
+                            <input type="file" name="upl" multiple xaccept="image/*" capture="camera"/>
+                    </div>
+
+                    <ul>
+                            <!-- The file uploads will be shown here -->
+                    </ul>
+
+		</form>
+                
                 <img src="../img/dodaj.jpg"/>
                 
             </div>
-            <div class="item">b</div>
-            <div class="item">c</div>
+            
+            <div class="item">
+                <img src="../img/dodaj.jpg"/>
+            </div>
+
           </div>
           <!-- Carousel nav -->
           <a class="carousel-control left" href="#churchCarousel" data-slide="prev">&lsaquo;</a>
@@ -83,6 +99,8 @@
         <?php endif; ?>
         
         <div class="church-map" title="<?php echo $church->name; ?>" lat="<?php echo $church->lat;?>" lng="<?php echo $church->lng;?>"></div>
+      
+        <a href="../edit/<?php echo $church->id; ?>" class="a_update">Aktualizuj dane</a>
       </div>
     </div>  
   

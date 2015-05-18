@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__.'/Controller.php';
 
 
 class userController extends Controller {
@@ -60,7 +59,7 @@ class userController extends Controller {
 			    $user=$this->add(array(
 				'firstname'=>$auth['first_name'],
 				'lastname'=>$auth['last_name'],
-				'md5hash'=>$this->md5hash($md5hash),
+				'md5hash'=>$md5hash,
 				'email'=>$email
 			    ),false);
 			}
@@ -143,26 +142,16 @@ class userController extends Controller {
 	return $email;
     }
     
-    public function get_auth()
-    {
-	$this->requiresLogin();
-        return $this->status(Bootstrap::$main->user);
-    }
-
+    
     
     public function get()
     {
 	
-	$this->requiresLogin();
-        
-	if (Bootstrap::$main->isAdmin() && $this->id)
-	{
-	    $user=$this->user()->get($this->id);
-	}
-	else
-	{
-	    $user=Bootstrap::$main->user;    
-	}
+	if (!isset(Bootstrap::$main->user['id']))
+	    return $this->status([],false);
+	
+	$user=Bootstrap::$main->user;    
+	
 		
         return $this->status($user);
     }
