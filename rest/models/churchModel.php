@@ -29,7 +29,7 @@ class churchModel extends Model {
 		$sql.=" AND geo_distance(lat,lng,$lat,$lng)<$distance";
 		
 		$sql.=" ORDER BY";
-		if ($time) $sql.=" (100*geo_distance(lat,lng,$lat,$lng))+time-$now";
+		if ($time) $sql.=" (1500*geo_distance(lat,lng,$lat,$lng))+time-$now";
 		else $sql.=" (3000*geo_distance(lat,lng,$lat,$lng))+time";
 		
 		$sql.=" LIMIT $limit OFFSET $offset";
