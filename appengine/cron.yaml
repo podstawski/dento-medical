@@ -3,7 +3,7 @@ cron:
   url: /admin/export/
   schedule: every day 00:10
 
-- description: Tmp
-  url: /admin/import/?f=20150519-084801.json
-  schedule: every 5 minutes
+#- description: Tmp
+#  url: /admin/import/?f=20150519-084801.json
+#  schedule: every 5 minutes
 
