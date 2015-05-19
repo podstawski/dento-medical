@@ -55,7 +55,7 @@
 	    
 	    for ($m=1;$m<=12;$m++)
 	    {
-		$tr.='<td title="'.$mon[$m].'" class="mon m-'.$m.'"><input type="checkbox"';
+		$tr.='<td title="'.$mon[$m].'" class="mon m-'.$m.'"><input value="1" type="checkbox"';
 		$tr.=' name="masses['.$dow.']['.$t.'][moy]['.$m.']"';
 		foreach ($masses[$dow] AS $ms)
 		{
@@ -82,7 +82,7 @@
 	
 	for ($m=1;$m<=12;$m++)
 	{
-	    $tr.='<td title="'.$mon[$m].'" class="month-'.$m.'"><input type="checkbox"';
+	    $tr.='<td title="'.$mon[$m].'" class="month-'.$m.'"><input value="1" type="checkbox"';
 	    $tr.=' name="masses['.$dow.'][_new_][moy]['.$m.']"/></td>';
 	    
 	}

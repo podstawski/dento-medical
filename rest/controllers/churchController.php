@@ -72,21 +72,33 @@ class churchController extends Controller {
     
     protected function int2time($i)
     {
-        return date('H:i',$i);
+        $delta = Bootstrap::$main->appengine ? 3600 : 0;
+        return date('H:i',$i-$delta);
     }
     
     protected function time2int($time)
     {
+        
         $t=explode(':',$time);
         if (strlen($t[0])==1) $t[0]='0'.$t[0];
         if (strlen($t[1])==1) $t[1]='0'.$t[1];
         $time=implode(':',$t);
-        return strtotime("1970-01-01 $time");
+        
+        $delta = Bootstrap::$main->appengine ? 3600 : 0;
+        return $delta+strtotime("1970-01-01 $time");
     }
     
 
     public function post()
     {
-        return $this->status($this->data);
+        if (!isset(Bootstrap::$main->user['id'])) return $this->status('Należy być zalogowanym',false);
+        
+        $file='church-pending/'.date('Ymd-His-').Tools::str_to_url($this->data('name')).','.$this->id.'.json';
+        $this->data['change_author']=Bootstrap::$main->user['id'];
+        $this->data['change_time']=Bootstrap::$main->now;
+        $this->data['change_ip']=Bootstrap::$main->ip;
+        
+        Tools::save($file,json_encode($this->data,JSON_NUMERIC_CHECK));
+        return $this->status('Po weryfikacji, dane zostaną uwzględnione. Dziękuję!');
     }
 }

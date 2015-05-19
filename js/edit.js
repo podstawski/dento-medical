@@ -67,7 +67,7 @@ $(function() {
   $('button.save').click(function(){
     var data=$('#churchForm').serialize();
     $.post(REST+'/church',data,function (resp) {
-      console.log(resp);
+      alert(resp.church);
     });
   });
   
