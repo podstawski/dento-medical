@@ -22,18 +22,40 @@
     $keywords='msza,msze,kiedy msza,gdzie msza,'.$church->address;
     $basedir='..';
     
+    $user=new userModel();
+    $image=new imageModel();
+    $images=$image->select(['church'=>$church->id,'active'=>1],'id')?:[];
+    $active=false;
+    foreach($images AS &$img) {
+        $img['active']=$active?'':'active';
+        $active=true;
+        $img['author']=$user->get($img['author_id']);
+        unset($img['author_id']);
+        if (isset($img['author']['id'])) unset($img['author']['id']);
+        if (isset($img['author']['email'])) unset($img['author']['email']);
+    }
+    //mydie($images);
+    
 ?>
 <html>
     
-<head>
-  <?php include __DIR__.'/../html/head.phtml';?>
-  <script src="<?php echo $basedir;?>/js/church.js"></script>
+<head>    
+    <?php include __DIR__.'/../html/head.phtml';?>
+
+    <link rel="stylesheet" href="<?php echo $basedir;?>/css/jquery.fancybox.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="<?php echo $basedir;?>/js/jquery.fancybox.js"></script>
+
+
+    <script src="<?php echo $basedir;?>/js/church.js"></script>
   
 </head>
 
 <body>
 
 <div class="head">
+  <?php
+    $moremenu=['<a href="../edit/'.$church->id.'" class="a_update">Aktualizuj dane</a>'];
+  ?>
   
   <?php include __DIR__.'/../html/topmenu.phtml';?>
   
@@ -47,12 +69,31 @@
         <div id="churchCarousel" class="carousel slide">
 
           <!-- Carousel items -->
+          
+          
           <div class="carousel-inner">
-            <div class="active item">
+
+            <?php foreach($images AS &$img): ?>
+            <div class="<?php echo $img['active'];?> item">
+                <a href="<?php echo $img['url'];?>" class="fancybox">
+                    <img src="<?php echo $img['square'];?>"/>
+                </a>
+                <div class="carousel-caption">
+                    <h4>Autor:
+                        <a href="<?php echo $img['author']['url'];?>" target="_blank">
+                        <img src="<?php echo $img['author']['photo'];?>"/> <?php echo $img['author']['firstname'];?> <?php echo $img['author']['lastname'];?>
+                        </a>
+                    </h4>
+                    
+                </div>
+            </div>
+            <?php endforeach;?>
+            
+            <div class="item <?php if(!count($images)) echo 'active';?>">
                 
-		<form id="upload" method="post" action="../rest/image" enctype="multipart/form-data">
+		<form id="upload" method="post" action="" enctype="multipart/form-data">
                     <div id="drop">
-                            <a>Dodaj zdjęcie</a>
+                            <a rel="<?php echo $church->id;?>">Dodaj zdjęcie</a>
                             <input type="file" name="upl" multiple xaccept="image/*" capture="camera"/>
                     </div>
 
@@ -66,9 +107,7 @@
                 
             </div>
             
-            <div class="item">
-                <img src="../img/dodaj.jpg"/>
-            </div>
+
 
           </div>
           <!-- Carousel nav -->
@@ -79,13 +118,22 @@
       </div>
       
       <div class="col-sm-6">
-        <h1><?php echo $church->name;?></h1>
+        <h1>
+            <?php if ($church->www) echo '<a target="_blank" href="http://'.$church->www.'">';?>
+            <?php echo $church->name;?>
+            <?php if ($church->www) echo '</a>';?>
+
+        </h1>
         <h2><?php echo $church->address;?></h2>
         <?php if ($church->phone): ?>
             <h2>Tel.: <a href="tel:<?php echo $church->tel;?>"><?php echo $church->phone;?></a></h2>
         <?php endif; ?>
         <?php if ($church->rector): ?>
-            <h3><b>Proboszcz:</b> <?php echo $church->rector; ?></h3>
+            <h3><b>Proboszcz:</b>
+                <?php if ($church->email) echo '<a href="mailto:'.$church->email.'">';?>
+                <?php echo $church->rector; ?>
+                <?php if ($church->email) echo '</a>';?>
+            </h3>
         <?php endif; ?>
         <h3><b>Msze św:</b></h3>
         <?php if ($church->sun): ?>
@@ -100,13 +148,13 @@
         
         <div class="church-map" title="<?php echo $church->name; ?>" lat="<?php echo $church->lat;?>" lng="<?php echo $church->lng;?>"></div>
       
-        <a href="../edit/<?php echo $church->id; ?>" class="a_update">Aktualizuj dane</a>
+        <a href="../edit/<?php echo $church->id; ?>" class="a_update a_bottom">Aktualizuj dane</a>
       </div>
     </div>  
   
   </div>
 
 
-
+<?php include __DIR__.'/../html/footer.phtml';?> 
 </body>
 </html>

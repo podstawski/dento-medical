@@ -28,15 +28,7 @@ ul {
   margin-bottom: 50px;
 }
 
-ul li div {
-  background: url('https://www.jemyrazem.pl/images/profile-bg-bg.jpg');
-  background-color: #fff;
-  -webkit-border-radius: 4px 4px 4px 4px;
-  border-radius: 4px 4px 4px 4px;
-  text-align: center;
-  position: relative;
-  margin-bottom: 25px;
-}
+
 
 ul li div img {
   text-align: center;
@@ -190,7 +182,7 @@ h3 {
   height: 300px;
 }
 
-.a_update {
+.a_bottom {
   float: right;
   font-size: 0.8em;
 }
@@ -321,4 +313,31 @@ h3 {
 }
 .table td.rm {
   cursor:pointer;
+}
+
+#footer {
+  background-image: url(../img/baner.jpg);
+  background-position: center bottom;
+}
+
+.fb-like {
+  padding: 1em 0;
+  background-color:rgba(0,0,0,0.5);
+  width:100%;
+}
+
+.carousel-inner .carousel-caption {
+  background-color:rgba(0,0,0,0.5);
+  padding: 0;
+}
+
+.carousel-inner .carousel-caption a {
+  color:#fff;
+}
+
+.carousel-inner .carousel-caption img {
+  width: 40px;
+  heigth: 40px;
+  border-radius: 50%;
+  transition: all .3s ease;
 }

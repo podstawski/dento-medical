@@ -23,3 +23,8 @@ google.maps.event.addDomListener(window, 'load', function(){
     });
 
 });
+
+
+$(document).ready(function() {
+  $(".fancybox").fancybox();
+});

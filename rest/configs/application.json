@@ -16,6 +16,9 @@
     "fb.app_secret":"7da3ce3efd069f540b9d49888df6c870",
 
     "protocol":"http",
+
+    "square_size": 960,
+    "image_size": 1140,   
     
     "maps.server_key":"AIzaSyDCJ19tULhkLmrMjKZ5K5FABTLGvOJG8rc"   
 }

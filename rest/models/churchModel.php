@@ -44,7 +44,7 @@ class churchModel extends Model {
 	public function import($data,$restore_masses=true)
 	{
 		if (!isset($data['md5hash'])) return false;
-		$masses=$data['masses'];
+		$masses=isset($data['masses'])?$data['masses']:[];
 		unset($data['masses']);
 		if (isset($data['id'])) unset($data['id']);
 		
@@ -63,6 +63,7 @@ class churchModel extends Model {
 		$this->save();
 		
 		if(!$restore_masses && !$newchurch) return;
+		if (!count($masses)) return;
 		
 		$this->remove_masses();
 		$mass=new massModel();

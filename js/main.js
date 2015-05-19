@@ -24,6 +24,10 @@ $(function() {
             $('#drop a').click(function(){
                 // Simulate a click on the file input button
                 // to show the file browser dialog
+                $.get(REST+'/image/'+$(this).attr('rel'),function(data){
+                    $('#upload').attr('action',data.url);
+                });
+                
                 $(this).parent().find('input').click();
             });
             

@@ -73,7 +73,7 @@ class churchController extends Controller {
     protected function int2time($i)
     {
         $delta = Bootstrap::$main->appengine ? 3600 : 0;
-        return date('H:i',$i-$delta);
+        return date('H:i',$i+$delta);
     }
     
     protected function time2int($time)
@@ -85,7 +85,7 @@ class churchController extends Controller {
         $time=implode(':',$t);
         
         $delta = Bootstrap::$main->appengine ? 3600 : 0;
-        return $delta+strtotime("1970-01-01 $time");
+        return strtotime("1970-01-01 $time")-$delta;
     }
     
 

@@ -64,6 +64,6 @@
   </div>
 </div>
 
-
+<?php include __DIR__.'/html/footer.phtml';?> 
 </body>
 </html>

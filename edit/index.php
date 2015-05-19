@@ -183,7 +183,7 @@
 
 	  
 	  <div class="church-map" title="<?php echo $church->name; ?>" lat="<?php echo $church->lat;?>" lng="<?php echo $church->lng;?>"></div>
-	  <button type="button" id="iamhere" class="btn btn-default button">Stoję przed kościołem</button>
+	  <button type="button" id="iamhere" class="btn btn-default button">Stoję teraz przed kościołem</button>
 	  
 	  <input type="hidden" name="lat" id="lat" value="<?php echo $church->lat;?>"/>
 	  <input type="hidden" name="lng" id="lng" value="<?php echo $church->lng;?>"/>
@@ -291,6 +291,6 @@
   
 <?php endif; ?>
 
-
+<?php include __DIR__.'/../html/footer.phtml';?> 
 </body>
 </html>
