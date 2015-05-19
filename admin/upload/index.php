@@ -61,7 +61,7 @@
             if (isset($matches[1])) $postal=$matches[1];            
                         
             $phone=preg_replace('/[^0-9]/','',$rec['phone']);
-            $md5hash=md5('PL'.substr($phone,0,9));
+            
             $md5hash=md5('PL'.$postal.','.substr($phone,0,9));
             
             

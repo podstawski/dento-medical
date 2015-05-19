@@ -92,11 +92,7 @@ class CreateTableChurches extends Doctrine_Migration_Base
                 'notnull' => false,
             ),
             'change_author' => array(
-                'type' => 'varchar(200)',
-                'notnull' => false,
-            ),
-            'change_author_email' => array(
-                'type' => 'varchar(200)',
+                'type' => 'Integer',
                 'notnull' => false,
             ),
             'change_time' => array(

@@ -1,0 +1,23 @@
+application: kiedymsza
+version: 1
+runtime: php55
+api_version: 1
+
+handlers:
+- url: /rest/.*
+  script: rest/index.php
+
+- url: /admin.*
+  script: admin/index.php
+  login: admin
+  
+- url: /kosciol.*
+  script: kosciol/index.php
+
+- url: /edit.*
+  script: kosciol/index.php
+    
+
+- url: /maga_zakodowany_sajtmap.xml
+  script: sitemap.php
+

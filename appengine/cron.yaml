@@ -1,0 +1,5 @@
+cron:
+- description: Exporter
+  url: /admin/export/
+  schedule: every day 00:10
+

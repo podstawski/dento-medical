@@ -41,27 +41,64 @@ class churchModel extends Model {
 		return $churches;
 		
 	}
-	
-	public function export()
+	public function import($data,$restore_masses=true)
+	{
+		if (!isset($data['md5hash'])) return false;
+		$masses=$data['masses'];
+		unset($data['masses']);
+		if (isset($data['id'])) unset($data['id']);
+		
+		$data2=$this->find_one_by_md5hash($data['md5hash']);
+		if (!$data2 || !isset($data2['md5hash']) || $data['md5hash']!=$data2['md5hash'])
+		{
+			$newchurch=true;
+			$this->load($data,true);
+		}
+		else
+		{
+			$newchurch=false;
+			$this->load($data,false);
+		}
+		
+		$this->save();
+		
+		if(!$restore_masses && !$newchurch) return;
+		
+		$this->remove_masses();
+		$mass=new massModel();
+		foreach($masses AS $m)
+		{
+			if (isset($m['id'])) unset($m['id']);
+			$m['church']=$this->id;
+			$mass->load($m,true);
+			$mass->save();
+		}
+		
+	}
+	public function export($fh,$id=0)
 	{
 		$mass=new massModel();
-		$churches=$this->getAll()?:[];
+		if ($id) $churches=$this->getAll()?:[];
+		else $churches=$this->select(['id'=>$id]);
 		
-		foreach($churches AS &$church)
+		
+		foreach($churches AS $i=>$church)
 		{
 			$church['masses']=$mass->select(['church'=>$church['id']])?:[];
 			
 			unset($church['id']);
-			
-			foreach ($church['masses'] AS &$mass)
+
+			foreach ($church['masses'] AS &$m)
 			{
-				unset($mass['id']);
-				unset($mass['church']);
+				unset($m['id']);
+				unset($m['church']);
 			}
-		
+			
+			fwrite($fh,json_encode($church,JSON_NUMERIC_CHECK)."\n");
+			unset($churches[$i]);
 			
 		}
-		mydie($churches);
+		
         
 		return $churches;
 	}

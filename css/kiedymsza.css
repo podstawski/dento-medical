@@ -104,6 +104,10 @@ ul li div h3 a {
 .navbar-default .navbar-nav>li>a:hover {
   color: #bbb;
 }
+.navbar-default .navbar-nav>li>a:active {
+  color: #eee;
+}
+
 
 #kiedyMszaForm input {
   width:90%;

@@ -1,0 +1,8 @@
+{
+	"db.dsn":"mysql:unix_socket=/cloudsql/gammanet-general:decora;charset=utf8;dbname=pudel",
+	"db.user":"kiedymsza",
+	"db.pass":"crucemtuam",
+	
+	"mail.sender":"KiedyMsza.PL@kiedymsza.appspotmail.com"
+
+}

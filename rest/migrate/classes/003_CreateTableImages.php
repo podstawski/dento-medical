@@ -46,8 +46,8 @@ class CreateTableImages extends Doctrine_Migration_Base
                 'type' => 'Varchar(50)',
                 'notnull' => false,
             ),
-            'author_email' => array(
-                'type' => 'text',
+            'author_id' => array(
+                'type' => 'Integer',
                 'notnull' => false,
             ),            
         ), array('charset'=>'utf8'));
