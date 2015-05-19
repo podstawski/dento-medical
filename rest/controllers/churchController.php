@@ -85,4 +85,8 @@ class churchController extends Controller {
     }
     
 
+    public function post()
+    {
+        return $this->status($this->data);
+    }
 }

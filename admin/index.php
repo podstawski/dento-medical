@@ -18,6 +18,7 @@
 	
 	
 	$title='Admin';
+	$menu='';
 	include __DIR__.'/head.php';
 	
 	

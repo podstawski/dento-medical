@@ -104,8 +104,13 @@ ul li div h3 a {
 .navbar-default .navbar-nav>li>a:hover {
   color: #bbb;
 }
+
 .navbar-default .navbar-nav>li>a:active {
   color: #eee;
+}
+
+.navbar-default .navbar-nav>li>a:visited {
+  color: #fff;
 }
 
 
@@ -304,3 +309,16 @@ h3 {
     color:red;
 }
 
+.table input.desc {
+  width:30px;
+}
+.table td.time {
+  text-align: right;
+}
+.table td.time input {
+  text-align: right;
+  width:50px
+}
+.table td.rm {
+  cursor:pointer;
+}

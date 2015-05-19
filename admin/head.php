@@ -28,7 +28,12 @@
 
 <?php
 
+    $church=new churchModel();
+    
+
     echo '<div class="menu"><ul>';
+    
+    echo '<li><a href="'.dirname($_SERVER['SCRIPT_NAME']).'">'.$church->count().' churches</a></li>';
     
     if (!isset($menu)) $menu='';
     foreach (scandir(dirname(__FILE__)) AS $d)

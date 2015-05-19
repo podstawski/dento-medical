@@ -1,4 +1,7 @@
 <?php
+    $title='Migration tool';
+    $menu='migrate';
+
     include __DIR__.'/../base.php';
     include __DIR__.'/../head.php';
     
