@@ -27,7 +27,7 @@
   <?php include __DIR__.'/html/topmenu.phtml';?>
   
   <form id="kiedyMszaForm">
-  <div class="container">
+  <div class="container-fluid">
     
     <div class="row">
       <div class="col-sm-6">
@@ -63,6 +63,7 @@
     <div class="col-sm-2 distance">[distance] km</div>
   </div>
 </div>
+
 
 <?php include __DIR__.'/html/footer.phtml';?> 
 </body>

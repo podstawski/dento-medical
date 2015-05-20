@@ -55,19 +55,15 @@
 <body>
 
 <div class="map">
-
+    <div class="head">
+	<?php include __DIR__.'/../html/topmenu.phtml';?>
+    </div>
   
     <div id="map-canvas">
         <input id="navigator_missing" class="button" readonly value="Proszę wyraź zgodę na udostępnienie swojej lokalizacji"/>
     </div>
     
-    <div class="head">
-	<?php include __DIR__.'/../html/topmenu.phtml';?>
-    </div>
     
-    <div class="map-footer">
-    <?php include __DIR__.'/../html/footer.phtml';?>
-    </div>
 </div>
 </body>
 </html>

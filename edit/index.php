@@ -73,7 +73,7 @@
 	}
 
 	$tr.='<tr>';
-	$tr.='<td class="time"><input type="text" placeholder="godz."/></td>';
+	$tr.='<td class="time"><input type="text" name="masses['.$dow.'][_new_][time]" placeholder="godz."/></td>';
 	$tr.='<td class="desc">
 		<input type="text" placeholder="opis" class="desc" name="masses['.$dow.'][_new_][desc]" />
 	    </td>';
@@ -97,20 +97,20 @@
     {
 	return '
 	      <tr>
-		<th>Godzina</th>
+		<th>Godz</th>
 		<th>Opis</th>
-		<th title="Styczeń">I</th>
-		<th title="Luty">II</th>
-		<th title="Marzec">III</th>
-		<th title="Kwiecień">IV</th>
-		<th title="Maj">V</th>
-		<th title="Czerwiec">VI</th>
-		<th title="Lipiec">VII</th>
-		<th title="Siepień">VIII</th>
-		<th title="Wrzesień">IX</th>
-		<th title="Październik">X</th>
-		<th title="Listopad">XI</th>
-		<th title="Grudzień">XII</th>
+		<th title="Styczeń">1</th>
+		<th title="Luty">2</th>
+		<th title="Marzec">3</th>
+		<th title="Kwiecień">4</th>
+		<th title="Maj">5</th>
+		<th title="Czerwiec">6</th>
+		<th title="Lipiec">7</th>
+		<th title="Siepień">8</th>
+		<th title="Wrzesień">9</th>
+		<th title="Październik">10</th>
+		<th title="Listopad">11</th>
+		<th title="Grudzień">12</th>
 		<th title="Usuń">x</th>
 	      </tr>	
 	';
@@ -182,7 +182,7 @@
 
 	  
 	  <div class="church-map" title="<?php echo $church->name; ?>" lat="<?php echo $church->lat;?>" lng="<?php echo $church->lng;?>"></div>
-	  <button type="button" id="iamhere" class="btn btn-default button">Stoję teraz przed kościołem</button>
+	  <button type="button" id="iamhere" class="btn btn-default button visible-xs visible-sm">Stoję teraz przed kościołem</button>
 	  
 	  <input type="hidden" name="lat" id="lat" value="<?php echo $church->lat;?>"/>
 	  <input type="hidden" name="lng" id="lng" value="<?php echo $church->lng;?>"/>

@@ -59,6 +59,10 @@ ul li div h3 a {
   color: #fff;
   text-decoration: none;
  }
+ 
+ .navbar-brand {
+  color:#fff !important;
+ }
 
 .button {
   width: 100%;
@@ -318,11 +322,8 @@ h3 {
 #footer {
   background-image: url(../img/baner.jpg);
   background-position: center bottom;
-}
-
-.fb-like {
-  padding: 1em 0;
-  background-color:rgba(0,0,0,0.5);
+  position: fixed;
+  bottom: 0;
   width:100%;
 }
 
@@ -342,11 +343,16 @@ h3 {
   transition: all .3s ease;
 }
 
+
+
 .map .head {
   position: absolute;
   background-image: none;
   top: 0;
-  left: 0;
+  left: auto;
+  right: auto;
+  z-index:10; 
+  width: 100%;
 }
 
 #map-canvas {
@@ -361,12 +367,22 @@ h3 {
   margin-top: 80px;
 }
 
-.map #footer {
-  position: relative;
-  background-image: none;
-  top: -70px;
+
+map .footer-spacer img{
+  height: 0;
 }
 
-.map #footer .container {
-  width: 100%
+.footer-spacer img{
+  height: 100px;
+}
+
+.fb-like {
+  padding: 1em;
+  background-color:rgba(0,0,0,0.5);
+  width:100%;
+}
+
+.table>thead>tr>th {
+  padding: 5px;
+  text-align: center;
 }

@@ -1,5 +1,5 @@
 body {
-  font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   font-size:14px;
   color: #131313;
   background: #f3f3f3;
@@ -28,16 +28,21 @@ h1 {
   display: block;
   background: rgb(0, 141, 27);
   color: #fff;
-  padding: 15px 0 15px 0;
+  padding: 10px 0 10px 0;
   text-transform: uppercase;
-  font-size: 18px;
+  font-size: 12px;
 }
 
 .button:hover {
   text-decoration: none;
   color: #fff;
-  background-color: #007216;
+  background-color: #303030;
 }
+
+.button-red {
+  background: rgb(141, 0, 27);
+}
+
 
 
 /* Karol */
@@ -66,20 +71,20 @@ h1 {
   background: #fff;
 }
 
-ul#events {
+ul#churches {
   padding: 25px;
   max-width: 1140px;
   margin: 0 auto;
   list-style: none;
 }
 
-ul#events li {
+ul#churches li {
   padding-bottom: 15px;
   border-bottom: 1px solid #dedede;
   margin-bottom: 15px;
 }
 
-ul#events img.host {
+ul#churches img.host {
   width: 75px;
   height: 75px;
   border-radius: 50%;
@@ -91,16 +96,17 @@ ul#events img.host {
   position: absolute;
 }
 
-ul#events img.event {
+ul#churches img.church {
   float: left;
   margin-right: 25px;
 }
 
-ul#events h3,
-ul#events h4,
-ul#events h5 {
+ul#churches h3,
+ul#churches h4,
+ul#churches h5 {
   float: left;
   width: 70%;
+  margin: 2px;
 }
 
 .body {

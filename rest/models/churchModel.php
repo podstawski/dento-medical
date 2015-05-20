@@ -43,12 +43,15 @@ class churchModel extends Model {
 	}
 	public function import($data,$restore_masses=true)
 	{
+		
 		if (!isset($data['md5hash'])) return false;
 		$masses=isset($data['masses'])?$data['masses']:[];
 		unset($data['masses']);
 		if (isset($data['id'])) unset($data['id']);
-		
+
 		$data2=$this->find_one_by_md5hash($data['md5hash']);
+		
+	
 		if (!$data2 || !isset($data2['md5hash']) || $data['md5hash']!=$data2['md5hash'])
 		{
 			$newchurch=true;
@@ -57,7 +60,7 @@ class churchModel extends Model {
 		else
 		{
 			$newchurch=false;
-			$this->load($data,false);
+			foreach ($data AS $k=>$v) $this->$k=$v;
 		}
 		
 		$this->save();
@@ -126,6 +129,12 @@ class churchModel extends Model {
         //mydie($sql);
         return $this->conn->fetchAll($sql);
 
+    }
+    
+    public function distance($lat1,$lng1,$lat2,$lng2)
+    {
+	$sql="SELECT geo_distance($lat1,$lng1,$lat2,$lng2)";
+	return $this->conn->fetchOne($sql);
     }
 
 }
