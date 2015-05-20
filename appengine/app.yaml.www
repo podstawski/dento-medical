@@ -15,7 +15,7 @@ handlers:
   script: kosciol/index.php
 
 - url: /edit.*
-  script: kosciol/index.php
+  script: edit/index.php
 
 - url: /o-projekcie.*
   script: o-projekcie/index.php
