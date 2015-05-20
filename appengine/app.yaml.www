@@ -16,7 +16,12 @@ handlers:
 
 - url: /edit.*
   script: kosciol/index.php
+
+- url: /o-projekcie.*
+  script: o-projekcie/index.php
     
+- url: /mapa.*
+  script: mapa/index.php
 
 - url: /maga_zakodowany_sajtmap.xml
   script: sitemap.php

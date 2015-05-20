@@ -23,7 +23,7 @@
   
     
     
-    $images=$image->select(['images.active'=>null]);
+    $images=$image->select(['images.active'=>null])?:[];
     
     
 ?>
