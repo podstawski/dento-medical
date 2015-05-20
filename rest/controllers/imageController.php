@@ -62,6 +62,7 @@ class imageController extends Controller {
     {
 	if (isset($_FILES))
 	{
+
 	    foreach ($_FILES AS $name=>$file)
 	    {
 		$f=$this->upload_file($file['tmp_name'],$file['name']);
@@ -81,6 +82,8 @@ class imageController extends Controller {
     {
 	if (!isset(Bootstrap::$main->user['id'])) return false;
 	
+	if (!file_exists($tmp)) return false;
+	
 	//mydie($this->_media_dir,$this->_media);
 	$ext=@strtolower(end(explode('.',$name)));
 	$user=Bootstrap::$main->user;
@@ -95,14 +98,17 @@ class imageController extends Controller {
 	
 	if ($this->_appengine) {
 	    $file='gs://'.CloudStorageTools::getDefaultGoogleStorageBucketName().'/'.$name;
-	    move_uploaded_file($tmp,$file);
 	    
 	} else {
 	    $file=Tools::saveRoot($name);
-	    move_uploaded_file($tmp,$file);
+	    
 
 	}
-
+	
+	if (file_exists($file)) return;
+	
+	
+	move_uploaded_file($tmp,$file);
 
 	
 	if (!file_exists($file) || !filesize($file)) $this->error(18);
@@ -113,7 +119,7 @@ class imageController extends Controller {
 	$model->ip_uploaded=Bootstrap::$main->ip;
 	$model->d_uploaded=Bootstrap::$main->now;
 	$model->church = Bootstrap::$main->session('image-for-church');
-	
+
 	$exif=[];
 	$imagesize=@getimagesize($file,$exif);
 	if (!is_array($imagesize) || !$imagesize[0]) $imagesize=[5000,5000];

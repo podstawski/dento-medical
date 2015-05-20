@@ -5,8 +5,12 @@
     include_once __DIR__.'/upload.php';
     
     $church=new churchModel();
+    $church2=new churchModel();
+    
     $mass=new massModel();
     $searches=0;
+    
+   
     
     if (isset($_GET['id']) && ($_GET['latlng'] || $_GET['latlng2'])) {
         $church->get($_GET['id']);
@@ -16,6 +20,7 @@
         $church->save();
     }
     
+    $church->deduplicate();
     
     $key=isset($_GET['key'])?$_GET['key']:'';
     if ($key) {
@@ -56,13 +61,19 @@
             if (strlen($rec['address'])<8) continue;
             
             $matches=[];
-            preg_match('/([0-9][0-9]\-[0-9][0-9][0-9])/',$rec['address'],$matches);
+            preg_match('/([0-9][0-9][\-\‑]*[0-9][0-9][0-9])/',$rec['address'],$matches);
             $postal='';
-            if (isset($matches[1])) $postal=$matches[1];            
+            if (isset($matches[1])) $postal=$matches[1];
+            
+            $rec['postal']=$postal;
+            //$rec['matches']=$matches;
+            
                         
             $phone=preg_replace('/[^0-9]/','',$rec['phone']);
             
             $md5hash=md5('PL'.$postal.','.substr($phone,0,9));
+            
+            $postal=str_replace('‑','-',$postal);
             
             
             $ch=$church->find_one_by_md5hash($md5hash);
@@ -72,7 +83,18 @@
                 $church->save();
             } 
 
-
+            
+            if (!$church->lat || !$church->lng)
+            {
+                $ll=$church2->find_one_by_address($rec['address']);
+                if ( isset($ll['lat']) && isset($ll['lng']) )
+                {
+                    $church->lat=$ll['lat'];
+                    $church->lng=$ll['lng'];
+                }
+                
+            }
+            
             
             if ( !$rec['latlng'] && (!$church->lat || !$church->lng) )
             {

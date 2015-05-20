@@ -18,7 +18,9 @@
     "protocol":"http",
 
     "square_size": 960,
-    "image_size": 1140,   
+    "image_size": 1140,
+    
+    "admin.ids": [1],
     
     "maps.server_key":"AIzaSyDCJ19tULhkLmrMjKZ5K5FABTLGvOJG8rc"   
 }

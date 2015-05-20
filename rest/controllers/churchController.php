@@ -99,6 +99,6 @@ class churchController extends Controller {
         $this->data['change_ip']=Bootstrap::$main->ip;
         
         Tools::save($file,json_encode($this->data,JSON_NUMERIC_CHECK));
-        return $this->status('Po weryfikacji, dane zostaną uwzględnione. Dziękuję!');
+        return $this->status('Po weryfikacji, dane zostaną opublikowane. Dziękuję!');
     }
 }

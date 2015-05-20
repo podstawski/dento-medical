@@ -79,7 +79,7 @@ class churchModel extends Model {
 	public function export($fh,$id=0)
 	{
 		$mass=new massModel();
-		if ($id) $churches=$this->getAll()?:[];
+		if (!$id) $churches=$this->getAll()?:[];
 		else $churches=$this->select(['id'=>$id]);
 		
 		
@@ -102,5 +102,12 @@ class churchModel extends Model {
 		
         
 		return $churches;
+	}
+	
+	public function deduplicate()
+	{
+		$sql="SELECT address,min(id) AS id FROM churches WHERE address IS NOT NULL GROUP BY address HAVING count(*)>1";
+		$churches=$this->conn->fetchAll($sql)?:[];
+		foreach ($churches AS $church) $this->remove($church['id']);
 	}
 }
