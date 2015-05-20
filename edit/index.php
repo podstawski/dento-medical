@@ -40,7 +40,7 @@
 	foreach ($masses[$dow] AS $mass)
 	{
 	    $t=$mass['time'];
-	    $time=date('H:i',$t);
+	    $time=date('H:i',$t+(Bootstrap::$main->appengine?3600:0));
 
 	    if (isset($times[$time])) continue;
 	    $times[$time]=true;
