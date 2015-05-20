@@ -7,6 +7,33 @@
     $bootstrap = new Bootstrap($config);
 
     
+    if (isset($_GET['lat1']) && isset($_GET['lat2']) && isset($_GET['lng1']) && isset($_GET['lng2'])) {
+	if ($_GET['lat1']>$_GET['lat2']) {
+	    $lat=$_GET['lat1'];
+	    $_GET['lat1']=$_GET['lat2'];
+	    $_GET['lat2']=$lat;
+	}
+    
+	if ($_GET['lng1']>$_GET['lng2']) {
+	    $lng=$_GET['lng1'];
+	    $_GET['lng1']=$_GET['lng2'];
+	    $_GET['lng2']=$lng;
+	}
+    
+	$church=new churchModel();
+	$churches=$church->map($_GET['lat1'],$_GET['lat2'],$_GET['lng1'],$_GET['lng2'],0,0,50)?:[];
+
+	
+	foreach ($churches AS &$ch)
+	{
+	    $ch['url']='../kosciol/'.Tools::str_to_url($ch['name']).','.$ch['id'];
+	}
+    
+	Header('Content-type: application/json; charset=utf8');
+	die(json_encode($churches,JSON_NUMERIC_CHECK));
+
+    }
+    
     $title='KiedyMsza - o mapa';
     $description='';
     $image='';
@@ -21,50 +48,26 @@
     <?php include __DIR__.'/../html/head.phtml';?>
 
 
-    <script src="<?php echo $basedir;?>/js/church.js"></script>
+    <script src="<?php echo $basedir;?>/js/map.js"></script>
   
 </head>
 
 <body>
 
-<div class="head">
+<div class="map">
+
   
-  <?php include __DIR__.'/../html/topmenu.phtml';?>
-  
-</div>
-  
-  <div class="container">
+    <div id="map-canvas">
+        <input id="navigator_missing" class="button" readonly value="Proszę wyraź zgodę na udostępnienie swojej lokalizacji"/>
+    </div>
     
-    <div class="row">
-      <div class="col-sm-12">
-	<h1>KiedyMsza.PL - o projekcie</h1>
-	<p>
-	    Stworzyłem tę stronę z myślą o wygodzie tych, którzy czasami
-	    szukają mszy w innym kościele, bo są na wakacjach, lub w innym
-	    miejscu niż zazwyczaj.
-	    Strona sprawdza, skąd wchodzimy (najlepiej przeglądać ze smartphona) i szuka
-	    mszy w kościołach w okolicy 10km.
-	</p>
-
-	
-	<h2>Wspólnie stwórzymy dokładne narzędzie</h2>
-	<p>
-	    Ponieważ dane zostały pozyskane z publicznych rejestrów
-	    archidiecezji, nie zawsze dysponowałem dokładnymi danymi.
-	    Zatem gorąca prośba - poszukaj kościoła, do którego zwykle
-	    chodzisz, zrób zdjęcie, zweryfikuj dane i zaktualizuj.
-	    Z góry dziękuję!
-	</p>
-	
-	<div>
-	    Piotr Podstawski
-	</div>
-      </div>
-    </div>  
-  
-  </div>
-
-
-<?php include __DIR__.'/../html/footer.phtml';?> 
+    <div class="head">
+	<?php include __DIR__.'/../html/topmenu.phtml';?>
+    </div>
+    
+    <div class="map-footer">
+    <?php include __DIR__.'/../html/footer.phtml';?>
+    </div>
+</div>
 </body>
 </html>

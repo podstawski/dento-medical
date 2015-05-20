@@ -110,4 +110,22 @@ class churchModel extends Model {
 		$churches=$this->conn->fetchAll($sql)?:[];
 		foreach ($churches AS $church) $this->remove($church['id']);
 	}
+	
+	
+    public function map($lat1,$lat2,$lng1,$lng2,$limit=0,$offset=0,$max_distance)
+    {
+        $sql="SELECT *  FROM ".$this->_table;
+	$sql.=" WHERE geo_distance($lat1,$lng1,$lat2,$lng2)<$max_distance";
+        $sql.=" AND lat BETWEEN ".$lat1." AND ".$lat2;
+        $sql.=" AND lng BETWEEN ".$lng1." AND ".$lng2;
+
+        $sql.=" ORDER BY id";
+        if ($limit) $sql.=" LIMIT $limit";
+        if ($offset) $sql.=" OFFSET $offset";
+        
+        //mydie($sql);
+        return $this->conn->fetchAll($sql);
+
+    }
+
 }

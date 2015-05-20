@@ -341,3 +341,32 @@ h3 {
   border-radius: 50%;
   transition: all .3s ease;
 }
+
+.map .head {
+  position: absolute;
+  background-image: none;
+  top: 0;
+  left: 0;
+}
+
+#map-canvas {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  padding: 0px  
+}
+
+#map-canvas input {
+  margin-top: 80px;
+}
+
+.map #footer {
+  position: relative;
+  background-image: none;
+  top: -70px;
+}
+
+.map #footer .container {
+  width: 100%
+}
