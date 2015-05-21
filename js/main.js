@@ -53,6 +53,8 @@ $(function() {
         navireq='ie.jpg';
     } else if (navigator.userAgent.search("Firefox") >= 0) {
         navireq='ff.jpg';
+    } else if (navigator.userAgent.search("Windows") >= 0) {
+        navireq='ie.jpg';
     }
     
     if (navireq.length>0) {
@@ -61,7 +63,7 @@ $(function() {
     
     $(".fancybox").fancybox();
     
-    //document.write(navigator.userAgent);
+    
 });
 
 
