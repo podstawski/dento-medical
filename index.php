@@ -41,7 +41,7 @@
       <div class="col-sm-6">
         <input type="text" class="where" placeholder="gdzie jestem ..." id="where"/>
       
-        <input id="navigator_missing" readonly value="Proszę wyraź zgodę na udostępnienie swojej lokalizacji"/>
+        <input id="navigator_missing" readonly value="Proszę wyraź zgodę na udostępnienie swojej lokalizacji" title="Proszę wyraź zgodę na udostępnienie swojej lokalizacji"/>
       </div>
     </div>  
   

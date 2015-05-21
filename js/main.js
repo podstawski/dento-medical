@@ -10,7 +10,10 @@ function login_fb()
     
 }
 
+
 $(function() {
+    
+    
     $.get(REST+'/user',function(data) {
         if (data.status) {
             $('.a_login').html('Wyloguj').click(function(){
@@ -40,4 +43,25 @@ $(function() {
         }
     });
 
+    var navireq='chrome.jpg';
+    
+    if (navigator.userAgent.search("Android") >= 0) {
+        navireq='android.jpg';
+    } else if (navigator.userAgent.search("Chrome") >= 0) {
+        navireq='chrome.jpg';
+    } else if (navigator.userAgent.search("MSIE") >= 0) {
+        navireq='ie.jpg';
+    } else if (navigator.userAgent.search("Firefox") >= 0) {
+        navireq='ff.jpg';
+    }
+    
+    if (navireq.length>0) {
+        $('#navigator_missing').addClass('fancybox').attr('href',BASEDIR+'/img/'+navireq);
+    }
+    
+    $(".fancybox").fancybox();
+    
+    //document.write(navigator.userAgent);
 });
+
+

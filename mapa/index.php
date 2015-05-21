@@ -60,7 +60,7 @@
     </div>
   
     <div id="map-canvas">
-        <input id="navigator_missing" class="button" readonly value="Proszę wyraź zgodę na udostępnienie swojej lokalizacji"/>
+        <input id="navigator_missing" title="Proszę wyraź zgodę na udostępnienie swojej lokalizacji" class="button" readonly value="Proszę wyraź zgodę na udostępnienie swojej lokalizacji"/>
     </div>
     
     

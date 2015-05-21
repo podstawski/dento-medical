@@ -1,12 +1,5 @@
 
-function grid_start()
-{
-    if (kiedymsza_grid_ajax.length==0) {
-        kiedymsza_grid('kiedyMszaForm','kiedymsza_results_template','kiedymsza_results',15,'rest/church/search',true);
-    } else {
-        kiedymsza_grid_reload();
-    }
-}
+
 
 
 

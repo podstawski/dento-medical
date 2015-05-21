@@ -46,10 +46,6 @@
 <head>    
     <?php include __DIR__.'/../html/head.phtml';?>
 
-    <link rel="stylesheet" href="<?php echo $basedir;?>/css/jquery.fancybox.css" type="text/css" media="screen" />
-    <script type="text/javascript" src="<?php echo $basedir;?>/js/jquery.fancybox.js"></script>
-
-
     <script src="<?php echo $basedir;?>/js/church.js"></script>
   
 </head>
@@ -79,7 +75,7 @@
 
             <?php foreach($images AS &$img): ?>
             <div class="<?php echo $img['active'];?> item">
-                <a href="<?php echo $img['url'];?>" class="fancybox">
+                <a href="<?php echo $img['url'];?>" class="fancybox" title="<?php echo $church->name;?>">
                     <img src="<?php echo $img['square'];?>"/>
                 </a>
                 <div class="carousel-caption">

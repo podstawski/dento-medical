@@ -305,6 +305,8 @@
 						} else if (isString(element)) {
 							type    = 'html';
 							content = element;
+						} else {
+							type = 'image';
 						}
 					}
 
