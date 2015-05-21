@@ -191,10 +191,22 @@ h3 {
   height: 300px;
 }
 
-.a_bottom {
-  float: right;
+.church-update {
   font-size: 0.8em;
 }
+
+.church-update a.a_bottom {
+  float: right;
+  
+}
+
+.church-update img {
+  width: 25px;
+  heigth: 25px;
+  border-radius: 50%;
+  transition: all .3s ease;
+}
+
 
 
 

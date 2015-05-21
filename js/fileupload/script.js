@@ -52,8 +52,11 @@ $(function(){
             // so that the jQuery knob plugin knows to update the dial
             data.context.find('input').val(progress).change();
 
+            console.log(progress);
             if(progress == 100){
+                
                 data.context.removeClass('working');
+                $('#drop a').text('Zdjęcie zostanie dodane po weryfikacji. Dziękuję!').attr('rel','');
             }
         },
 

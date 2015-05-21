@@ -35,7 +35,8 @@
         if (isset($img['author']['email'])) unset($img['author']['email']);
     }
     //mydie($images);
-    
+    //mydie($church);
+    if ($church->change_author) $change_author=$user->get($church->change_author);
 ?>
 <html>
     
@@ -148,8 +149,15 @@
         
         <div class="church-map" title="<?php echo $church->name; ?>" lat="<?php echo $church->lat;?>" lng="<?php echo $church->lng;?>"></div>
       
-        <a href="../edit/<?php echo $church->id; ?>" class="a_update a_bottom">Aktualizuj dane</a>
-      </div>
+        <div class="church-update">
+            <a href="../edit/<?php echo $church->id; ?>" class="a_update a_bottom">Aktualizuj dane</a>
+            <?php if ($church->change_author): ?>
+            Aktualizował(a): <a href="<?php echo $change_author['url']?>" target="_blank">
+                <img src="<?php echo $change_author['photo']?>"/>
+                <?php echo $change_author['firstname']?> <?php echo $change_author['lastname']?>
+            </a>
+            <?php endif;?>
+        </div>
     </div>  
   
   </div>
