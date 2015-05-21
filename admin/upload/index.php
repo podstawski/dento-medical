@@ -1,4 +1,6 @@
 <?php
+    $title='Upload spreadsheet';
+    $menu='upload';
     include __DIR__.'/../base.php';
     include __DIR__.'/../head.php';
     
