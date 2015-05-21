@@ -1,6 +1,41 @@
 <?php
 
 class churchController extends Controller {
+    
+    protected static $dows=['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'];
+    
+    protected function change_dow($when)
+    {
+        
+        $dow=date('w',$when);
+        if ($dow==0) return $dow;
+        
+        $year=date('Y',$when);
+        $d=0+date('d',$when);
+        $m=0+date('m',$when);
+        
+        $sundays=array_merge(Bootstrap::$main->getConfig('fest.all.free'),Bootstrap::$main->getConfig('fest.'.$year.'.free')?:[]);
+        
+        foreach($sundays AS $sunday)
+        {
+            $s=explode('.',$sunday);
+            if ($d==$s[0] && $m==$s[1]) $dow=0;
+        }
+        
+        if ($dow==0) return $dow;
+        
+        $fests=array_merge(Bootstrap::$main->getConfig('fest.all.work'),Bootstrap::$main->getConfig('fest.'.$year.'.work')?:[]);
+        
+        foreach($fests AS $fest)
+        {
+            $s=explode('.',$fest);
+            if ($d==$s[0] && $m==$s[1]) $dow=8;
+        }        
+        
+        return $dow;
+        
+    }
+    
     public function get_search()
     {
         $opt=$this->nav_array(Bootstrap::$main->getConfig('church.search.limit'));
@@ -25,36 +60,45 @@ class churchController extends Controller {
             $when=Bootstrap::$main->now;
             if ($this->data('date_submit')) $when=strtotime($this->data('date_submit'));
             
+            if ($this->data('when')) $when=$this->data('when');
             
-            $month=date('m',$when);
-            $dow=date('w',$when);
-            $dow_requested=$dow;
-            $year=date('Y',$when);
-        
-            $now=$this->time2int($this->data('now'))?:$this->time2int(date('H:i'));
-            $time=$this->data('date_submit')?0:$now;
-
+            $data=[];
+            $safeguard=0;
             
-            //earch($lat,$lng,$distance,$time,$m,$dow,$limit,$offset)
-            
-            $data=$church->search($geo[0],$geo[1],$distance,$time,$month,$dow,$now,$opt['limit'],$opt['offset'])?:[];
-            if (!count($data) && $dow!=$dow_requested)
-                $data=$church->search($geo[0],$geo[1],$distance,$time,$month,$dow_requested,$now,$opt['limit'],$opt['offset'])?:[];
-            if (!count($data) && $dow==$dow_requested)
+            while (!count($data))
             {
+                $month=date('m',$when);
+                $dow=date('w',$when);
+                $dow_requested=$dow;
+                
             
-                $data=$church->search($geo[0],$geo[1],$distance,$this->time2int('5:30'),$month,($dow+1)%7,$this->time2int('5:30'),$opt['limit'],$opt['offset'])?:[];
+                $now=$this->data('now')?$this->time2int($this->data('now')):$this->time2int(date('H:i'));
+                $time=$this->data('date_submit') || $safeguard?$this->time2int('5:30'):$now;
+    
+                $dow=$this->change_dow($when);
+                
+                
+                $data=$church->search($geo[0],$geo[1],$distance,$time,$month,$dow,$now,$opt['limit'],$opt['offset'])?:[];
+                if (!count($data) && $dow!=$dow_requested)
+                    $data=$church->search($geo[0],$geo[1],$distance,$time,$month,$dow_requested,$now,$opt['limit'],$opt['offset'])?:[];
+                
+                if ($this->data('when')) break;
+                if (++$safeguard>7) break;
+                $when+=25*3600;
+
             }
             
+            $opt['when']=$when;
             
-            $this->clear_data($data,true);
+            
+            $this->clear_data($data,true,self::$dows[$dow_requested]);
         }
     
         return array('status'=>true,'options'=>$opt,'data'=>$data);
     }
     
     
-    protected function clear_data(&$data,$geo=false)
+    protected function clear_data(&$data,$geo=false,$downame='')
     {
         foreach ($data AS &$rec)
         {
@@ -67,6 +111,7 @@ class churchController extends Controller {
                 unset($rec['lat']);
                 unset($rec['lng']);
             }
+            if ($downame) $rec['downame']=$downame;
         }
     }
     

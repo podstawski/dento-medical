@@ -29,6 +29,8 @@ var kiedymsza_grid_template;
 var kiedymsza_grid_results;
 var kiedymsza_grid_ajax='';
 var kiedymsza_grid_lazyload=false;
+var kiedymsza_grid_when=0;
+
 
 
 function kiedymsza_grid_load(txt)
@@ -38,12 +40,13 @@ function kiedymsza_grid_load(txt)
     }
     
     var d = new Date();
-    var url=kiedymsza_grid_ajax+'?now='+d.getHours()+':'+d.getMinutes()+'&limit='+kiedymsza_grid_limit+'&offset='+kiedymsza_grid_offset+'&'+txt;
+    var url=kiedymsza_grid_ajax+'?now='+d.getHours()+':'+d.getMinutes()+'&limit='+kiedymsza_grid_limit+'&offset='+kiedymsza_grid_offset+'&when='+kiedymsza_grid_when+'&'+txt;
     
     $.get(url,function (r) {
         var html=$('#'+kiedymsza_grid_template).html();
         
         data=r.data;
+        kiedymsza_grid_when=r.options.when;
         for(i=0;i<data.length;i++)
         {
             html2=smekta(html,data[i]);
@@ -123,6 +126,7 @@ function kiedymsza_grid_reload()
 {
     $('#'+kiedymsza_grid_results).html('');
     kiedymsza_grid_offset=0;
+    kiedymsza_grid_when=0;
     kiedymsza_grid_load();
 }
 

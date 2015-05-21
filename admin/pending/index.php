@@ -7,9 +7,12 @@
     function time2int($time)
     {
         $time=trim($time);
+        if (!$time) return 0;
+        
         $time=str_replace('.',':',$time);
         $time=str_replace(',',':',$time);
         $time=str_replace(' ',':',$time);
+        if (!strstr($time,':') && strlen($time)<3) $time.=':00';
         
         $ret=strtotime("1970-01-01 $time");
         if (Bootstrap::$main->appengine) $ret-=3600;
@@ -56,7 +59,7 @@
         {
             foreach ($times AS $time=>$props)
             {
-                if ($time==='_new_')
+                if (strstr("$time",'_new_'))
                 {
                     if (!isset($props['time'])) continue;
                     $time=time2int($props['time']);
@@ -106,7 +109,12 @@
                 $church2['tel']=substr(preg_replace('/[^0-9]/','',$church2['phone']),0,9);
                 $church2['active']=1;
                 $church->import($church2);
+                $user->trust++;
             }
+            if ($_GET[md5($f)]==0) {
+                $user->trust--;
+            }
+            if (!isset($_GET['trust'])) $user->save();
             
             unlink("$path/$f");
             continue;

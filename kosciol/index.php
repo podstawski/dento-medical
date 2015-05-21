@@ -79,7 +79,7 @@
                     <img src="<?php echo $img['square'];?>"/>
                 </a>
                 <div class="carousel-caption">
-                    <h4>Zdjęcie wgrał(a):
+                    <h4>Przesłał(a):
                         <a href="<?php echo $img['author']['url'];?>" target="_blank">
                         <img src="<?php echo $img['author']['photo'];?>"/> <?php echo $img['author']['firstname'];?> <?php echo $img['author']['lastname'];?>
                         </a>

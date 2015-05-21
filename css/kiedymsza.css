@@ -137,15 +137,20 @@ ul li div h3 a {
 }
 
 #kiedymsza_results .row .time {
-  font-size: 2em;
+  font-size: 1.5em;
   text-align: right;
   border: dotted black;
-  border-width: 1px 1px 0 0;
+  border-width: 1px 0 0 0;
 }
+
+#kiedymsza_results .row .time span {
+  font-size: 0.40em;
+}
+
 
 #kiedymsza_results .row .church {
   border: dotted black;
-  border-width: 1px 1px 0 0; 
+  border-width: 1px 0 0 1px; 
 }
 
 #kiedymsza_results .row .distance {
@@ -201,8 +206,6 @@ h3 {
     padding:4em 2em;
     border-radius:3px;
     text-align: center;
-    
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
 #drop{
@@ -216,19 +219,19 @@ h3 {
     font-size:16px;
     font-weight:bold;
     color:#7f858a;
+
 }
 
 #drop a{
     background-color:rgba(0,0,0,0.5);
-    padding:1em 0;
+    padding:1em 2em;
     color:#fff;
     font-size:1.3em;
-    border-radius:2px;
+    border-radius: 4px;
     cursor:pointer;
     display:inline-block;
     margin-top:12px;
-    line-height:1;
-    width:100%
+
 }
 
 #drop a:hover{
@@ -240,9 +243,11 @@ h3 {
 }
 
 #upload ul{
-    list-style:none;
-    margin:0 -30px;
-
+  list-style:none;
+  margin-top: 15px;
+  background-image: url(../img/dark.png);
+  background-color: transparent;
+  background-repeat: repeat;    
 }
 
 #upload ul li{
@@ -269,19 +274,20 @@ h3 {
     font-size: 16px;
     font-weight: bold;
     position: absolute;
-    top: 20px;
+    top: 2px;
     left: 100px;
+    text-align: left;
 }
 
 #upload ul li i{
     font-weight: normal;
     font-style:normal;
-    color:#7f7f7f;
+    color:#EEE;
     display:block;
 }
 
 #upload ul li canvas{
-    top: 15px;
+    top: 1px;
     left: 32px;
     position: absolute;
 }
@@ -291,7 +297,7 @@ h3 {
     height: 12px;
     background: url('../img/icons.png') no-repeat;
     position: absolute;
-    top: 34px;
+    top: 17px;
     right: 33px;
     cursor:pointer;
 }
@@ -330,6 +336,11 @@ h3 {
 .carousel-inner .carousel-caption {
   background-color:rgba(0,0,0,0.5);
   padding: 0;
+  bottom:0;
+  position: fixed;
+  left:0;
+  right:0;
+  width:100%
 }
 
 .carousel-inner .carousel-caption a {
@@ -337,12 +348,15 @@ h3 {
 }
 
 .carousel-inner .carousel-caption img {
-  width: 40px;
-  heigth: 40px;
+  width: 30px;
+  heigth: 30px;
   border-radius: 50%;
   transition: all .3s ease;
 }
 
+.carousel-inner .carousel-caption h4 {
+  font-size: 0.7em;
+}
 
 
 .map .head {
@@ -387,10 +401,37 @@ map .footer-spacer img{
   text-align: center;
 }
 
+h6.prompter {
+  font-style: italic;
+  color: #707070;
+  margin: 0 0 4px 0;
+}
+
 @media (max-width:480px) {
   .table {
     transform: scale(0.70);
-    position: relative;
-    left:-88px;
+
+    margin-left:-88px;
   }
 }
+
+@media (max-width:991px) {
+  #kiedymsza_results .row .time {
+    font-size: 1em;
+  }
+  #kiedymsza_results .row .time span {
+    font-size: 0.8em;
+  }
+  
+  #kiedymsza_results .row .church h4 {
+    font-size: 0.9em;
+    margin: 4px 0;
+  }
+  #kiedymsza_results .row .church .address {
+    font-size: 0.7em;
+  }
+  
+
+}
+
+

@@ -13,7 +13,9 @@ function grid_start()
 
 $(function(){
     $('.date').pickadate({
-    
+        onSet:grid_start,
+        format: 'dddd, dd mmm yyyy',
+        selectYears: false,
     });
 
     setTimeout(grid_start,400);

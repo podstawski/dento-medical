@@ -37,6 +37,48 @@ google.maps.event.addDomListener(window, 'load', function(){
 
 });
 
+function table_manimupation()
+{
+  $('.table .time input').focus(function(){
+    if ($(this).val().length==0) {
+      if ($(this).parent().parent().next().length==0) {
+        var tr=$(this).parent().parent().clone();
+        tr.find('input').each(function(){
+          var n=$(this).attr('name');
+          n=n+'';
+          n=n.replace('_new_','_new__');;
+
+          $(this).attr('name',n);
+        });
+        $(this).parent().parent().parent().append(tr);
+        table_manimupation();
+      }
+    }
+  });
+  
+  $('.table .time input').focusout(function(){
+    if ($(this).val().length==0) {
+      var next=$(this).parent().parent().next();
+      if (next.length>0) {
+        next.remove();
+      }
+    }
+  });
+
+  $('.table td.rm').click(function(){
+    $(this).parent().fadeOut(1000, function(){
+      $(this).remove();
+    });
+  });
+  
+  $('.table input.chkall').click(function(){
+    var ch=$(this).prop('checked');
+    $(this).parent().parent().find('input[type="checkbox"]').prop('checked',ch);
+  });
+  
+}
+
+
 $(function() {
   
   $('#iamhere').click(function(){
@@ -53,16 +95,7 @@ $(function() {
   
   });
 
-  $('.table td.rm').click(function(){
-    $(this).parent().fadeOut(1000, function(){
-      $(this).remove();
-    });
-  });
-  
-  $('.table input.chkall').click(function(){
-    var ch=$(this).prop('checked');
-    $(this).parent().parent().find('input[type="checkbox"]').prop('checked',ch);
-  });
+
   
   $('button.save').click(function(){
     var data=$('#churchForm').serialize();
@@ -72,4 +105,16 @@ $(function() {
   });
   
   
+  $('input[name="sun"]').change(function() {
+    $('h6.sun').text($(this).val());
+  });
+  $('input[name="fest"]').change(function() {
+    $('h6.fest').text($(this).val());
+  });
+  $('input[name="week"]').change(function() {
+    $('h6.week').text($(this).val());
+  });
+  
+
+  table_manimupation(); 
 });
