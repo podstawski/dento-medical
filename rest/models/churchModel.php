@@ -112,6 +112,8 @@ class churchModel extends Model {
 		$sql="SELECT address,min(id) AS id FROM churches WHERE address IS NOT NULL GROUP BY address HAVING count(*)>1";
 		$churches=$this->conn->fetchAll($sql)?:[];
 		foreach ($churches AS $church) $this->remove($church['id']);
+		$sql="UPDATE churches SET change_time=".Bootstrap::$main->now." WHERE change_time IS NULL";
+		$this->conn->execute($sql);
 	}
 	
 	
