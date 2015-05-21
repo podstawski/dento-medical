@@ -23,16 +23,19 @@
     $basedir='..';
     
     $user=new userModel();
-    $image=new imageModel();
-    $images=$image->select(['church'=>$church->id,'active'=>1],'id')?:[];
+    $imageModel=new imageModel();
+    $images=$imageModel->select(['church'=>$church->id,'active'=>1],'id')?:[];
     $active=false;
     foreach($images AS &$img) {
+        if (!$image) $image=$img['url'];
         $img['active']=$active?'':'active';
         $active=true;
         $img['author']=$user->get($img['author_id']);
         unset($img['author_id']);
         if (isset($img['author']['id'])) unset($img['author']['id']);
         if (isset($img['author']['email'])) unset($img['author']['email']);
+        
+        
     }
     //mydie($images);
     //mydie($church);

@@ -2,9 +2,10 @@
   $title='Gdzie i kiedy msza';
   $description='Łatwo i szybko znajdź najbliższy kościół i mszę';
   $url='http://www.kiedymsza.pl';
-  $image='';
+  
   $keywords='msza,msze,kiedy msza,gdzie msza,kościół';
   $basedir='.';
+  $image=$basedir.'/img/fb-baner.jpg';
 ?>
 <html>
     
