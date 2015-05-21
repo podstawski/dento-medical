@@ -60,10 +60,15 @@ class churchController extends Controller {
             $when=Bootstrap::$main->now;
             if ($this->data('date_submit')) $when=strtotime($this->data('date_submit'));
             
-            if ($this->data('when')) $when=$this->data('when');
-            
             $data=[];
             $safeguard=0;
+            
+            
+            if ($this->data('when')) {
+                $when=$this->data('when');
+                $safeguard=1;
+            }
+            
             
             while (!count($data))
             {
@@ -84,6 +89,8 @@ class churchController extends Controller {
                 
                 if ($this->data('when')) break;
                 if (++$safeguard>7) break;
+                if (count($data)) break;
+                
                 $when+=25*3600;
 
             }
