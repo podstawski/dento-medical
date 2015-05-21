@@ -386,3 +386,11 @@ map .footer-spacer img{
   padding: 5px;
   text-align: center;
 }
+
+@media (max-width:480px) {
+  .table {
+    transform: scale(0.70);
+    position: relative;
+    left:-88px;
+  }
+}

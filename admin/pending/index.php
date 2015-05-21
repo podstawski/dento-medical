@@ -6,8 +6,14 @@
     
     function time2int($time)
     {
-        if (Bootstrap::$main->appengine) $time+=3600;
-        return strtotime("1970-01-01 $time");
+        $time=trim($time);
+        $time=str_replace('.',':',$time);
+        $time=str_replace(',',':',$time);
+        $time=str_replace(' ',':',$time);
+        
+        $ret=strtotime("1970-01-01 $time");
+        if (Bootstrap::$main->appengine) $ret-=3600;
+        return $ret;
     }
 
     
@@ -36,6 +42,13 @@
         $church2=json_decode(file_get_contents("$path/$f"),true);
         $masses1=$mass->select(['church'=>$id])?:[];
         
+        foreach(array_keys($masses1) AS $i) {
+            unset($masses1[$i]['id']);
+            unset($masses1[$i]['church']);
+            
+        }
+
+        
         $user->get($church2['change_author']);
         
         $masses2=[];
@@ -47,6 +60,7 @@
                 {
                     if (!isset($props['time'])) continue;
                     $time=time2int($props['time']);
+                    
                 }
                 if (!$time) continue;
                 
@@ -86,6 +100,7 @@
                 $church->export($fh,$id);
                 fclose($fh);
                 if (isset($church2['id'])) unset($church2['id']);
+                if (isset($church2['password'])) unset($church2['password']);
                 $church2['masses']=$masses2;
                 $church2['md5hash']=$church1['md5hash'];
                 $church2['tel']=substr(preg_replace('/[^0-9]/','',$church2['phone']),0,9);
@@ -98,6 +113,8 @@
         }
         
         //mydie($church1);
+        
+        //mydie(array_diff($masses1,$masses2));
         
         echo '<li class="row">';
         echo '<div class="col-md-9 col-sm-9">';
@@ -117,15 +134,16 @@
         
         foreach ($church1 AS $k=>$v)
         {
-            foreach (['id','md5hash','postal','country','lat','lng','tel','active'] AS $kk)
+            foreach (['id','md5hash','postal','country','lat','lng','tel','active','password'] AS $kk)
             {
                 if ($k==$kk) {
                     continue 2;
                 }
             }
             if (strstr($k,'change_')) continue;
+            if (!isset($church2[$k])) $church2[$k]=null;
             
-            if ($v!=$church2[$k])  echo '<h5>'.$v.' &raquo; '.$church2[$k].'</h5>';
+            if ($v!=$church2[$k])  echo '<h5 title="'.$k.'">'.$v.' &raquo; '.$church2[$k].'</h5>';
         }
         $distance=$church->distance($church1['lat'],$church1['lng'],$church2['lat'],$church2['lng']);
         if ($distance>0.0001) echo '<h5>geo move='.$distance.' km</h5>';
