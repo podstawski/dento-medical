@@ -75,7 +75,12 @@
 
             <?php foreach($images AS &$img): ?>
             <div class="<?php echo $img['active'];?> item">
-                <a href="<?php echo $img['url'];?>" class="fancybox" title="<?php echo $church->name;?>">
+                <a href="<?php echo $img['url'];?>" class="fancybox"
+                            title="<?php
+                                echo $church->name;
+                                echo ', fot. '.$img['author']['firstname'].' '.$img['author']['lastname'];
+                                if ($img['d_taken']) echo date(' d-m-Y',$img['d_taken']);
+                            ?>">
                     <img src="<?php echo str_replace('s960-c','s900-c',$img['square']);?>"/>
                 </a>
                 <div class="carousel-caption">
