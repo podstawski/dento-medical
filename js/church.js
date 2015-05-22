@@ -17,7 +17,6 @@ google.maps.event.addDomListener(window, 'load', function(){
             position: myLatlng,
             map: map,
             title: $(this).attr('title'),
-            animation: google.maps.Animation.DROP,
             icon: '../img/gmap_icon.png'
         });
     });
