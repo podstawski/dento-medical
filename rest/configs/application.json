@@ -19,6 +19,7 @@
 
     "square_size": 960,
     "image_size": 1140,
+    "thumb_size": 250,
     
     "admin.ids": [1],
     

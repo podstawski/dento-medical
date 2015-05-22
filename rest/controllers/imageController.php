@@ -151,6 +151,7 @@ class imageController extends Controller {
 	if ($this->_appengine) {
 	    $model->url = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('image_size')]);
 	    $model->square = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('square_size'),'crop'=>true]);
+	    $model->thumb = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('thumb_size'),'crop'=>true]);
 	
 	} else {
 	    $image=new Image($file);
@@ -170,7 +171,14 @@ class imageController extends Controller {
 	    $w=$h=Bootstrap::$main->getConfig('square_size');
 	    $square=preg_replace("/\.$ext\$/",'-s.'.$ext,$file);
 	    $image->min($square,$w,$h,false,true);
-	    $model->square='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.preg_replace("/\.$ext\$/",'-s.'.$ext,$name);	    
+	    $model->square='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.preg_replace("/\.$ext\$/",'-s.'.$ext,$name);
+	    
+	    $w=$h=0;
+	    
+	    $w=$h=Bootstrap::$main->getConfig('thumb_size');
+	    $thumb=preg_replace("/\.$ext\$/",'-t.'.$ext,$file);
+	    $image->min($thumb,$w,$h,false,true);
+	    $model->thumb='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.preg_replace("/\.$ext\$/",'-t.'.$ext,$name);	    
 	}
 		
 	

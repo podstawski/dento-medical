@@ -70,7 +70,7 @@
     <a class="yes">YES</a>
 </div>
 <a class="fancybox" href="<?php echo $img['url'];?>">
-    <img class="mod-img" src="<?php echo $img['square'];?>"/>
+    <img class="mod-img" src="<?php echo $img['thumb'];?>"/>
 </a>
 </span>
 <?php endforeach;?>
