@@ -76,7 +76,7 @@
             <?php foreach($images AS &$img): ?>
             <div class="<?php echo $img['active'];?> item">
                 <a href="<?php echo $img['url'];?>" class="fancybox" title="<?php echo $church->name;?>">
-                    <img src="<?php echo $img['square'];?>"/>
+                    <img src="<?php echo str_replace('s960-c','s900-c',$img['square']);?>"/>
                 </a>
                 <div class="carousel-caption">
                     <h4>Przesłał(a):

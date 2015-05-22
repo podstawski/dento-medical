@@ -17,7 +17,7 @@
 
     "protocol":"http",
 
-    "square_size": 960,
+    "square_size": 900,
     "image_size": 1140,
     "thumb_size": 250,
     
