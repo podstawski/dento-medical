@@ -15,6 +15,7 @@ class churchModel extends Model {
 	
 	public function search($lat,$lng,$distance,$time,$m,$dow,$now,$limit,$offset)
 	{
+		//mydie("$lat,$lng,$distance,$time,$m,$dow,$now,$limit,$offset");
 		$lat+=0;
 		$lng+=0;
 		$distance+=0;

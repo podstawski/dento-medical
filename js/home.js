@@ -1,22 +1,32 @@
 
 
-
+var proceed_prority=0;
 
 
 
 $(function(){
     $('.date').pickadate({
-        onSet:grid_start,
+        onSet:function() {
+            proceed_prority=1;
+            grid_start('datepicker');
+        },
         format: 'dddd, dd mmm yyyy',
         selectYears: false,
     });
 
-    setTimeout(grid_start,400);
+    setTimeout(function() {
+        if (proceed_prority==0) grid_start('timer');
+    },400);
+    
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (pos) {
             $('#geo').val(pos.coords.latitude+','+pos.coords.longitude);
             $('#navigator_missing').fadeOut();
-            grid_start();
+            
+            if (proceed_prority<=1) { 
+                proceed_prority=1;
+                grid_start('navigator');
+            }
             
             var geocoder = new google.maps.Geocoder();
             
@@ -39,7 +49,9 @@ $(function(){
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
         var place = autocomplete.getPlace();
         $('#geo').val(place.geometry.location.lat()+','+place.geometry.location.lng());
-        grid_start();
+
+        proceed_prority=2;
+        grid_start('autocompleted');
     });
     
     

@@ -3,6 +3,8 @@ function login_fb()
     var url=REST+'/user/facebook?redirect='+encodeURIComponent(location.href);
     $('.a_login,#drop a').attr('href',url);
     
+    $('#drop a').text('Zaloguj się, aby dodać zdjęcie');
+    
     $('.a_update').each(function(){
         url=url=REST+'/user/facebook?redirect='+encodeURIComponent(location.href+'/../'+$(this).attr('href'));
         $(this).attr('href',url);

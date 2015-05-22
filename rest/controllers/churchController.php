@@ -57,8 +57,12 @@ class churchController extends Controller {
             $church=new churchModel();
         
         
-            $when=Bootstrap::$main->now;
+            $when=strtotime(date('Y-m-d'));
             if ($this->data('date_submit')) $when=strtotime($this->data('date_submit'));
+            
+            $time=$this->data('now')?:date('H:i');
+            if ($this->data('date_submit')) $time='05:30';
+            
             
             $data=[];
             $safeguard=0;
@@ -66,40 +70,42 @@ class churchController extends Controller {
             
             if ($this->data('when')) {
                 $when=$this->data('when');
-                $safeguard=1;
+                $time=date('H:i',$when);
             }
             
+            $time=$this->time2int($time);
             
             while (!count($data))
             {
                 $month=date('m',$when);
                 $dow=date('w',$when);
                 $dow_requested=$dow;
-                
-            
-                $now=$this->data('now')?$this->time2int($this->data('now')):$this->time2int(date('H:i'));
-                $time=$this->data('date_submit') || $safeguard?$this->time2int('5:30'):$now;
-    
                 $dow=$this->change_dow($when);
+            
+                if ($safeguard) $time=$this->time2int('5:30');
+    
                 
-                
-                $data=$church->search($geo[0],$geo[1],$distance,$time,$month,$dow,$now,$opt['limit'],$opt['offset'])?:[];
+                $data=$church->search($geo[0],$geo[1],$distance,$time,$month,$dow,$time,$opt['limit'],$opt['offset'])?:[];
                 if (!count($data) && $dow!=$dow_requested)
-                    $data=$church->search($geo[0],$geo[1],$distance,$time,$month,$dow_requested,$now,$opt['limit'],$opt['offset'])?:[];
+                    $data=$church->search($geo[0],$geo[1],$distance,$time,$month,$dow_requested,$time,$opt['limit'],$opt['offset'])?:[];
                 
                 if ($this->data('when')) break;
                 if (++$safeguard>7) break;
                 if (count($data)) break;
                 
-                $when+=25*3600;
+                $when+=24*3600;
 
             }
             
-            $opt['when']=$when;
+            $opt['when']=$when+$time;
+            $opt['count']=count($data);
             
             
             $this->clear_data($data,true,self::$dows[$dow_requested]);
+            
         }
+    
+        //mydie($data);
     
         return array('status'=>true,'options'=>$opt,'data'=>$data);
     }
