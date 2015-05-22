@@ -20,7 +20,7 @@ class churchModel extends Model {
 		$lng+=0;
 		$distance+=0;
 
-		$sql="SELECT *,geo_distance(lat,lng,$lat,$lng) AS distance,churches.id AS church_id";
+		$sql="SELECT *,1.3*geo_distance(lat,lng,$lat,$lng) AS distance,churches.id AS church_id";
 		$sql.=" FROM churches";
 		$sql.=" INNER JOIN masses ON masses.church=churches.id AND moy=$m AND dow=$dow AND time>$time";
 		$sql.=" WHERE churches.active=1"; 
@@ -29,9 +29,11 @@ class churchModel extends Model {
 		$sql.=" AND lng BETWEEN ".($lng-$distance*1.48/100)." AND ".($lng+$distance*1.48/100);
 		$sql.=" AND geo_distance(lat,lng,$lat,$lng)<$distance";
 		
-		$sql.=" ORDER BY";
+		$sql.=" ORDER BY time,geo_distance(lat,lng,$lat,$lng)";
+		/*
 		if ($time) $sql.=" (1500*geo_distance(lat,lng,$lat,$lng))+time-$now";
 		else $sql.=" (3000*geo_distance(lat,lng,$lat,$lng))+time";
+		*/
 		
 		$sql.=" LIMIT $limit OFFSET $offset";
 		

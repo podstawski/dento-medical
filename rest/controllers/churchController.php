@@ -97,7 +97,7 @@ class churchController extends Controller {
 
             }
             
-            $opt['when']=$when+$time;
+            $opt['when']=$this->data('when')?:$when+$time;
             $opt['count']=count($data);
             
             
@@ -124,6 +124,7 @@ class churchController extends Controller {
                 unset($rec['lat']);
                 unset($rec['lng']);
             }
+            $rec['address']=preg_replace('/[0-9][0-9].[0-9][0-9][0-9]/','',$rec['address']);
             if ($downame) $rec['downame']=$downame;
         }
     }

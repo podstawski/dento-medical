@@ -1,7 +1,7 @@
 {
     
     "church.search.limit":10,
-    "church.search.distance":10,
+    "church.search.distance":7,
     
     "fest.all.free":["1.01","6.01","3.05","15.08","1.11","25.12","25.12"],
     "fest.all.work":["2.02","29.06"],
