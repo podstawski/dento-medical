@@ -4,6 +4,7 @@
     include __DIR__.'/../base.php';
     include __DIR__.'/../head.php';
     
+    ini_set('max_execution_time',3000);
     
     $church=new churchModel();
     $path=Tools::saveRoot('export');

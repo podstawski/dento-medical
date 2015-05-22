@@ -413,7 +413,7 @@ map .footer-spacer img{
 }
 
 .fb-like {
-  padding: 1em;
+  padding: 0.5em;
   background-color:rgba(0,0,0,0.5);
   width:100%;
 }

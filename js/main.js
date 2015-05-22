@@ -45,7 +45,11 @@ $(function() {
 
     var navireq='chrome.jpg';
     
-    if (navigator.userAgent.search("Android") >= 0) {
+    if (navigator.userAgent.search("Windows Phone") >= 0) {
+        navireq='ms.jpg';
+    } else if (navigator.userAgent.search("IEMobile") >= 0) {
+        navireq='ms.jpg';
+    } else if (navigator.userAgent.search("Android") >= 0) {
         navireq='android.jpg';
     } else if (navigator.userAgent.search("Chrome") >= 0) {
         navireq='chrome.jpg';

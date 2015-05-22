@@ -36,7 +36,7 @@
         
         $token='spreadsheet:'.$key;
         $csv=Tools::memcache($token);
-        ini_set('max_execution_time',300);
+        ini_set('max_execution_time',3000);
 
         if (!$csv || (isset($_GET['reread']) && $_GET['reread']))
         {
@@ -67,15 +67,15 @@
             $postal='';
             if (isset($matches[1])) $postal=$matches[1];
             
+            $postal=str_replace('‑','-',$postal);
             $rec['postal']=$postal;
             //$rec['matches']=$matches;
             
                         
             $phone=preg_replace('/[^0-9]/','',$rec['phone']);
+            $postal2=preg_replace('/[^0-9]/','',$postal);
             
-            $md5hash=md5('PL'.$postal.','.substr($phone,0,9));
-            
-            $postal=str_replace('‑','-',$postal);
+            $md5hash='PL'.$postal2.','.substr($phone,0,9);
             
             
             $ch=$church->find_one_by_md5hash($md5hash);

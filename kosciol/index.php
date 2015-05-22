@@ -131,7 +131,7 @@
         <?php if ($church->rector): ?>
             <h3><b>Proboszcz:</b>
                 <?php if ($church->email) echo '<a href="mailto:'.$church->email.'">';?>
-                <?php echo $church->rector; ?>
+                <?php echo $church->rector?:'email'; ?>
                 <?php if ($church->email) echo '</a>';?>
             </h3>
         <?php endif; ?>

@@ -5,9 +5,9 @@
 	
 
 	,
-	"db.dsn2":"mysql:host=173.194.109.181;charset=utf8;dbname=pudel",
-	"db.user2":"kiedymsza",
-	"db.pass2":"crucemtuam"
+	"db.dsn1":"mysql:host=173.194.109.181;charset=utf8;dbname=pudel",
+	"db.user1":"kiedymsza",
+	"db.pass1":"crucemtuam"
 	
 	
 }
