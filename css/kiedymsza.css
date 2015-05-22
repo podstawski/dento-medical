@@ -326,6 +326,16 @@ h3 {
 .table input.desc {
   width:30px;
 }
+
+.table .desc span {
+  display: none;
+  float:right;
+}
+
+.table .desc span a {
+  cursor: pointer;
+}
+
 .table td.time {
   text-align: right;
 }

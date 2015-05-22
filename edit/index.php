@@ -45,10 +45,18 @@
 	    if (isset($times[$time])) continue;
 	    $times[$time]=true;
 	    
+	    $kids=$mass['kids']?'checked':'';
+	    $youth=$mass['youth']?'checked':'';
+	    
 	    $tr.='<tr>';
 	    $tr.='<td class="time">'.$time.'</td>';
 	    $tr.='<td class="desc">
 		    <input type="text" value="'.$mass['description'].'" placeholder="opis" class="desc" name="masses['.$dow.']['.$t.'][desc]" />
+		    <span>
+			<input type="checkbox" name="masses['.$dow.']['.$t.'][kids]" value="1" '.$kids.'/> dzieci
+			<input type="checkbox" name="masses['.$dow.']['.$t.'][youth]" value="1" '.$youth.'/> młodzież
+			<a>[ok]</a>
+		    </span>
 		</td>';
 	    
 	    
@@ -76,6 +84,11 @@
 	$tr.='<td class="time"><input type="text" name="masses['.$dow.'][_new_][time]" placeholder="godz."/></td>';
 	$tr.='<td class="desc">
 		<input type="text" placeholder="opis" class="desc" name="masses['.$dow.'][_new_][desc]" />
+		<span>
+		    <input type="checkbox" name="masses['.$dow.'][_new_][kids]" value="1" /> dzieci
+		    <input type="checkbox" name="masses['.$dow.'][_new_][youth]" value="1" /> młodzież
+		    <a>[ok]</a>
+		</span>
 	    </td>';
 	
 	

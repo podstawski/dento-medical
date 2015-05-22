@@ -76,6 +76,20 @@ function table_manimupation()
     $(this).parent().parent().find('input[type="checkbox"]').prop('checked',ch);
   });
   
+  $('.table input.desc').focus(function(){
+    $(this).parent().nextAll().hide();
+    $(this).parent().attr('colspan','14');
+    $(this).css('width','150px');
+    $(this).parent().find('span').fadeIn(500);
+    
+  });
+  
+  $('.table .desc span a').click(function(){
+    $(this).parent().hide();
+    $(this).parent().parent().find('input').css('width','');
+    $(this).parent().parent().nextAll().fadeIn(300);
+    $(this).parent().parent().attr('colspan','');
+  });
 }
 
 
