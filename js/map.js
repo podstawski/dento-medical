@@ -1,7 +1,7 @@
 function initialize(lat,lng) {
     var myLatlng = new google.maps.LatLng(lat,lng);
     var mapOptions = {
-        zoom: 14,
+        zoom: 13,
         center: myLatlng
     }
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
@@ -25,9 +25,7 @@ function initialize(lat,lng) {
         
 
         
-        if (map.getZoom()>=12) {
-            $('#footer').fadeOut(500); 
-        } 
+
 
         $.get(url,function(churches) {
             
@@ -39,6 +37,10 @@ function initialize(lat,lng) {
             if (churches.length==0 && map.getZoom()<12) {
                 $('#footer').fadeIn(500);
             }
+  
+            if (churches.length>0 || map.getZoom()>=12) {
+                $('#footer').fadeOut(500);
+            }  
   
             for(var i=0;i<churches.length; i++)
             {
