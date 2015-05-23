@@ -156,7 +156,7 @@ class churchController extends Controller {
         $this->data['change_author']=Bootstrap::$main->user['id'];
         $this->data['change_time']=Bootstrap::$main->now;
         $this->data['change_ip']=Bootstrap::$main->ip;
-        
+        $this->data['trust']=false;
         Tools::save($file,json_encode($this->data,JSON_NUMERIC_CHECK));
         return $this->status('Po weryfikacji, dane zostaną opublikowane. Dziękuję!');
     }

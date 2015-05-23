@@ -43,6 +43,9 @@
         
         $church1=$church->get($id);
         $church2=json_decode(file_get_contents("$path/$f"),true);
+        
+        if (!isset($_GET['trust']) && isset($church2['trust']) && $church2['trust']) continue;
+        
         $masses1=$mass->select(['church'=>$id])?:[];
         
         foreach(array_keys($masses1) AS $i) {
@@ -94,9 +97,10 @@
             continue;
         }
         
-        if (isset($_GET[md5($f)]))
+        if (isset($_GET['trust']) && $_GET['trust']>0)
         {
-            if ($_GET[md5($f)]==1) {
+            if ((isset($church2['trust']) && $church2['trust']) || $user->trust>=$_GET['trust'])
+            {
                 $arch='arch/'.$church1['md5hash'].':'.$id.'/'.date('Ymd-His').'.json';
                 $realarch=Tools::saveRoot($arch);
                 $fh=fopen($realarch,'w');
@@ -108,15 +112,33 @@
                 $church2['md5hash']=$church1['md5hash'];
                 $church2['tel']=substr(preg_replace('/[^0-9]/','',$church2['phone']),0,9);
                 $church2['active']=1;
+                
+                
                 $church->import($church2);
+
+                unlink("$path/$f");
+                
+            }
+            
+            continue;
+        }
+        
+        if (isset($_GET[md5($f)]))
+        {
+            if ($_GET[md5($f)]==1) {
                 $user->trust++;
+                $church2['trust']=true;
+                file_put_contents("$path/$f",json_encode($church2,JSON_NUMERIC_CHECK));
             }
             if ($_GET[md5($f)]==0) {
                 $user->trust--;
+                unlink("$path/$f");
             }
-            if (!isset($_GET['trust'])) $user->save();
             
-            unlink("$path/$f");
+            $user->save();
+            
+            
+            
             continue;
         }
         
