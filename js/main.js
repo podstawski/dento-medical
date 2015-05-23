@@ -51,6 +51,8 @@ $(function() {
         navireq='ms.jpg';
     } else if (navigator.userAgent.search("IEMobile") >= 0) {
         navireq='ms.jpg';
+    } else if (navigator.userAgent.search("iPhone") >= 0) {
+        navireq='iphone.jpg';
     } else if (navigator.userAgent.search("Android") >= 0) {
         navireq='android.jpg';
     } else if (navigator.userAgent.search("Chrome") >= 0) {
@@ -69,7 +71,17 @@ $(function() {
     
     $(".fancybox").fancybox();
     
-    
+    setTimeout(navigator_request_blinker,2000);
 });
+
+
+function navigator_request_blinker() {
+    $('#navigator_missing').fadeOut(1000, function() {
+        $('#navigator_missing').fadeIn(1000,function() {
+            setTimeout(navigator_request_blinker,3000);
+        });
+    });
+}
+
 
 

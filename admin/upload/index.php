@@ -144,7 +144,7 @@
             $masses=array_merge($masses,analyze_mass([8],$rec['fest']));
             $church->save();
             
-            //continue;
+            if (!isset($_GET['masses']) || !$_GET['masses']) continue;
         
             $church->remove_masses();
             $mass_cache=[];
@@ -179,6 +179,9 @@
     <input type="hidden" name="reread" value="0"/>
     <input type="checkbox" name="reread" value="1" <?php if (isset($_GET['reread']) && $_GET['reread']) echo 'checked';?>/>
     Re-Read
+    | <input type="checkbox" name="masses" value="1" <?php if (isset($_GET['masses']) && $_GET['masses']) echo 'checked';?>/>
+    Masses
+    <br/>
     <input type="text" value="<?php echo $key?>" name="key" placeholder="spreadsheet key"/><input type="submit" value="go!" />
 </form>
 
