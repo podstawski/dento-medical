@@ -21,7 +21,7 @@ $(function(){
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (pos) {
             $('#geo').val(pos.coords.latitude+','+pos.coords.longitude);
-            $('#navigator_missing').fadeOut();
+            $('#navigator_missing').attr('found',true).fadeOut();
             
             if (proceed_prority<=1) { 
                 proceed_prority=1;

@@ -77,6 +77,7 @@ $(function() {
 
 function navigator_request_blinker() {
     $('#navigator_missing').fadeOut(1000, function() {
+        if ($('#navigator_missing').attr('found')) return;
         $('#navigator_missing').fadeIn(1000,function() {
             setTimeout(navigator_request_blinker,3000);
         });
