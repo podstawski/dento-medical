@@ -27,9 +27,7 @@ function initialize(lat,lng) {
         
         if (map.getZoom()>=12) {
             $('#footer').fadeOut(500); 
-        } else {
-            $('#footer').fadeIn(500);
-        }
+        } 
 
         $.get(url,function(churches) {
             
@@ -38,6 +36,9 @@ function initialize(lat,lng) {
             }
             markerarray=[];
 
+            if (churches.length==0 && map.getZoom()<12) {
+                $('#footer').fadeIn(500);
+            }
   
             for(var i=0;i<churches.length; i++)
             {
