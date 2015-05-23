@@ -370,6 +370,15 @@ h3 {
   width:100%;
 }
 
+.map #footer {
+  background-image: url(../img/dark.png);
+  background-position: top;
+  background-repeat: repeat;
+  color: #fff;
+  padding:0.2em;
+  text-align: center;
+}
+
 .carousel-inner .carousel-caption {
   background-color:rgba(0,0,0,0.5);
   padding: 0;

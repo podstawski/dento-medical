@@ -63,6 +63,7 @@
         <input id="navigator_missing" title="Proszę wyraź zgodę na udostępnienie swojej lokalizacji" class="button" readonly value="Proszę wyraź zgodę na udostępnienie swojej lokalizacji"/>
     </div>
     
+    <div id="footer" style="display: none">Przybliż mapę, aby zobaczyć kościoły</div>
     
 </div>
 </body>

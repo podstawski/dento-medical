@@ -1,11 +1,19 @@
 function initialize(lat,lng) {
     var myLatlng = new google.maps.LatLng(lat,lng);
     var mapOptions = {
-        zoom: 13,
+        zoom: 14,
         center: myLatlng
     }
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
+    
+    var iamhere = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        icon: '../img/iamhere.png',
+        title: 'Tu jestem'
+    });
+    
+    
     var markerarray=[];
         
     google.maps.event.addListener(map, 'idle', function(ev){
@@ -15,6 +23,13 @@ function initialize(lat,lng) {
         
         var url='index.php?lat1='+ne.lat()+'&lng1='+ne.lng()+'&lat2='+sw.lat()+'&lng2='+sw.lng();
         
+
+        
+        if (map.getZoom()>=12) {
+            $('#footer').fadeOut(500); 
+        } else {
+            $('#footer').fadeIn(500);
+        }
 
         $.get(url,function(churches) {
             
