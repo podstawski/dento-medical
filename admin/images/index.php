@@ -6,6 +6,8 @@
     $image=new imageModel();
     $user=new userModel();
     
+    if (isset($_GET['trust'])) $image->activateTrusted($_GET['trust']);
+    
     if (isset($_GET['mod']) && is_array($_GET['mod'])) {
         foreach ($_GET['mod'] AS $id=>$active)
         {
