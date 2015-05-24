@@ -467,9 +467,8 @@ h6.prompter {
 }
 
 @media (max-width:480px) {
-  .table {
+  .xtable {
     transform: scale(0.70);
-
     margin-left:-88px;
   }
   

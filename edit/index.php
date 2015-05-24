@@ -209,87 +209,87 @@
  
 	<h2>Msze święte w niedziele i święta</h2>
 	<h6 class="prompter sun"><?php echo $church->sun;?></h6>
-	<table class="table table-hover table-bordered">
+	<div class="table-responsive"><table class="table table-hover table-bordered">
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
 	    <tbody>
 		<?php echo tr_masses(0,$masses);?>
 	    </tbody>
-	</table>
+	</table></div>
 	<h2>Msze święte w święta zniesione</h2>
 	<h6 class="prompter fest"><?php echo $church->fest;?></h6>
-	<table class="table table-hover table-bordered">
+	<div class="table-responsive"><table class="table table-hover table-bordered">
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
 	    <tbody>
 		<?php echo tr_masses(8,$masses);?>
 	    </tbody>
-	</table>
+	</table></div>
 
 	<h2>Msze święte w poniedziałki</h2>
 	<h6 class="prompter week"><?php echo $church->week;?></h6>
-	<table class="table table-hover table-bordered">
+	<div class="table-responsive"><table class="table table-hover table-bordered">
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
 	    <tbody>
 		<?php echo tr_masses(1,$masses);?>
 	    </tbody>
-	</table>
+	</table></div>
 	
 	<h2>Msze święte we wtorki</h2>
 	<h6 class="prompter week"><?php echo $church->week;?></h6>
-	<table class="table table-hover table-bordered">
+	<div class="table-responsive"><table class="table table-hover table-bordered">
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
 	    <tbody>
 		<?php echo tr_masses(2,$masses);?>
 	    </tbody>
-	</table>
+	</table></div>
 
 	<h2>Msze święte w środy</h2>
 	<h6 class="prompter week"><?php echo $church->week;?></h6>
-	<table class="table table-hover table-bordered">
+	<div class="table-responsive"><table class="table table-hover table-bordered">
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
 	    <tbody>
 		<?php echo tr_masses(3,$masses);?>
 	    </tbody>
-	</table>
+	</table></div>
 	<h2>Msze święte w czwartki</h2>
 	<h6 class="prompter week"><?php echo $church->week;?></h6>
-	<table class="table table-hover table-bordered">
+	<div class="table-responsive"><table class="table table-hover table-bordered">
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
 	    <tbody>
 		<?php echo tr_masses(4,$masses);?>
 	    </tbody>
-	</table>
+	</table></div>
 	<h2>Msze święte w piątki</h2>
 	<h6 class="prompter week"><?php echo $church->week;?></h6>
-	<table class="table table-hover table-bordered">
+	<div class="table-responsive"><table class="table table-hover table-bordered">
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
 	    <tbody>
 		<?php echo tr_masses(5,$masses);?>
 	    </tbody>
-	</table>
+	</table></div>
 	<h2>Msze święte w soboty</h2>
 	<h6 class="prompter week"><?php echo $church->week;?></h6>
-	<table class="table table-hover table-bordered">
+	<div class="table-responsive"><table class="table table-hover table-bordered">
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
 	    <tbody>
 		<?php echo tr_masses(6,$masses);?>
 	    </tbody>
-	</table>
+	</table></div>
         <button type="button" class="save btn btn-default button">Zapisz</button>
         
      
