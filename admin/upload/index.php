@@ -77,6 +77,12 @@
             
             $md5hash='PL'.$postal2.','.substr($phone,0,9);
             
+            if ($rec['latlng'])
+            {
+                $latlng=explode(',',$rec['latlng']);
+                $md5hash=substr($latlng[0],0,15).','.substr($latlng[1],0,15);
+            }
+            
             
             $ch=$church->find_one_by_md5hash($md5hash);
             

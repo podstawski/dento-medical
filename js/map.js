@@ -1,17 +1,21 @@
-function initialize(lat,lng) {
+
+
+function initialize(lat,lng,zoom,here) {
     var myLatlng = new google.maps.LatLng(lat,lng);
     var mapOptions = {
-        zoom: 13,
+        zoom: zoom,
         center: myLatlng
     }
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     
-    var iamhere = new google.maps.Marker({
-        position: myLatlng,
-        map: map,
-        icon: '../img/iamhere.png',
-        title: 'Tu jestem'
-    });
+    if (here) {
+        var iamhere = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            icon: '../img/iamhere.png',
+            title: 'Tu jestem'
+        });
+    }
     
     
     var markerarray=[];
@@ -19,7 +23,15 @@ function initialize(lat,lng) {
     google.maps.event.addListener(map, 'idle', function(ev){
         var bounds = map.getBounds();
         var ne = bounds.getNorthEast();
-        var sw = bounds.getSouthWest();                
+        var sw = bounds.getSouthWest();
+        var center=map.getCenter();
+        var latlng=center.lat()+','+center.lng()+','+map.getZoom();
+        
+        var lh=location.href;
+        var pyt=lh.indexOf('?');
+        if (pyt>0) lh=lh.substr(0,pyt);
+        history.pushState('', 'Mapa', lh+'?m='+latlng);
+
         
         var url='index.php?lat1='+ne.lat()+'&lng1='+ne.lng()+'&lat2='+sw.lat()+'&lng2='+sw.lng();
         
@@ -75,13 +87,23 @@ function initialize(lat,lng) {
 
 
 google.maps.event.addDomListener(window, 'load', function() {
-    if (navigator.geolocation) {
+    
+    
+    if (navigator.geolocation && typeof(LATLNG)=='undefined') {
         navigator.geolocation.getCurrentPosition(function (pos) {
             
-            initialize(pos.coords.latitude,pos.coords.longitude);
+            initialize(pos.coords.latitude,pos.coords.longitude,13,true);
             
         });
         
     }
+    
+    if (typeof(LATLNG)!='undefined') {
+        var pos=LATLNG.split(',');
+        initialize(parseFloat(pos[0]),parseFloat(pos[1]),parseInt(pos[2]),false);
+        
+    }
+    
+    
     
 });

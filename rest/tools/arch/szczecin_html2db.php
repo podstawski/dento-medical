@@ -19,6 +19,8 @@
                   'about'=>'xxxxxx'
     ];
     
+    echo '"'.implode('","',array_keys($match_array)).'"'."\n";
+    
     $url='http://szczecin.kuria.pl/wspolnoty/koscioly/';
     $html=url_get($url);
     $a=[];
@@ -40,6 +42,9 @@
         if (!$rec['city']) continue;
         
         $name2findmap=trim($c[1]).' '.trim($c[2]);
+        
+        if (strstr($name2findmap,'filia')) $rec['name']=$name2findmap;
+        else $rec['name']=trim($c[2]);
         
         $d=[];
         //preg_match('~point=new google.maps.LatLng\(([0-9\.,]+)\);markersmap.push\(createMarker\(mapmap,point,"'.$name2findmap.'~',$html,$d);
@@ -103,21 +108,56 @@
             //echo "$url\n";
         }
         
+        $rec['url']=$url;
 
         
         $b=[];
         preg_match('~href="(http://szczecin.kuria.pl/wspolnoty/wspolnoty-parafialne/[^"]+)"~',$html,$b);
         $adres=url_get($b[1]);
+        
+        
+        $r=[];
+        if(preg_match('~href="http://szczecin.kuria.pl/wspolnoty/duszpasterze[^>]+[^<]*<span class="x1" >[^<]+<br></span>([^<]+)</a>~',$adres,$r))
+        {
+            $rec['rector']=$r[1];
+        }
         $pos=strpos($adres,'<div class="dane_parafii"');
         $adres=substr($adres,$pos);
         $adres=substr($adres,0,strpos($adres,'</div>'));
         
-        //echo $adres;
-        //break;
         
-        //echo "$url\n";
+        $rec['email']=find_on_tag($adres,'mailto:');
+        $rec['www']=find_on_tag($adres,'href="http://');
+        
+        $adres=substr($adres,0,strpos($adres,'Gmina:'));
+        $a=explode('<br',$adres);
+        
+        foreach ($a AS $i=>&$aa)
+        {
+            if (substr($aa,0,1)=='/') $aa=substr($aa,1);
+            if (substr($aa,0,1)=='>') $aa=substr($aa,1);
+            $aa=preg_replace('/<[^>]*>/','',$aa);
+            $aa=trim($aa);
+            if (!$aa) continue;
+            
+            $phone=preg_replace('/[^0-9]/','',$aa);
+            if (strlen($phone)>8){
+                if (strlen($rec['phone'])) $rec['phone'].=', ';
+                $aa=trim(preg_replace('/tel[.]*/i','',$aa));
+                $rec['phone'].=$aa;
+            } else {
+                if (strlen($rec['address'])) $rec['address'].=', ';
+                $rec['address'].=$aa;
+            }
+            
+        }
+        //print_r($a); break;
+        
+        
+        echo '"'.implode('","',$rec).'"'."\n";
+        //print_r($rec);break;
     }
-    //"
+
     
     
     die();

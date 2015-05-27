@@ -34,7 +34,7 @@
 
     }
     
-    $title='KiedyMsza - o mapa';
+    $title='KiedyMsza - mapa';
     $description='';
     $image='';
     $keywords='msza,msze,kiedy msza,gdzie msza';
@@ -47,7 +47,10 @@
 <head>    
     <?php include __DIR__.'/../html/head.phtml';?>
 
-
+    <?php
+    
+	if (isset($_GET['m'])) echo '<script>var LATLNG="'.$_GET['m'].'";</script>';    
+    ?>
     <script src="<?php echo $basedir;?>/js/map.js"></script>
   
 </head>
