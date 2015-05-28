@@ -4,7 +4,7 @@
     {
         $cache=__DIR__.'/.cache/'.md5('PO:'.$url).'.html';
 
-        if (file_exists($cache)) return file_get_contents($cache);
+        if (file_exists($cache) && filesize($cache)>1) return file_get_contents($cache);
         $html=file_get_contents($url);
         //$html=iconv('ISO-8859-2','UTF-8',$html);
         file_put_contents($cache,$html);

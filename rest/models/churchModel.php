@@ -88,10 +88,12 @@ class churchModel extends Model {
 		if (!$id) $churches=$this->getAll()?:[];
 		else $churches=$this->select(['id'=>$id]);
 		
+		$image=new imageModel();
 		
 		foreach($churches AS $i=>$church)
 		{
 			$church['masses']=$mass->select(['church'=>$church['id']])?:[];
+			$church['images']=$image->select(['church'=>$church['id']])?:null;
 			
 			unset($church['id']);
 

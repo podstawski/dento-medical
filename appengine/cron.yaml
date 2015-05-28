@@ -12,5 +12,5 @@ cron:
   schedule: every 15 minutes
 
 - description: Maintainance
-  url: /admin/upload/
+  url: /admin/upload/?masses=1
   schedule: every 2 hours

@@ -24,7 +24,7 @@
     
     $church->deduplicate();
     
-    include __DIR__.'/masses.php';
+    if (isset($_GET['masses'])) include __DIR__.'/masses.php';
     
     $key=isset($_GET['key'])?$_GET['key']:'';
     if ($key) {
