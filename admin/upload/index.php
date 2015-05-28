@@ -60,7 +60,7 @@
             
             foreach($line AS $i=>$r) $rec[$header[$i]]=$r;
             
-            if (!$rec['phone']) continue;
+            //if (!$rec['phone']) continue;
 
             if (strlen($rec['address'])<8) continue;
             
