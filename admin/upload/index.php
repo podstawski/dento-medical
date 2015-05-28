@@ -152,7 +152,7 @@
             $masses=array_merge($masses,analyze_mass([8],$rec['fest']));
             $church->save();
             
-            if (!isset($_GET['masses']) || !$_GET['masses']) continue;
+            //if (!isset($_GET['masses']) || !$_GET['masses']) continue;
         
             
         }
