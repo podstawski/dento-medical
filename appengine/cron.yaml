@@ -13,4 +13,4 @@ cron:
 
 - description: Maintainance
   url: /admin/upload/
-  schedule: every hour
+  schedule: every 2 hours
