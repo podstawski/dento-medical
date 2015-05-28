@@ -24,6 +24,8 @@
     
     $church->deduplicate();
     
+    include __DIR__.'/masses.php';
+    
     $key=isset($_GET['key'])?$_GET['key']:'';
     if ($key) {
         if (substr($key,0,8)=='https://')
@@ -152,27 +154,6 @@
             
             if (!isset($_GET['masses']) || !$_GET['masses']) continue;
         
-            $church->remove_masses();
-            $mass_cache=[];
-            foreach ($masses AS $m)
-            {
-                $rec=['church'=>$church->id,'time'=>$m['time']];
-                foreach ($m['params'] AS $param=>$v) $rec[$param]=$v;
-                foreach ($m['dows'] AS $dow)
-                {
-                    foreach($m['m'] AS $moy) {
-                        $rec['dow']=$dow;
-                        $rec['moy']=$moy;
-                        
-                        $mass_token=$m['time'].'-'.$dow.'-'.$moy;
-                        if (isset($mass_cache[$mass_token])) continue;
-                        $mass_cache[$mass_token]=true;
-                        
-                        $mass->load($rec,true);
-                        $mass->save();
-                    }
-                }
-            }
             
         }
         

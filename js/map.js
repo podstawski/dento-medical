@@ -1,3 +1,14 @@
+var iamhere;
+
+function followMe() {
+    if (navigator.geolocation ) {
+        navigator.geolocation.getCurrentPosition(function (pos) {
+            iamhere.setPosition( new google.maps.LatLng( pos.coords.latitude,pos.coords.longitude ) );
+            setTimeout(followMe,15000);
+        });
+        
+    }  
+}
 
 
 function initialize(lat,lng,zoom,here) {
@@ -8,15 +19,17 @@ function initialize(lat,lng,zoom,here) {
     }
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     
-    if (here) {
-        var iamhere = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            icon: '../img/iamhere.png',
-            title: 'Tu jestem'
-        });
-    }
     
+    var myPosition=here?myLatlng:new google.maps.LatLng(0,0);
+
+    iamhere = new google.maps.Marker({
+        position: myPosition,
+        map: map,
+        icon: '../img/iamhere.png',
+        title: 'Tu jestem'
+    });
+
+    setTimeout(followMe,15000);
     
     var markerarray=[];
         

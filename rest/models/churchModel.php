@@ -142,4 +142,10 @@ class churchModel extends Model {
 	return $this->conn->fetchOne($sql);
     }
 
+    
+    public function get_unmassed()
+    {
+	$sql="SELECT * FROM churches WHERE (SELECT count(*) FROM masses WHERE churches.id=masses.church)=0 AND sun<>''";
+	return $this->conn->fetchAll($sql);
+    }
 }

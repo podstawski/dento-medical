@@ -53,7 +53,7 @@
 	</p>
 	
 	<div>
-	    Piotr Podstawski
+	    <a href="https://www.facebook.com/podstawski.piotr" target="_blank">Piotr Podstawski</a>
 	</div>
       </div>
     </div>  

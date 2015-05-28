@@ -200,3 +200,34 @@ function analyze_mass($dows,$txt)
     
     return $result;
 }
+
+function add_masses($church,$masses,$id=null)
+{
+    if ($id) $church->get($id);
+    $church->remove_masses();
+    $mass_cache=[];
+    $mass=new massModel();
+
+    foreach ($masses AS $m)
+    {
+        $rec=['church'=>$church->id,'time'=>$m['time']];
+        foreach ($m['params'] AS $param=>$v) $rec[$param]=$v;
+        
+        foreach ($m['dows'] AS $dow)
+        {
+            foreach($m['m'] AS $moy) {
+                $rec['dow']=$dow;
+                $rec['moy']=$moy;
+                
+                
+                $mass_token=$m['time'].'-'.$dow.'-'.$moy;
+                if (isset($mass_cache[$mass_token])) continue;
+                $mass_cache[$mass_token]=true;
+                
+                $mass->load($rec,true);
+                $mass->save();
+            }
+        }
+    }
+    
+}
