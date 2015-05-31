@@ -101,6 +101,7 @@ function time2int($time)
 
 function change_params(&$dows,&$months,&$params,$txt)
 {
+    $d2=[];
     $txt=strtolower($txt);
     if (strstr($txt,'nie wakacje') || strstr($txt,'wakacje nie') )
         $months=[1,2,3,4,5,6,9,10,11,12];
@@ -112,24 +113,25 @@ function change_params(&$dows,&$months,&$params,$txt)
     if (strstr($txt,'dziec'))
         $params['kids']=1;
     if (strstr($txt,'sob'))
-        $dows=[6];
+        $d2[]=6;
     if (strstr($txt,'zim'))
         $months=[1,2,3,11,12];
     if (strstr($txt,'lat') || strstr($txt,'letn'))
         $months=[4,5,6,7,8,9,10];
-    if (strstr($txt,'Pn.'))
-        $dows=[1];
-    if (strstr($txt,'Wt.'))
-        $dows=[2];
-    if (strstr($txt,'Śr.'))
-        $dows=[3];
-    if (strstr($txt,'Cz.'))
-        $dows=[4];
-    if (strstr($txt,'Pt.'))
-        $dows=[5];
-    if (strstr($txt,'So.'))
-        $dows=[6];
+    if (strstr($txt,'pn.'))
+        $d2[]=1;
+    if (strstr($txt,'wt.'))
+        $d2[]=2;
+    if (strstr($txt,'Śr.') || strstr($txt,'śr.'))
+        $d2[]=3;
+    if (strstr($txt,'cz.') || strstr($txt,'czw.'))
+        $d2[]=4;
+    if (strstr($txt,'pt.'))
+        $d2[]=5;
+    if (strstr($txt,'so.'))
+        $d2[]=6;
 
+    if (count($d2)) $dows=$d2;
 }
 
 function analyze_mass($dows,$txt)

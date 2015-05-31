@@ -43,7 +43,12 @@
                 $name=substr($name,1);
             }            
             
-            
+            $res='';
+            while (strlen($name) && $name[0]!='<' && $name[0]!='"') {
+                $res.=$name[0];
+                $name=substr($name,1);
+            }
+            /*
             $end=strpos($name,'<');
             $endtag=strpos($name,'>');
             if ($endtag && $endtag<$end)
@@ -54,6 +59,9 @@
             if ($end) $name=trim(substr($name,0,$end));
             $name=str_replace("\t",' ',$name);
             $name=str_replace('"','',$name);
+ 
+            */
+            return $res;
             break;
         }
         return $name;

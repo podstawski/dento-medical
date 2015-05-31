@@ -24,7 +24,7 @@
     
     $church->deduplicate();
     
-    if (isset($_GET['masses'])) include __DIR__.'/masses.php';
+    if (isset($_GET['masses']) && $_GET['masses']==2) include __DIR__.'/masses.php';
     
     $key=isset($_GET['key'])?$_GET['key']:'';
     if ($key) {
@@ -145,16 +145,15 @@
                 }
             }
             
+            $church->save();
             
             $masses=[];
             $masses=array_merge($masses,analyze_mass([0],$rec['sun']));
             $masses=array_merge($masses,analyze_mass([1,2,3,4,5,6],$rec['week']));
             $masses=array_merge($masses,analyze_mass([8],$rec['fest']));
-            $church->save();
             
-            //if (!isset($_GET['masses']) || !$_GET['masses']) continue;
-        
             
+            if (isset($_GET['masses']) && $_GET['masses']==1) add_masses($church,$masses);
         }
         
         
