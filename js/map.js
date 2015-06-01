@@ -1,4 +1,5 @@
 var iamhere;
+var heatmap,heatmapVisible=false;
 
 function followMe() {
     if (navigator.geolocation ) {
@@ -28,7 +29,18 @@ function initialize(lat,lng,zoom,here) {
         icon: '../img/iamhere.png',
         title: 'Tu jestem'
     });
+    
+    
+    $.get('heatmap',function(data) {
+        var latlngData=[];
+        for(i=0;i<data.length;i++) latlngData[latlngData.length] = new google.maps.LatLng(data[i].lat, data[i].lng);
+        var pointArray = new google.maps.MVCArray(latlngData);
+        heatmap = new google.maps.visualization.HeatmapLayer({
+            data: pointArray
+        });
+    });
 
+    
     setTimeout(followMe,15000);
     
     var markerarray=[];
@@ -59,12 +71,14 @@ function initialize(lat,lng,zoom,here) {
             }
             markerarray=[];
 
-            if (churches.length==0 && map.getZoom()<12) {
-                $('#footer').fadeIn(500);
+            if (churches.length==0 && !heatmapVisible) {
+                heatmap.setMap(map);
+                heatmapVisible=true;
             }
   
-            if (churches.length>0 || map.getZoom()>=12) {
-                $('#footer').fadeOut(500);
+            if (churches.length>0 && heatmapVisible) {
+                heatmap.setMap(null);
+                heatmapVisible=false;
             }  
   
             for(var i=0;i<churches.length; i++)

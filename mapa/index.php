@@ -1,11 +1,21 @@
 <?php
     
+    
     include __DIR__.'/../rest/library/backend/include/all.php';    
     autoload([__DIR__.'/../rest/classes',__DIR__.'/../rest/models',__DIR__.'/../rest/controllers']);
 
     $config=json_config(__DIR__.'/../rest/configs/application.json');
     $bootstrap = new Bootstrap($config);
 
+    
+    if (strstr($_SERVER['REQUEST_URI'],'heatmap')) {
+	Header('Content-type: application/json');
+	$file='export/heatmap.json';
+        $real_path=Tools::saveRoot($file);
+	die(file_get_contents($real_path));
+    }
+    
+    
     
     if (isset($_GET['lat1']) && isset($_GET['lat2']) && isset($_GET['lng1']) && isset($_GET['lng2'])) {
 	if ($_GET['lat1']>$_GET['lat2']) {

@@ -66,3 +66,10 @@
         }
         return $name;
     }
+    
+    function fromtxt2txt($html,$a,$b)
+    {
+        if ($pos=strpos($html,$a)) $html=substr($html,$pos);
+        if ($pos=strpos($html,$b)) $html=substr($html,0,$pos);
+        return $html;
+    }
