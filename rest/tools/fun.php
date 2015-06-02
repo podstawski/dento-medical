@@ -26,7 +26,7 @@
                 $pos=strpos(strtolower($html),$tag);
                 
                 if (!$pos) continue;
-                $name=substr($html,$pos+strlen($tag));
+                $name=trim(substr($html,$pos+strlen($tag)));
             }
             else
             {
@@ -35,13 +35,17 @@
             
             if (!strlen($name)) continue;
             
+            
+            
             $t=false;
-            while ($t || $name[0]=='<' || $name[0]==' ')
+            while ($t || $name[0]=='<' || $name[0]==' ' || ord($name[0])==194 || ord($name[0])==160)
             {
                 if ($name[0]=='<') $t=true;
                 if ($name[0]=='>') $t=false;
                 $name=substr($name,1);
-            }            
+            }
+            
+            
             
             $res='';
             while (strlen($name) && $name[0]!='<' && $name[0]!='"') {
@@ -69,7 +73,7 @@
     
     function fromtxt2txt($html,$a,$b)
     {
-        if ($pos=strpos($html,$a)) $html=substr($html,$pos);
-        if ($pos=strpos($html,$b)) $html=substr($html,0,$pos);
+        if ($a && $pos=strpos($html,$a)) $html=substr($html,$pos);
+        if ($b && $pos=strpos($html,$b)) $html=substr($html,0,$pos);
         return $html;
     }

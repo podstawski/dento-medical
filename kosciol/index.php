@@ -17,14 +17,14 @@
     $church=new churchModel($id);
     
     $title=$church->name;
-    $description=$church->address;
+    $description='Msze '.$church->address;
     $image='';
     $keywords='msza,msze,kiedy msza,gdzie msza,'.$church->address;
     $basedir='..';
     
     $user=new userModel();
     $imageModel=new imageModel();
-    $images=$imageModel->select(['church'=>$church->id,'active'=>1],'id')?:[];
+    $images=$imageModel->select(['church'=>$church->id,'active'=>1],'rand()')?:[];
     $active=false;
     foreach($images AS &$img) {
         if (!$image) $image=$img['url'];

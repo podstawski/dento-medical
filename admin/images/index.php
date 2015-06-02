@@ -71,7 +71,10 @@
     <a class="no">NO</a>
     <a class="yes">YES</a>
 </div>
-<a class="fancybox" href="<?php echo $img['url'];?>">
+<a class="fancybox" href="<?php echo $img['url'];?>" title="<?php
+    $user->get($img['author_id']);
+    echo $user->firstname.' '.$user->lastname;
+?>">
     <img class="mod-img" src="<?php echo $img['thumb'];?>"/>
 </a>
 </span>
