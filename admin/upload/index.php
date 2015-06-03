@@ -78,6 +78,7 @@
             $postal2=preg_replace('/[^0-9]/','',$postal);
             
             $md5hash='PL'.$postal2.','.substr($phone,0,9);
+            if (!$phone) $md5hash=md5($rec['address']);
             
             if ($rec['latlng'])
             {
@@ -85,6 +86,7 @@
                 $md5hash=substr($latlng[0],0,15).','.substr($latlng[1],0,15);
             }
             
+             
             
             $ch=$church->find_one_by_md5hash($md5hash);
             

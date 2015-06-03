@@ -77,3 +77,12 @@
         if ($b && $pos=strpos($html,$b)) $html=substr($html,0,$pos);
         return $html;
     }
+    
+    function hours($html)
+    {
+        $html=preg_replace('~^([0-9]+)([ ,;$]+)~','\1:00\2',$html);
+        $html=preg_replace('~([ ,;]+)([0-9]+)$~','\1\2:00',$html);        
+    
+        for($i=0;$i<8;$i++) $html=preg_replace('~([ ,;]+)([0-9]+)([ ,;]+)~','\1\2:00\3',$html);
+        return $html;
+    }
