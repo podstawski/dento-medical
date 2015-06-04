@@ -68,8 +68,8 @@ class churchModel extends Model {
 		
 		$this->save();
 		
-		if(!$restore_masses && !$newchurch) return;
-		if (!count($masses)) return;
+		if(!$restore_masses && !$newchurch) return $this->data();
+		if (!count($masses)) return $this->data();
 		
 		$this->remove_masses();
 		$mass=new massModel();
@@ -80,6 +80,7 @@ class churchModel extends Model {
 			$mass->load($m,true);
 			$mass->save();
 		}
+		return $this->data();
 		
 	}
 	public function export($fh,$id=0)

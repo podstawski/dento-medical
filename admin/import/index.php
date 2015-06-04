@@ -17,10 +17,10 @@
         $handle = fopen($path.'/'.$_GET['f'], "r");
         if ($handle) {
             while (($line = fgets($handle)) !== false) {
-              $data=json_decode($line,true);
-              $lp++;
-              $church->import($data,$restore_masses);
-
+                $data=json_decode($line,true);
+                $lp++;
+                $d=$church->import($data,$restore_masses);
+                echo '<p>'.$lp.'. '.$d['name'].' ['.$d['address'].']</p>';
             }
 
             fclose($handle);

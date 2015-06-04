@@ -86,3 +86,21 @@
         for($i=0;$i<8;$i++) $html=preg_replace('~([ ,;]+)([0-9]+)([ ,;]+)~','\1\2:00\3',$html);
         return $html;
     }
+
+    
+    function addy($html)
+    {
+        $b=[];
+        if (preg_match('~var addy[0-9]+ = ([^\n]+)\n\s*addy[0-9]+ = addy[0-9]+ \+ ([^\n]+)\n~',$html,$b))
+        {
+            for($i=32;$i<128;$i++)
+            {
+                $b[1]=str_replace("&#$i;",chr($i),$b[1]);
+                $b[2]=str_replace("&#$i;",chr($i),$b[2]);
+            }
+            
+            $b[3]=$b[1].$b[2];
+            $b[3]=str_replace([';',' ','+',"'"],'',$b[3]);
+            return $b[3];
+        }        
+    }
