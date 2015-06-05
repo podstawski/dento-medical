@@ -111,7 +111,7 @@ class userController extends Controller {
             Bootstrap::$main->session('oauth2_state',$state);
 	    
 	    
-	    $url='https://www.facebook.com/dialog/oauth';
+	    $url='https://www.facebook.com/v2.3/dialog/oauth';
 	    $url.='?client_id='.$config['fb.app_id'];
 	    $url.='&redirect_uri='.urlencode($uri);
 	    $url.='&state='.$state;
