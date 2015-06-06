@@ -23,6 +23,8 @@ google.maps.event.addDomListener(window, 'load', function(){
             icon: '../img/gmap_icon.png'
         });
         
+        followMe(map);
+        
         google.maps.event.addListener(map, 'click', function (event) {
         
           $('#lat').val(event.latLng.lat());

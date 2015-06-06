@@ -1,15 +1,7 @@
-var iamhere;
+
 var heatmap,heatmapVisible=false;
 
-function followMe() {
-    if (navigator.geolocation ) {
-        navigator.geolocation.getCurrentPosition(function (pos) {
-            iamhere.setPosition( new google.maps.LatLng( pos.coords.latitude,pos.coords.longitude ) );
-            setTimeout(followMe,15000);
-        });
-        
-    }  
-}
+
 
 
 function initialize(lat,lng,zoom,here) {
@@ -21,14 +13,7 @@ function initialize(lat,lng,zoom,here) {
     var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     
     
-    var myPosition=here?myLatlng:new google.maps.LatLng(0,0);
 
-    iamhere = new google.maps.Marker({
-        position: myPosition,
-        map: map,
-        icon: '../img/iamhere.png',
-        title: 'Tu jestem'
-    });
     
     
     $.get('heatmap',function(data) {
@@ -41,7 +26,7 @@ function initialize(lat,lng,zoom,here) {
     });
 
     
-    setTimeout(followMe,15000);
+    followMe(map);
     
     var markerarray=[];
         
@@ -70,6 +55,7 @@ function initialize(lat,lng,zoom,here) {
               markerarray[i].setMap(null);
             }
             markerarray=[];
+            
 
             if (churches.length==0 && !heatmapVisible) {
                 heatmap.setMap(map);

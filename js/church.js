@@ -19,6 +19,24 @@ google.maps.event.addDomListener(window, 'load', function(){
             title: $(this).attr('title'),
             icon: '../img/gmap_icon.png'
         });
+        
+        followMe(map);
+        
+        
+        google.maps.event.addListener(map, 'click', function (event) {
+        
+          var url='https://www.google.pl/maps/place/'+myLatlng.lat()+','+myLatlng.lng();
+          window.open(url,'_blank');
+
+        });
+        
+        google.maps.event.addListener(marker, 'click', function (event) {
+        
+          var url='https://www.google.pl/maps/place/'+myLatlng.lat()+','+myLatlng.lng();
+          window.open(url,'_blank');
+
+        });         
+        
     });
 
 });

@@ -50,7 +50,23 @@
     $keywords='msza,msze,kiedy msza,gdzie msza';
     $basedir='..';
 
-    
+    $imagePath=Tools::saveRoot('maps');
+    $file='';
+    $date2compare=isset($_GET['kiedy'])?strtotime($_GET['kiedy']):Bootstrap::$main->now;
+    $imgDate=0;
+    foreach(scandir($imagePath) AS $f)
+    {
+	$d=strtotime(str_replace('.jpg','',$f));
+	
+	if ($d<=$date2compare) {
+	    $file="$imagePath/$f";
+	    $imgDate=$d;
+	}
+    }
+    if ($file && Bootstrap::$main->appengine) {
+	$image=CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('square_size'),'crop'=>true]);
+	$description='Mapa - stan na '.date('d-m-Y',$d);
+    }
 ?>
 <html>
     

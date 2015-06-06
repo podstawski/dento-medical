@@ -84,5 +84,24 @@ function navigator_request_blinker() {
     });
 }
 
-
-
+var iamhere;
+function followMe(map) {
+    if (navigator.geolocation ) {
+        navigator.geolocation.getCurrentPosition(function (pos) {
+    
+            if (typeof(map)=='object') {
+        
+                iamhere = new google.maps.Marker({
+                    position: new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude),
+                    map: map,
+                    icon: '../img/iamhere.png',
+                    title: 'Tu jestem'
+                });
+            } else {
+                iamhere.setPosition( new google.maps.LatLng( pos.coords.latitude,pos.coords.longitude ) );
+            }
+            setTimeout(followMe,15000);
+        });
+        
+    }  
+}
