@@ -5,7 +5,7 @@ cron:
 
 - description: Exporter All
   url: /admin/export/?all=1
-  schedule: every 7 days
+  schedule: every monday 06:00
 
 - description: Trust images
   url: /admin/images/?trust=15
