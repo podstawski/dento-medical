@@ -1,5 +1,5 @@
 <?php
-    
+    use google\appengine\api\cloud_storage\CloudStorageTools;
     
     include __DIR__.'/../rest/library/backend/include/all.php';    
     autoload([__DIR__.'/../rest/classes',__DIR__.'/../rest/models',__DIR__.'/../rest/controllers']);
@@ -65,7 +65,7 @@
     }
     if ($file && Bootstrap::$main->appengine) {
 	$image=CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('square_size'),'crop'=>true]);
-	$description='Mapa - stan na '.date('d-m-Y',$d);
+	$description='Mapa - stan na '.date('d-m-Y',$imgDate);
     }
 ?>
 <html>
