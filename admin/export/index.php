@@ -12,19 +12,14 @@
 	file_put_contents($real_path,json_encode($all,JSON_NUMERIC_CHECK));
 	unset($all);
 	
-	
-	
-	$file='export/'.date('Ymd-His').'.json';
-	$real_path=Tools::saveRoot($file);
-	
-	$file_handle=fopen($real_path,'w');
-	$church->export($file_handle);
-	fclose($file_handle);
-
-	
-
-	
-
+	if (isset($_GET['all'])) {
+		$file='export/'.date('Ymd-His').'.json';
+		$real_path=Tools::saveRoot($file);
+		
+		$file_handle=fopen($real_path,'w');
+		$church->export($file_handle);
+		fclose($file_handle);
+	}
 	
 	$size=filesize($real_path);
 ?>

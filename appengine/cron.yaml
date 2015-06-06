@@ -3,6 +3,10 @@ cron:
   url: /admin/export/
   schedule: every day 00:10
 
+- description: Exporter All
+  url: /admin/export/?all=1
+  schedule: every 7 days
+
 - description: Trust images
   url: /admin/images/?trust=15
   schedule: every 15 minutes
