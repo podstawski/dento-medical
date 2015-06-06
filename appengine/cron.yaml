@@ -14,3 +14,7 @@ cron:
 - description: Maintainance
   url: /admin/upload/?masses=2
   schedule: every 2 hours
+
+- description: Log rotator
+  url: /admin/logrotator/
+  schedule: every day 00:10
