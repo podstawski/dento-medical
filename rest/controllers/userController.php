@@ -91,12 +91,14 @@ class userController extends Controller {
                         {
 			    Bootstrap::$main->session('error', $auth['error']['message']);
                         }
+			Tools::log('fb-login-error',['get'=>$_GET,'token'=>$token,'auth'=>$auth]);
                         $this->redirect(Bootstrap::$main->session('auth_redirect'));
                     }
                     
                 }               
                 else
                 {
+		    Tools::log('fb-login-error',['get'=>$_GET,'token'=>$token]);
                     $this->redirect(Bootstrap::$main->session('auth_redirect'));
                 }
                 
@@ -104,6 +106,7 @@ class userController extends Controller {
                 $this->redirect(Bootstrap::$main->session('auth_redirect'));
             }
         } elseif (isset($_GET['state'])) {
+	    Tools::log('fb-login-error',['get'=>$_GET]);
             $this->redirect($uri);	    
 	} else {
 	    
