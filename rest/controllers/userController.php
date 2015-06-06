@@ -78,7 +78,10 @@ class userController extends Controller {
 			$model->save();
 			
 			$data=$model->data();
-			unset($data['password']);
+			
+			Tools::log('fb-login',['get'=>$_GET,'token'=>$token,'auth'=>$auth, 'user'=>$data]);
+			
+			if(isset($data['password'])) unset($data['password']);
 			Bootstrap::$main->session('user',$data);
                         Bootstrap::$main->session('auth', $auth);
 			
