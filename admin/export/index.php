@@ -22,6 +22,8 @@
 	}
 	
 	$size=filesize($real_path);
+	
+	if (!isset($_GET['all'])) return;
 ?>
 <script>
 	alert('File exported to <?php echo $real_path;?>, size=<?php echo $size;?>');

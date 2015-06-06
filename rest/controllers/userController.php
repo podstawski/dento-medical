@@ -48,10 +48,10 @@ class userController extends Controller {
                     $picture = @json_decode(file_get_contents('https://graph.facebook.com/v2.3/me/picture?redirect=false&type=normal&access_token='.$token['access_token']),true);
                  
 	    
-                    if (isset($auth['id']) && isset($auth['email']))
+                    if (isset($auth['id']))
                     {
 			$md5hash='fb.'.$auth['id'];
-			$email=$this->standarize_email($auth['email'],false);
+			$email=isset($auth['email'])?$this->standarize_email($auth['email'],false):$md5hash;
 			$user=$this->user()->find_one_by_md5hash($md5hash);
 			
 			if (!$user)
