@@ -44,6 +44,36 @@ class churchModel extends Model {
 		return $churches;
 		
 	}
+	
+	protected function find_one_latlng_tel($lat,$lng,$tel)
+	{
+		$distance=3;
+		
+		$sql="SELECT *,1.3*geo_distance(lat,lng,$lat,$lng) AS distance";
+		$sql.=" FROM churches";
+		$sql.=" WHERE churches.active=1"; 
+
+		$sql.=" AND lat BETWEEN ".($lat-$distance*0.9/100)." AND ".($lat+$distance*0.9/100);
+		$sql.=" AND lng BETWEEN ".($lng-$distance*1.48/100)." AND ".($lng+$distance*1.48/100);
+		$sql.=" AND geo_distance(lat,lng,$lat,$lng)<$distance";
+		
+		$sql.=" ORDER BY geo_distance(lat,lng,$lat,$lng)";
+		
+	
+		$churches=$this->conn->fetchAll($sql);
+		
+		if (!$churches || !count($churches)) return false;
+		if (count($churches)==1) return $churches[0];
+		
+		foreach ($churches AS $church)
+		{
+			if (substr($church['tel'],0,9)==substr($tel,0,9)) return $church;
+		}
+		
+		return false;
+	}
+	
+	
 	public function import($data,$restore_masses=true)
 	{
 		
@@ -52,23 +82,27 @@ class churchModel extends Model {
 		unset($data['masses']);
 		if (isset($data['id'])) unset($data['id']);
 
-		$data2=$this->find_one_by_md5hash($data['md5hash']);
+		//$data2=$this->find_one_by_md5hash($data['md5hash']);
+		$data2=$this->find_one_latlng_tel($data['lat'],$data['lng'],$data['tel']);
 		
-	
-		if (!$data2 || !isset($data2['md5hash']) || $data['md5hash']!=$data2['md5hash'])
+		
+		if (!$data2 || !isset($data2['md5hash']) )
 		{
 			$newchurch=true;
 			$this->load($data,true);
 		}
 		else
 		{
+			$this->load($data2);
 			$newchurch=false;
-			foreach ($data AS $k=>$v) $this->$k=$v;
+			foreach ($data AS $k=>$v) if (!$this->$k) $this->$k=$v;
 		}
 		
 		$this->save();
 		
-		if(!$restore_masses && !$newchurch) return $this->data();
+		$this->newchurch=$newchurch;
+		
+		if(!$restore_masses && $this->mass_count()) return $this->data();
 		if (!count($masses)) return $this->data();
 		
 		$this->remove_masses();
@@ -89,6 +123,7 @@ class churchModel extends Model {
 		if (!$id) $churches=$this->getAll()?:[];
 		else $churches=$this->select(['id'=>$id]);
 		
+		
 		$image=new imageModel();
 		
 		foreach($churches AS $i=>$church)
@@ -96,6 +131,7 @@ class churchModel extends Model {
 			$church['masses']=$mass->select(['church'=>$church['id']])?:[];
 			$church['images']=$image->select(['church'=>$church['id']])?:null;
 			
+			$id=$church['id'];
 			unset($church['id']);
 
 			foreach ($church['masses'] AS &$m)
@@ -106,6 +142,7 @@ class churchModel extends Model {
 			
 			fwrite($fh,json_encode($church,JSON_NUMERIC_CHECK)."\n");
 			unset($churches[$i]);
+			unset($church);
 			
 		}
 		
@@ -150,5 +187,13 @@ class churchModel extends Model {
     {
 	$sql="SELECT * FROM churches WHERE (SELECT count(*) FROM masses WHERE churches.id=masses.church)=0 AND sun<>''";
 	return $this->conn->fetchAll($sql);
+    }
+    
+    public function mass_count($id=null)
+    {
+	if (!$id) $id=$this->id;
+	
+	$sql="SELECT count(*) FROM masses WHERE church=?";
+	return $this->conn->fetchOne($sql,[$id]);
     }
 }

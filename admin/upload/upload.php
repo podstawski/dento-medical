@@ -114,6 +114,18 @@ function change_params(&$dows,&$months,&$params,$txt)
         $params['kids']=1;
     if (strstr($txt,'sob'))
         $d2[]=6;
+    elseif (strstr($txt,'sobota'))
+        $d2[]=6;
+    if (strstr($txt,'poniedz'))
+        $d2[]=1;
+    if (strstr($txt,'wtore'))
+        $d2[]=2;
+    if (strstr($txt,'roda'))
+        $d2[]=3;
+    if (strstr($txt,'czwart'))
+        $d2[]=4;
+    if (strstr($txt,'tek'))
+        $d2[]=5;    
     if (strstr($txt,'zim'))
         $months=[1,2,3,11,12];
     if (strstr($txt,'lat') || strstr($txt,'letn'))
@@ -131,6 +143,13 @@ function change_params(&$dows,&$months,&$params,$txt)
     if (strstr($txt,'so.'))
         $d2[]=6;
 
+        
+    if (strstr($txt,'suma'))
+        $params['description']='Suma';
+
+    if (strstr($txt,'nabo'))
+        $params['description']='Nabożeństwo';
+        
     if (count($d2)) $dows=$d2;
 }
 
@@ -232,4 +251,18 @@ function add_masses($church,$masses,$id=null)
         }
     }
     
+}
+
+function deduplicate_masses($masses) {
+    $m=explode(';',$masses);
+    $dup=[];
+    
+    foreach ($m AS $i=>$mass)
+    {
+        $m[$i]=$mass=trim($mass);
+        if (isset($dup[$mass])) unset($m[$i]);
+        $dup[$mass]=1;
+        
+    }
+    return implode('; ',$m);
 }

@@ -16,6 +16,19 @@
     
     $church=new churchModel($id);
     
+    $right_url=Tools::str_to_url($church->name).','.$id;
+    
+    if (!strstr($_SERVER['REQUEST_URI'],$right_url))
+    {
+        if ( (isset($_SERVER['HTTP_REFERER']) && strstr(strtolower($_SERVER['HTTP_REFERER']),'google'))
+         || (isset($_SERVER['HTTP_USER_AGENT']) && strstr(strtolower($_SERVER['HTTP_USER_AGENT']),'google')) )
+        {
+            header("HTTP/1.1 301 Moved Permanently"); 
+            header("Location: ".$right_url); 
+        }
+        return;
+    }
+    
     $title=$church->name;
     $description='Msze '.$church->address;
     $image='';

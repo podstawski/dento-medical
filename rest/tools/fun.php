@@ -14,7 +14,12 @@
     function find_on_tag($html,$tags)
     {
         $name='';
-
+        $closing_tags=['<','"'];
+        if (is_array($tags) && count($tags)>1) {
+            $closing_tags[]=$tags[1];
+            $tags=$tags[0];
+        }
+        
         $tags=strtolower($tags);
         $html=preg_replace("/[\r\n\t ]+/",' ',$html);
         
@@ -48,7 +53,7 @@
             
             
             $res='';
-            while (strlen($name) && $name[0]!='<' && $name[0]!='"') {
+            while (strlen($name) && !in_array($name[0],$closing_tags) ) {
                 $res.=$name[0];
                 $name=substr($name,1);
             }
@@ -103,4 +108,23 @@
             $b[3]=str_replace([';',' ','+',"'"],'',$b[3]);
             return $b[3];
         }        
+    }
+    
+    
+    function msze($html,$kiedy)
+    {
+        $m=[];
+        preg_match_all('~<td>'.$kiedy.'</td>\s*<td>([^<]+)</td>\s*<td>(.+?)</td>~si',$html,$m);
+        
+        foreach ($m[1] AS $i=>$h)
+        {
+            $m[2][$i]=trim(str_replace(['wszystkich','<a href="#" class="hourInfoLink">( i )</a>','<span class="hourInfo">','</span>'],'',$m[2][$i]));
+            $m[2][$i]=preg_replace('~\s+~',' ',$m[2][$i]);
+            
+            if ($m[2][$i]) $m[1][$i].=' ('.$m[2][$i].')';
+        }
+        
+        return implode('; ',$m[1]);
+        
+                
     }

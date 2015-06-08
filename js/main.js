@@ -97,6 +97,12 @@ function followMe(map) {
                     icon: '../img/iamhere.png',
                     title: 'Tu jestem'
                 });
+                
+                google.maps.event.addListener(iamhere, 'click', function() {
+                    this.getMap().setZoom(15);
+                    this.getMap().setCenter(new google.maps.LatLng(this.getPosition().lat(),this.getPosition().lng()));
+                    
+                });
             } else {
                 iamhere.setPosition( new google.maps.LatLng( pos.coords.latitude,pos.coords.longitude ) );
             }

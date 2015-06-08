@@ -4,7 +4,7 @@
     include __DIR__.'/../base.php';
     include __DIR__.'/../head.php';
     
-    ini_set('max_execution_time',3000);
+    ini_set('max_execution_time',30000);
     
     $church=new churchModel();
     $path=Tools::saveRoot('export');
@@ -20,7 +20,8 @@
                 $data=json_decode($line,true);
                 $lp++;
                 $d=$church->import($data,$restore_masses);
-                echo '<p>'.$lp.'. '.$d['name'].' ['.$d['address'].']</p>';
+                
+                echo '<p>'.$lp.'. '.$d['name'].' ['.$d['address'].'] <font color="red"><b>'.($d['newchurch']?'NEW':'').'</b></font></p>';
             }
 
             fclose($handle);

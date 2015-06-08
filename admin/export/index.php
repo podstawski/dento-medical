@@ -13,6 +13,8 @@
 	unset($all);
 	
 	if (isset($_GET['all'])) {
+		ini_set('display_errors',1);
+		@ini_set('max_execution_time',300);
 		$file='export/'.date('Ymd-His').'.json';
 		$real_path=Tools::saveRoot($file);
 		

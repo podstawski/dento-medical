@@ -64,7 +64,7 @@
 	}
     }
     if ($file && Bootstrap::$main->appengine) {
-	$image=CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('square_size'),'crop'=>true]);
+	$image=CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('image_size')]);
 	$description='Mapa - stan na '.date('d-m-Y',$imgDate);
     }
 ?>

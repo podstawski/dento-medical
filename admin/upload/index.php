@@ -138,6 +138,12 @@
             }
             
             $church->tel=$phone;
+            
+            $rec['sun']=deduplicate_masses($rec['sun']);
+            $rec['week']=deduplicate_masses($rec['week']);
+            $rec['fest']=deduplicate_masses($rec['fest']);
+            
+            
             foreach ($rec AS $k=>$v) $church->$k=$v;
             if ($rec['latlng']){
                 $latlng=explode(',',$rec['latlng']);
