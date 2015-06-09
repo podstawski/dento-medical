@@ -74,7 +74,7 @@
   
 </div>
   
-  <div class="container">
+  <div class="container itemtype" itemscope itemtype="http://schema.org/Church">
     
     <div class="row">
       <div class="col-sm-6">
@@ -94,7 +94,7 @@
                                 echo ', fot. '.$img['author']['firstname'].' '.$img['author']['lastname'];
                                 if ($img['d_taken']) echo date(' d-m-Y',$img['d_taken']);
                             ?>">
-                    <img src="<?php echo str_replace('s960-c','s900-c',$img['square']);?>"/>
+                    <img itemprop="photo" src="<?php echo str_replace('s960-c','s900-c',$img['square']);?>"/>
                 </a>
                 <?php if(isset($img['author']['url'])): ?>
                 <div class="carousel-caption">
@@ -140,13 +140,12 @@
       <div class="col-sm-6">
         <h1>
             <?php if ($church->www) echo '<a target="_blank" href="http://'.$church->www.'">';?>
-            <?php echo $church->name;?>
+            <span itemprop="name"><?php echo $church->name;?></span>
             <?php if ($church->www) echo '</a>';?>
-
         </h1>
-        <h2><?php echo $church->address;?></h2>
+        <h2 itemprop="address"><?php echo $church->address;?></h2>
         <?php if ($church->phone): ?>
-            <h2>Tel.: <a href="tel:<?php echo $church->tel;?>"><?php echo $church->phone;?></a></h2>
+            <h2>Tel.: <a href="tel:<?php echo $church->tel;?>" itemprop="telephone"><?php echo $church->phone;?></a></h2>
         <?php endif; ?>
         <?php if ($church->rector): ?>
             <h3><b>Proboszcz:</b>
@@ -157,7 +156,7 @@
         <?php endif; ?>
         <h3><b>Msze św:</b></h3>
         <?php if ($church->sun): ?>
-            <h3><b>Niedziele i święta:</b> <?php echo $church->sun; ?></h3>
+            <h3 itemprop="openingHours"><b>Niedziele i święta:</b> <?php echo $church->sun; ?></h3>
         <?php endif; ?>        
         <?php if ($church->week): ?>
             <h3><b>Dni powszednie:</b> <?php echo $church->week; ?></h3>
@@ -166,7 +165,11 @@
             <h3><b>Święta zniesione:</b> <?php echo $church->fest; ?></h3>
         <?php endif; ?>
         
-        <div class="church-map" title="<?php echo $church->name; ?>" lat="<?php echo $church->lat;?>" lng="<?php echo $church->lng;?>"></div>
+        <div class="church-map" title="<?php echo $church->name; ?>" lat="<?php echo $church->lat;?>" lng="<?php echo $church->lng;?>" itemprop="geo">
+            
+            <span itemprop="latitude"><?php echo $church->lat;?></span>
+            <span itemprop="longitude"><?php echo $church->lng;?></span>
+        </div>
       
         <div class="church-update">
             <a href="../edit/<?php echo $church->id; ?>" class="a_update a_bottom">Aktualizuj dane</a>

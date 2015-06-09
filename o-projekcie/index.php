@@ -31,7 +31,7 @@
   
   <div class="container">
     
-    <div class="row">
+    <div class="row about">
       <div class="col-sm-12">
 	<h1>KiedyMsza.PL - o projekcie</h1>
 	<p>
@@ -45,10 +45,12 @@
 	
 	<h2>Wspólnie stwórzymy dokładne narzędzie</h2>
 	<p>
-	    Ponieważ dane zostały pozyskane z publicznych rejestrów
+	    Ponieważ lokalizacje oraz terminy mszy zostały pozyskane
+	    z publicznych rejestrów
 	    archidiecezji, nie zawsze dysponowałem dokładnymi danymi.
 	    Zatem gorąca prośba - poszukaj kościoła, do którego zwykle
-	    chodzisz, zrób zdjęcie, zweryfikuj dane i zaktualizuj.
+	    chodzisz, zrób zdjęcie, zweryfikuj dane, sprawdź na mapie
+	    i zaktualizuj.
 	    Z góry dziękuję!
 	</p>
 	

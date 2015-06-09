@@ -480,6 +480,25 @@ h6.prompter {
   color: #e0111d;
 }
 
+.carousel-control {
+  font-size: 4em;
+  padding-top: 2em;
+}
+
+.about h1,
+.about h2,
+.about h3 {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.about p {
+  text-indent: 1em;
+}
+
+.church-map {
+  color: #fff;
+}
 
 @media (max-width:480px) {
   .xtable {
