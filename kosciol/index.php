@@ -96,6 +96,7 @@
                             ?>">
                     <img src="<?php echo str_replace('s960-c','s900-c',$img['square']);?>"/>
                 </a>
+                <?php if(isset($img['author']['url'])): ?>
                 <div class="carousel-caption">
                     <h4>Przesłał(a):
                         <a href="<?php echo $img['author']['url'];?>" target="_blank">
@@ -104,6 +105,7 @@
                     </h4>
                     
                 </div>
+                <?php endif; ?>
             </div>
             <?php endforeach;?>
             

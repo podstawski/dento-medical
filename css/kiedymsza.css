@@ -467,9 +467,12 @@ h6.prompter {
 }
 
 #kiedymsza_results .distance0 .mass-desc,
-#kiedymsza_results .distance1 .mass-desc,
-#kiedymsza_results .distance2 .mass-desc {
+#kiedymsza_results .distance1 .mass-desc {
   color: #f0f020;  
+}
+
+#kiedymsza_results .distance2 .mass-desc {
+  color:#fff;
 }
 
 #kiedymsza_results .distance0 h4 a,
