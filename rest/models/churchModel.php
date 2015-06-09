@@ -100,10 +100,10 @@ class churchModel extends Model {
 		
 		$this->save();
 		
-		$this->newchurch=$newchurch;
+		$ret=['newchurch'=>$newchurch,'data'=>$this->data()];
 		
-		if(!$restore_masses && $this->mass_count()) return $this->data();
-		if (!count($masses)) return $this->data();
+		if(!$restore_masses && $this->mass_count()) return $ret;
+		if (!count($masses)) return $ret;
 		
 		$this->remove_masses();
 		$mass=new massModel();
@@ -114,7 +114,8 @@ class churchModel extends Model {
 			$mass->load($m,true);
 			$mass->save();
 		}
-		return $this->data();
+		
+		return $ret;
 		
 	}
 	public function export($fh,$id=0)

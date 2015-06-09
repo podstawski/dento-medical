@@ -18,10 +18,14 @@
         if ($handle) {
             while (($line = fgets($handle)) !== false) {
                 $data=json_decode($line,true);
-                $lp++;
-                $d=$church->import($data,$restore_masses);
                 
-                echo '<p>'.$lp.'. '.$d['name'].' ['.$d['address'].'] <font color="red"><b>'.($d['newchurch']?'NEW':'').'</b></font></p>';
+                //if (!strstr($data['address'],'Rybnik')) continue;
+                $lp++;
+                $c=$church->import($data,$restore_masses);
+                $d=$c['data'];
+            
+                echo '<p>'.$lp.'. '.$d['name'].' ['.$d['address'].'] <font color="red"><b>'.($c['newchurch']?'NEW':'').'</b></font> ... '.$d['id'].'</p>';
+                
             }
 
             fclose($handle);
