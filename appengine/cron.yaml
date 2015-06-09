@@ -9,11 +9,11 @@ cron:
 
 - description: Trust images
   url: /admin/images/?trust=15
-  schedule: every 15 minutes
+  schedule: every 45 minutes
   
 - description: Trust churches
   url: /admin/pending/?trust=10
-  schedule: every 15 minutes
+  schedule: every 45 minutes
 
 - description: Maintainance
   url: /admin/upload/?masses=2

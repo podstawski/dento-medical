@@ -60,12 +60,33 @@ class imageController extends Controller {
     
     public function post()
     {
+
+
 	if (isset($_FILES))
 	{
 
 	    foreach ($_FILES AS $name=>$file)
 	    {
-		$f=$this->upload_file($file['tmp_name'],$file['name']);
+		
+		$chunk=0;
+		if (isset($_SERVER['HTTP_CONTENT_RANGE'])) {
+		    $range=str_replace('bytes ', '', $_SERVER['HTTP_CONTENT_RANGE']);
+		    $range=explode('/',$range);
+		    $range[0]=explode('-',$range[0]);
+		    
+		    $token='chunk_size.'.$file['name'];
+		    $chunk_size=Bootstrap::$main->session($token);
+		    if (!$chunk_size) Bootstrap::$main->session($token,$range[0][1]-$range[0][0]+1);
+		    $chunk=1+floor($range[0][0]/$chunk_size);
+		    if ($range[1]-1 == $range[0][1]) {
+			$chunk*=-1;
+			Bootstrap::$main->session($token,0);    
+		    }
+		}		
+		
+		
+		
+		$f=$this->upload_file($file['tmp_name'],$file['name'],$chunk);
 		if (is_array($f)) return $this->status($f);
 	    }
 	}
@@ -78,7 +99,7 @@ class imageController extends Controller {
     
     
     
-    protected function upload_file($tmp,$name)
+    protected function upload_file($tmp,$name,$chunk=0)
     {
 	if (!isset(Bootstrap::$main->user['id'])) return false;
 	
@@ -88,31 +109,41 @@ class imageController extends Controller {
 	$ext=@strtolower(end(explode('.',$name)));
 	$user=Bootstrap::$main->user;
 	
-	
-	$name=$this->_prefix.'/'.$user['md5hash'].'/'.md5_file($tmp).'.'.$ext;
-	
-
 	$original_name=$name;
-
-		
 	
-	if ($this->_appengine) {
-	    $file='gs://'.CloudStorageTools::getDefaultGoogleStorageBucketName().'/'.$name;
-	    
-	} else {
-	    $file=Tools::saveRoot($name);
-	    
+	if ($chunk) $name=$this->_prefix.'/'.$user['md5hash'].'/'.md5($name).'.'.abs($chunk);
+	else $name=$this->_prefix.'/'.$user['md5hash'].'/'.md5_file($tmp).'.'.$ext;
 
-	}
+	$file=Tools::saveRoot($name);
 	
-	if (file_exists($file)) return;
+	if (file_exists($file) && $chunk>=0) return;
 	
 	
 	move_uploaded_file($tmp,$file);
-
 	
 	if (!file_exists($file) || !filesize($file)) $this->error(18);
 
+	if ($chunk>0) return;
+	
+	if ($chunk<0) {
+	    $chunk=abs($chunk);
+	    $blob='';
+	    $name=$this->_prefix.'/'.$user['md5hash'].'/'.md5($original_name);
+	    
+	    for ($i=1;$i<=$chunk;$i++) {
+		$file=Tools::saveRoot("$name.$i");
+		if (file_exists($file)) {
+		    $blob.=file_get_contents($file);
+		    unlink($file);
+		}
+	    }
+	    if (!strlen($blob)) return;
+	    $name=$this->_prefix.'/'.$user['md5hash'].'/'.md5($blob).'.'.$ext;
+	    $file=Tools::saveRoot($name);
+	    if (file_exists($file)) return;
+	    file_put_contents($file,$blob);
+	}
+	
 	$model=new imageModel();
 	$model->author_id=$user['id'];
 	$model->src=$name;

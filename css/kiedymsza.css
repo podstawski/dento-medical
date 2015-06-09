@@ -466,6 +466,18 @@ h6.prompter {
   background-color: #cbffa3;
 }
 
+#kiedymsza_results .distance0 .mass-desc,
+#kiedymsza_results .distance1 .mass-desc,
+#kiedymsza_results .distance2 .mass-desc {
+  color: #f0f020;  
+}
+
+#kiedymsza_results .distance0 h4 a,
+#kiedymsza_results .distance1 h4 a {
+  color: #e0111d;
+}
+
+
 @media (max-width:480px) {
   .xtable {
     transform: scale(0.70);

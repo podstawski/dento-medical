@@ -6,6 +6,8 @@ $(function(){
     // Initialize the jQuery File Upload plugin
     $('#upload').fileupload({
 
+        maxChunkSize: 524288,
+        sequentialUploads: true,
         // This element will accept file drag/drop uploading
         dropZone: $('#drop'),
 
