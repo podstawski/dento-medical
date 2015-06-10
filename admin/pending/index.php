@@ -149,10 +149,15 @@
         echo '<li class="row">';
         echo '<div class="col-md-9 col-sm-9">';
         
-        echo '<h3><a href="../../kosciol/xxx,'.$id.'" target="_blank">';
+        echo '<h3>';
+        echo '<a href="https://www.google.pl/maps/place/'.$church2['lat'].','.$church2['lng'].'" target="_blank">';
+        echo '<img src="../../img/gmap_icon.png" align="absMiddle"/></a>';
+        echo ' <a href="../../kosciol/'.Tools::str_to_url($church1['name']).','.$id.'" target="_blank">';
         echo $church1['name'];
         if ($church1['name']!=$church2['name']) echo ' &raquo; '.$church2['name'];
-        echo '</a></h3>';
+        echo '</a>';
+        
+        echo '</h3>';
         
         echo '<h4>';
         echo '<a target="_blank" href="'.$user->url.'">';
