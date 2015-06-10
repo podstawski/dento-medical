@@ -85,7 +85,7 @@
 <div class="map">
     <div class="head">
 	<?php
-	    $moremenu=['<a href="../edit/0" class="a_mapadd">Dodaj kościół</a>'];
+	    $moremenu=['<a style="display:none" href="../edit/0" class="a_mapadd">Dodaj kościół</a>'];
 	    include __DIR__.'/../html/topmenu.phtml';
 	?>
     </div>

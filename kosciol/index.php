@@ -30,7 +30,7 @@
     }
     
     $title=$church->name;
-    $description='Msze '.$church->address;
+    $description='Msze święte w okolicy '.$church->address;
     $image='';
     $keywords='msza,msze,kiedy msza,gdzie msza,'.$church->address;
     $basedir='..';
