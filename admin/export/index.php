@@ -14,7 +14,7 @@
 	
 	if (isset($_GET['all'])) {
 		ini_set('display_errors',1);
-		@ini_set('max_execution_time',300);
+		@ini_set('max_execution_time',3000);
 		$file='export/'.date('Ymd-His').'.json';
 		$real_path=Tools::saveRoot($file);
 		
@@ -25,7 +25,13 @@
 	
 	$size=filesize($real_path);
 	
-	if (!isset($_GET['all'])) return;
+	if (!isset($_GET['all'])) {
+		$title='Export';
+		$menu='export';
+		include __DIR__.'/../head.php';
+		include __DIR__.'/../foot.php';
+		return;
+	}
 ?>
 <script>
 	alert('File exported to <?php echo $real_path;?>, size=<?php echo $size;?>');

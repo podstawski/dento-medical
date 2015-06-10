@@ -1,6 +1,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title><?php echo $title?:'Admin panel';?></title>
   
     <!-- Latest compiled and minified CSS -->
@@ -33,7 +34,7 @@
 
     echo '<div class="menu"><ul>';
     
-    echo '<li><a href="'.dirname($_SERVER['SCRIPT_NAME']).'">'.$church->count().' churches</a></li>';
+    echo '<li><a href="'.dirname($_SERVER['SCRIPT_NAME']).'">'.$church->count().'<span class="hidden-xs"> churches</span></a></li>';
     
     if (!isset($menu)) $menu='';
     foreach (scandir(dirname(__FILE__)) AS $d)
@@ -45,6 +46,7 @@
 	    $txt=$d;
             
 	    $class=$d==$menu?'active':'';
+	    if (strstr($txt,'logro') || strstr($txt,'upload') || strstr($txt,'migrate') || strstr($txt,'import')) $class.=' hidden-xs';
             echo '<li class="'.$class.'"><a href="'.dirname($_SERVER['SCRIPT_NAME']).'/'.$d.'/">'.$txt.'</a></li>';
     }
     
