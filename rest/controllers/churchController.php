@@ -62,7 +62,7 @@ class churchController extends Controller {
             
             $time=$this->data('now')?:date('H:i');
             if ($this->data('date_submit')) $time='05:30';
-            
+            if ($this->data('time_submit')) $time=$this->data('time_submit');
             
             $data=[];
             $safeguard=0;
@@ -73,7 +73,7 @@ class churchController extends Controller {
                 $time=date('H:i',$when);
             }
             
-            $time=$this->time2int($time);
+            $time=$this->time2int($time)-1;
             
             while (!count($data))
             {

@@ -75,7 +75,7 @@ function table_manimupation()
   
   $('.table input.chkall').click(function(){
     var ch=$(this).prop('checked');
-    $(this).parent().parent().find('input[type="checkbox"]').prop('checked',ch);
+    $(this).parent().parent().find('input.month').prop('checked',ch);
   });
   
   $('.table input.desc').focus(function(){
@@ -113,7 +113,18 @@ $(function() {
 
 
   
-  $('button.save').click(function(){
+  $('button.save').click(function() {
+    var pass=true;
+    $('input[required="true"]').each(function(){
+      if (pass && $(this).val().trim().length==0) {
+        pass=false;
+        alert('Pole '+$(this).attr('title')+' nie może być puste');
+        this.focus();
+        
+      }
+    });
+  
+    if (!pass) return;
     var data=$('#churchForm').serialize();
     $.post(REST+'/church',data,function (resp) {
       alert(resp.church);

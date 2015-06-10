@@ -72,7 +72,6 @@
     
 <head>    
     <?php include __DIR__.'/../html/head.phtml';?>
-
     <?php
     
 	if (isset($_GET['m'])) echo '<script>var LATLNG="'.$_GET['m'].'";</script>';    
@@ -85,7 +84,10 @@
 
 <div class="map">
     <div class="head">
-	<?php include __DIR__.'/../html/topmenu.phtml';?>
+	<?php
+	    $moremenu=['<a href="../edit/0" class="a_mapadd">Dodaj kościół</a>'];
+	    include __DIR__.'/../html/topmenu.phtml';
+	?>
     </div>
   
     <div id="map-canvas">

@@ -112,7 +112,13 @@ ul li div h3 a {
 
 #kiedyMszaForm input {
   width:90%;
+}
 
+#kiedyMszaForm input.date {
+  width:65%;
+}
+#kiedyMszaForm input.time {
+  width:25%;
 }
 
 #kiedyMszaForm div.col-sm-6 {
@@ -163,10 +169,15 @@ ul li div h3 a {
   width: 100%;
   text-align: right;
   font-size: 2em;
-  padding-right: 0.4em;
+  padding-right: 0.8em;
   color:#c0c0c0;
+
 }
 
+#kiedymsza_results .row .church h4 {
+
+  position: relative;
+}
 
 #kiedymsza_results .row .distance {
   border: dotted black;
@@ -499,6 +510,25 @@ h6.prompter {
 .church-map {
   color: #fff;
 }
+
+
+.picker__frame {
+  max-width: 400px;
+}
+
+.picker__day {
+  padding: .0125em 0;
+}
+
+.picker__button--clear, .picker__button--close, .picker__button--today {
+  font-size: .6em;
+}
+
+.picker__list-item {
+  cursor: pointer;
+}
+
+
 
 @media (max-width:480px) {
   .xtable {

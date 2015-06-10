@@ -37,9 +37,10 @@
 	<p>
 	    Stworzyłem tę stronę z myślą o wygodzie tych, którzy czasami
 	    szukają mszy w innym kościele, bo są na wakacjach, lub w innym
-	    miejscu niż zazwyczaj.
-	    Strona sprawdza, skąd wchodzimy (najlepiej przeglądać ze smartphona) i szuka
-	    mszy w kościołach w okolicy 10km.
+	    miejscu niż zazwyczaj. Z zawodu jestem informatykiem,
+	    tworzę nowoczesne witryny www, zatem zadanie było dla mnie dość proste.
+	    Strona sprawdza, skąd się wchodzi (najlepiej przeglądać ze smartphona)
+	    i szuka mszy w kościołach w okolicy 10km.
 	</p>
 
 	

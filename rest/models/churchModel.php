@@ -74,7 +74,7 @@ class churchModel extends Model {
 	}
 	
 	
-	public function import($data,$restore_masses=true)
+	public function import($data,$restore_masses=true,$md5=false,$force=false)
 	{
 		
 		if (!isset($data['md5hash'])) return false;
@@ -82,8 +82,8 @@ class churchModel extends Model {
 		unset($data['masses']);
 		if (isset($data['id'])) unset($data['id']);
 
-		//$data2=$this->find_one_by_md5hash($data['md5hash']);
-		$data2=$this->find_one_latlng_tel($data['lat'],$data['lng'],$data['tel']);
+		if ($md5) $data2=$this->find_one_by_md5hash($data['md5hash']);
+		else $data2=$this->find_one_latlng_tel($data['lat'],$data['lng'],$data['tel']);
 		
 		
 		if (!$data2 || !isset($data2['md5hash']) )
@@ -95,7 +95,7 @@ class churchModel extends Model {
 		{
 			$this->load($data2);
 			$newchurch=false;
-			foreach ($data AS $k=>$v) if (!$this->$k) $this->$k=$v;
+			foreach ($data AS $k=>$v) if (!$this->$k || $force) $this->$k=$v;
 		}
 		
 		$this->save();
@@ -164,7 +164,7 @@ class churchModel extends Model {
     public function map($lat1,$lat2,$lng1,$lng2,$limit=0,$offset=0,$max_distance)
     {
         $sql="SELECT *  FROM ".$this->_table;
-	$sql.=" WHERE geo_distance($lat1,$lng1,$lat2,$lng2)<$max_distance";
+	$sql.=" WHERE active=1 AND geo_distance($lat1,$lng1,$lat2,$lng2)<$max_distance";
         $sql.=" AND lat BETWEEN ".$lat1." AND ".$lat2;
         $sql.=" AND lng BETWEEN ".$lng1." AND ".$lng2;
 

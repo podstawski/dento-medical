@@ -40,8 +40,18 @@ function initialize(lat,lng,zoom,here) {
         var lh=location.href;
         var pyt=lh.indexOf('?');
         if (pyt>0) lh=lh.substr(0,pyt);
-        history.pushState('', 'Mapa', lh+'?m='+latlng);
+        lh+='?m='+latlng
+        history.pushState('', 'Mapa', lh);
+        
+        var add=lh.replace('/mapa/','/edit/0');
+        if(!user_logged_id) add=REST+'/user/facebook?redirect='+encodeURIComponent(add);
+        $('.a_mapadd').attr('href',add);
 
+        if (map.getZoom()>=13) {
+            $('.a_mapadd').fadeIn();
+        } else {
+            $('.a_mapadd').fadeOut();
+        }
         
         var url='index.php?lat1='+ne.lat()+'&lng1='+ne.lng()+'&lat2='+sw.lat()+'&lng2='+sw.lng();
         

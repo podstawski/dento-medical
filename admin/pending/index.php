@@ -99,6 +99,7 @@
         
         if (isset($_GET['trust']) && $_GET['trust']>0)
         {
+            
             if ((isset($church2['trust']) && $church2['trust']) || $user->trust>=$_GET['trust'])
             {
                 $arch='arch/'.$church1['md5hash'].':'.$id.'/'.date('Ymd-His').'.json';
@@ -113,8 +114,7 @@
                 $church2['tel']=substr(preg_replace('/[^0-9]/','',$church2['phone']),0,9);
                 $church2['active']=1;
                 
-                
-                $church->import($church2);
+                $church->import($church2,true,true,true);
 
                 unlink("$path/$f");
                 

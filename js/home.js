@@ -14,6 +14,18 @@ $(function(){
         selectYears: false,
     });
 
+    $('.time').pickatime({
+        onSet:function() {
+            proceed_prority=1;
+            grid_start('timepicker');
+        },        
+        format: 'HH:i',
+        formatSubmit: 'HH:i',
+        min: [6,0],
+        max: [21,0],
+        interval: 60
+    });
+    
     setTimeout(function() {
         if (proceed_prority==0) grid_start('timer');
     },400);

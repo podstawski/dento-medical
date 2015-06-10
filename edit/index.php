@@ -11,7 +11,28 @@
     $_url=explode('/',$url);
     $id=end($_url);
     
+    
+    if (isset(Bootstrap::$main->user['id']) && Bootstrap::$main->user['id'] && isset($_GET['m'])) {
+	$m=explode(',',$_GET['m']);
+	if ($id+0==0 && count($m)>1 && $m[0]+0>0 && $m[1]+0>0) {
+	    $church=new churchModel();
+	    $church->lat=$m[0];
+	    $church->lng=$m[1];
+	    $church->change_author=Bootstrap::$main->user['id'];
+	    $church->change_ip=Bootstrap::$main->ip;
+	    $church->change_time=Bootstrap::$main->now;
+	    $church->md5hash=substr($m[0],0,15).','.substr($m[1],0,15);
+	    $church->save();
+	    $uri=$_SERVER['REQUEST_URI'];
+	    if ($pos=strpos($uri,'/edit')) $uri=substr($uri,0,$pos);
+	    Header('Location: '.$uri.'/edit/'.$church->id);
+	
+	}
+    }
+    
     if ($id+0==0) return;
+    
+    
     
     $church=new churchModel($id);
     
@@ -94,7 +115,7 @@
 	
 	for ($m=1;$m<=12;$m++)
 	{
-	    $tr.='<td title="'.$mon[$m].'" class="month-'.$m.'"><input value="1" type="checkbox"';
+	    $tr.='<td title="'.$mon[$m].'" class="month-'.$m.'"><input class="month" value="1" type="checkbox"';
 	    $tr.=' name="masses['.$dow.'][_new_][moy]['.$m.']"/></td>';
 	    
 	}
@@ -158,15 +179,15 @@
 	
 	  <div class="form-group">
 	    <label for="name">Pod wezwaniem:</label>
-	    <input type="text" class="form-control" name="name" id="name" value="<?php echo $church->name;?>">
+	    <input required="true" type="text" class="form-control" name="name" id="name" value="<?php echo $church->name;?>" title="Pod wezwaniem">
 	  </div>
 	  <div class="form-group">
 	    <label for="address">Adres:</label>
-	    <input type="text" class="form-control" name="address" id="address" value="<?php echo $church->address;?>">
+	    <input required="true" title="Adres" type="text" class="form-control" name="address" id="address" value="<?php echo $church->address;?>">
 	  </div>
 	  <div class="form-group">
 	    <label for="phone">Telefon:</label>
-	    <input type="text" class="form-control" name="phone" id="phone" value="<?php echo $church->phone;?>">
+	    <input required="true" title="Telefon" type="text" class="form-control" name="phone" id="phone" value="<?php echo $church->phone;?>">
 	  </div>	  
 	  <div class="form-group">
 	    <label for="email">E-mail:</label>
@@ -182,7 +203,7 @@
 	  </div>	  
 	  <div class="form-group">
 	    <label for="sun">Msze w niedziele i święta (tekst):</label>
-	    <input type="text" class="form-control" name="sun" id="sun" value="<?php echo $church->sun;?>">
+	    <input required="true" title="Msze niedzielne" type="text" class="form-control" name="sun" id="sun" value="<?php echo $church->sun;?>">
 	  </div>
 	  <div class="form-group">
 	    <label for="week">Msze w dnie powszednie (tekst):</label>

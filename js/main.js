@@ -6,18 +6,21 @@ function login_fb()
     $('#drop a').text('Zaloguj się, aby dodać zdjęcie');
     
     $('.a_update').each(function(){
-        url=url=REST+'/user/facebook?redirect='+encodeURIComponent(location.href+'/../'+$(this).attr('href'));
+        url=REST+'/user/facebook?redirect='+encodeURIComponent(location.href+'/../'+$(this).attr('href'));
         $(this).attr('href',url);
     });
+
     
 }
 
+var user_logged_id=false;
 
 $(function() {
     
     
     $.get(REST+'/user',function(data) {
         if (data.status) {
+            user_logged_id=true;
             $('.a_login').html('Wyloguj').click(function(){
                 $.get(REST+'/user/logout',function(data) {
                      $('.a_login').html('Login');

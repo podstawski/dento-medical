@@ -29,16 +29,16 @@
   <?php include __DIR__.'/html/topmenu.phtml';?>
   
   <form id="kiedyMszaForm">
+  <input name="geo" id="geo" type="hidden"/>
   <div class="container-fluid">
     
     <div class="row">
       <div class="col-sm-6">
         
-          <input name="geo" id="geo" type="hidden"/>
           <input type="text" class="date" placeholder="kiedy msza ..." name="date"/>
-        
+          <input type="text" class="time" placeholder="godz" name="time"/>
       </div>
-      
+     
       <div class="col-sm-6">
         <input type="text" class="where" placeholder="gdzie jestem ..." id="where"/>
       

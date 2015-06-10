@@ -18,6 +18,8 @@
   $church=new churchModel();
   $churches=$church->getAll();
   
+  $time_change=strtotime('2015-06-10');
+  
   
   header('Content-type: application/xml; charset=utf-8');
   
@@ -32,7 +34,7 @@
 <?php foreach($churches AS $ch): ?>
   <url>
     <loc>http://www.kiedymsza.pl/kosciol/<?php echo Tools::str_to_url($ch['name'])?>,<?php echo $ch['id'];?></loc>
-    <lastmod><?php echo sitemap_date($ch['change_time'])?></lastmod>
+    <lastmod><?php echo sitemap_date($ch['change_time']>$time_change?$ch['change_time']:$time_change)?></lastmod>
     <priority>0.9</priority>
   </url>
 <?php endforeach; ?>
