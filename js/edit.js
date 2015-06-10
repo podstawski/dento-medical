@@ -127,7 +127,10 @@ $(function() {
     if (!pass) return;
     var data=$('#churchForm').serialize();
     $.post(REST+'/church',data,function (resp) {
-      alert(resp.church);
+      alert(resp.church.info);
+      if (resp.church.url.length) {
+        location.href='../kosciol/'+resp.church.url;
+      }
     });
   });
   

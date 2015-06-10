@@ -150,7 +150,7 @@ class churchController extends Controller {
 
     public function post()
     {
-        if (!isset(Bootstrap::$main->user['id'])) return $this->status('Należy być zalogowanym',false);
+        if (!isset(Bootstrap::$main->user['id'])) return $this->status(['info'=>'Należy być zalogowanym','url'=>''],false);
         
         $file='church-pending/'.date('Ymd-His-').Tools::str_to_url($this->data('name')).','.$this->id.'.json';
         $this->data['change_author']=Bootstrap::$main->user['id'];
@@ -158,6 +158,21 @@ class churchController extends Controller {
         $this->data['change_ip']=Bootstrap::$main->ip;
         $this->data['trust']=false;
         Tools::save($file,json_encode($this->data,JSON_NUMERIC_CHECK));
-        return $this->status('Po weryfikacji, dane zostaną opublikowane. Dziękuję!');
+        
+        $church=new churchModel($this->id);
+        
+        if ($church->change_author == Bootstrap::$main->user['id'] && !$church->active)
+        {
+            foreach($this->data AS $k=>$v) {
+                if (in_array($k,['id','change_author','change_time','change_ip','md5hash','active'])) continue;
+                if (is_array($v)) continue;
+                $church->$k=$v;
+            }
+            $church->save();
+        }
+        
+        $url=Tools::str_to_url($church->name).','.$church->id;
+        
+        return $this->status(['info'=>'Po weryfikacji, dane zostaną opublikowane. Dziękuję!','url'=>$url]);
     }
 }

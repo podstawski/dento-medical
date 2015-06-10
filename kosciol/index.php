@@ -154,7 +154,7 @@
                 <?php if ($church->email) echo '</a>';?>
             </h3>
         <?php endif; ?>
-        <h3><b>Msze św:</b></h3>
+        <h3 style="text-align:center"><b><u>Msze św:</u></b></h3>
         <?php if ($church->sun): ?>
             <h3 itemprop="openingHours"><b>Niedziele i święta:</b> <?php echo $church->sun; ?></h3>
         <?php endif; ?>        
