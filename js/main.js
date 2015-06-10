@@ -102,7 +102,7 @@ function followMe(map) {
                 });
                 
                 google.maps.event.addListener(iamhere, 'click', function() {
-                    this.getMap().setZoom(15);
+                    this.getMap().setZoom(14);
                     this.getMap().setCenter(new google.maps.LatLng(this.getPosition().lat(),this.getPosition().lng()));
                     
                 });
