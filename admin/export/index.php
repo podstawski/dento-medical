@@ -29,6 +29,7 @@
 		$title='Export';
 		$menu='export';
 		include __DIR__.'/../head.php';
+		echo '<a href="?all=1" class="hidden-xs">FULL EXPORT</a>';
 		include __DIR__.'/../foot.php';
 		return;
 	}
