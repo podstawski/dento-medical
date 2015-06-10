@@ -203,15 +203,15 @@
 	  </div>	  
 	  <div class="form-group">
 	    <label for="sun">Msze w niedziele i święta (tekst):</label>
-	    <input required="true" title="Msze niedzielne" type="text" class="form-control" name="sun" id="sun" value="<?php echo $church->sun;?>">
+	    <input required="true" title="Msze niedzielne" type="text" class="form-control" name="sun" id="sun" value="<?php echo $church->sun;?>" placeholder="format GG:MM, rozdzielone przecinkiem"/>
 	  </div>
 	  <div class="form-group">
 	    <label for="week">Msze w dnie powszednie (tekst):</label>
-	    <input type="text" class="form-control" name="week" id="week" value="<?php echo $church->week;?>">
+	    <input type="text" class="form-control" name="week" id="week" value="<?php echo $church->week;?>" placeholder="format GG:MM, rozdzielone przecinkiem"/>
 	  </div>
 	  <div class="form-group">
 	    <label for="fest">Msze w święta zniesione (tekst):</label>
-	    <input type="text" class="form-control" name="fest" id="fest" value="<?php echo $church->fest;?>">
+	    <input type="text" class="form-control" name="fest" id="fest" value="<?php echo $church->fest;?>" placeholder="format GG:MM, rozdzielone przecinkiem"/>
 	  </div>	  
 
 	  
