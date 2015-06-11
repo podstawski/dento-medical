@@ -7,7 +7,7 @@
     $bootstrap = new Bootstrap($config);
 
     
-    $title='KiedyMsza - o projekcie';
+    $title='KiedyMsza św - o projekcie';
     $description='';
     $image='';
     $keywords='msza,msze,kiedy msza,gdzie msza';
@@ -36,17 +36,17 @@
 	<h1>KiedyMsza.PL - o projekcie</h1>
 	<p>
 	    Stworzyłem tę stronę z myślą o wygodzie tych, którzy czasami
-	    szukają mszy w innym kościele, bo są na wakacjach, lub w innym
+	    szukają mszy św. w innym kościele, bo są na wakacjach, lub w innym
 	    miejscu niż zazwyczaj. Z zawodu jestem informatykiem,
 	    tworzę nowoczesne witryny www, zatem zadanie było dla mnie dość proste.
 	    Strona sprawdza, skąd się wchodzi (najlepiej przeglądać ze smartphona)
-	    i szuka mszy w kościołach w okolicy 10km.
+	    i szuka mszy św. w kościołach w okolicy 10km.
 	</p>
 
 	
 	<h2>Wspólnie stwórzymy dokładne narzędzie</h2>
 	<p>
-	    Ponieważ lokalizacje oraz terminy mszy zostały pozyskane
+	    Ponieważ lokalizacje oraz terminy mszy św. zostały pozyskane
 	    z publicznych rejestrów
 	    archidiecezji, nie zawsze dysponowałem dokładnymi danymi.
 	    Zatem gorąca prośba - poszukaj kościoła, do którego zwykle

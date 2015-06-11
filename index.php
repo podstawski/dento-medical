@@ -35,7 +35,7 @@
     <div class="row">
       <div class="col-sm-6">
         
-          <input type="text" class="date" placeholder="kiedy msza ..." name="date"/>
+          <input type="text" class="date" placeholder="kiedy msza św..." name="date"/>
           <input type="text" class="time" placeholder="godz" name="time"/>
       </div>
      

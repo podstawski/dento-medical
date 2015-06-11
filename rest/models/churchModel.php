@@ -63,7 +63,8 @@ class churchModel extends Model {
 		$churches=$this->conn->fetchAll($sql);
 		
 		if (!$churches || !count($churches)) return false;
-		if (count($churches)==1) return $churches[0];
+		
+		if (count($churches)==1 && $churches[0]['distance']<1.3) return $churches[0];
 		
 		foreach ($churches AS $church)
 		{
