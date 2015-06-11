@@ -24,7 +24,8 @@
 	    $church->md5hash=substr($m[0],0,15).','.substr($m[1],0,15);
 	    $church->save();
 	    $uri=$_SERVER['REQUEST_URI'];
-	    if ($pos=strpos($uri,'/edit')) $uri=substr($uri,0,$pos);
+	    $pos=strpos($uri,'/edit');	    
+	    if (strlen($pos)) $uri=substr($uri,0,$pos);
 	    Header('Location: '.$uri.'/edit/'.$church->id);
 	
 	}
