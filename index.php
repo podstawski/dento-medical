@@ -5,7 +5,7 @@
   
   $keywords='msza,msze,kiedy msza,gdzie msza,kościół';
   $basedir='.';
-  $image=$basedir.'/img/fb-baner.jpg';
+  $image=$basedir.'/img/fb-baner2.jpg';
 ?>
 <html>
     

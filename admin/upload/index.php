@@ -80,13 +80,15 @@
             $md5hash='PL'.$postal2.','.substr($phone,0,9);
             if (!$phone) $md5hash=md5($rec['address']);
             
-            if ($rec['latlng'])
+            $latlng_known=false;
+            if ($rec['latlng'] && preg_match('/^[0-9,. ]+$/',$rec['latlng']))
             {
                 $latlng=explode(',',$rec['latlng']);
                 $md5hash=substr($latlng[0],0,15).','.substr($latlng[1],0,15);
+                $latlng_known=true;
             }
             
-             
+
             
             $ch=$church->find_one_by_md5hash($md5hash);
             
@@ -108,26 +110,31 @@
             }
             
             
-            if ( !$rec['latlng'] && (!$church->lat || !$church->lng) )
+            if ( !$latlng_known && (!$church->lat || !$church->lng) )
             {
-                if (++$searches==10) break;
+                if (++$searches==50) break;
                 
                 echo "Searching google maps for ".$rec['name'].' / '.$rec['address'].'<br/>';
                 
                 $options=[];
-                $latlng=find_latlng($postal,$rec['address']);
+                $latlng=[];
+                $latlng['latlng']=false;
+                
+                if ($rec['latlng']) {
+                    $latlng=find_latlng($postal,$rec['latlng']);
+                    $rec['latlng']='';
+                }
+                
+                
                 if (!$latlng['latlng']) {
+                    
                     if (isset($latlng['addresses'])) $options=array_merge($options,$latlng['addresses']);
                 
-                    $latlng=find_latlng($postal,$rec['name'].', '.$rec['address']);
+                    $latlng=find_latlng($postal,$rec['address']);
+                    
                     if (!$latlng['latlng']) {
-                        if (isset($latlng['addresses'])) $options=array_merge($options,$latlng['addresses']);
-                        $latlng=find_latlng($postal,$rec['name'].', '.$postal);
-                        if (!$latlng['latlng']) {
-                            if (isset($latlng['addresses'])) $options=array_merge($options,$latlng['addresses']);
-                        }                
-                
-                    }                
+                        if (isset($latlng['addresses'])) $options=array_merge($options,$latlng['addresses']);  
+                    } 
                 }
                 
                 if ($latlng['latlng']) $rec['latlng']=$latlng['latlng'];

@@ -28,6 +28,14 @@ function przecinek2strumien($data)
     return $data;
 }
 
+function compare_postals($p1,$p2)
+{
+    $p1=str_replace('-','',$p1);
+    $p2=str_replace('-','',$p2);
+    
+    return abs($p1-$p2)<25;
+}
+
 function find_latlng($postal,$address)
 {
 
@@ -42,7 +50,6 @@ function find_latlng($postal,$address)
         $place=json_decode(file_get_contents($url),true);
         if (isset($place['status']) && $place['status']=='OK') Tools::memcache($token,$place);
     }
-    
     
     
     $result=['latlng'=>false];
@@ -61,7 +68,7 @@ function find_latlng($postal,$address)
         foreach( $res['address_components'] AS $compo)
         {
             $a[]=$compo['long_name'];
-            if ($compo['types'][0]=='postal_code' && $compo['long_name']==$postal) {
+            if ($compo['types'][0]=='postal_code' && compare_postals($compo['long_name'],$postal) ) {
                 $result['latlng']=$latlng;
             }
         }
