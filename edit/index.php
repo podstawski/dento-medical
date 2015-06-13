@@ -188,7 +188,7 @@
 	  </div>
 	  <div class="form-group">
 	    <label for="phone">Telefon:</label>
-	    <input required="true" title="Telefon" type="text" class="form-control" name="phone" id="phone" value="<?php echo $church->phone;?>">
+	    <input title="Telefon" type="text" class="form-control" name="phone" id="phone" value="<?php echo $church->phone;?>">
 	  </div>	  
 	  <div class="form-group">
 	    <label for="email">E-mail:</label>
