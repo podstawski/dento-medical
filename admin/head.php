@@ -35,7 +35,7 @@
     $images0=$image->count(['active'=>null]);
     $pending=0;
     $pendingpath=Tools::saveRoot('church-pending');
-    foreach (scandir($path) AS $f)
+    foreach (scandir($pendingpath) AS $f)
     {
         if ($f[0]=='.') continue;
 	$pending++;
