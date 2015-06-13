@@ -30,8 +30,17 @@
 <?php
 
     $church=new churchModel();
+    $image=new imageModel();
     
-
+    $images0=$image->count(['active'=>null]);
+    $pending=0;
+    $pendingpath=Tools::saveRoot('church-pending');
+    foreach (scandir($path) AS $f)
+    {
+        if ($f[0]=='.') continue;
+	$pending++;
+    }
+    
     echo '<div class="menu"><ul>';
     
     echo '<li><a href="'.dirname($_SERVER['SCRIPT_NAME']).'">'.$church->count().'<span class="hidden-xs"> churches</span></a></li>';
@@ -44,6 +53,8 @@
             if (!is_dir(__DIR__.'/'.$d)) continue;
 	
 	    $txt=$d;
+	    if ($d=='images') $txt.=" $images0";
+	    if ($d=='pending') $txt.=" $pending";
             
 	    $class=$d==$menu?'active':'';
 	    if (strstr($txt,'logro') || strstr($txt,'upload') || strstr($txt,'migrate') || strstr($txt,'import')) $class.=' hidden-xs';
