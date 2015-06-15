@@ -529,7 +529,14 @@ h6.prompter {
   cursor: pointer;
 }
 
+.container-fluid {
+  margin-left: 0;
+  margin-right: 0;
+}
 
+.navbar-default {
+  border-radius: 0;  
+}
 
 @media (max-width:480px) {
   .xtable {
