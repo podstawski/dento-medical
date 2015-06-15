@@ -99,6 +99,7 @@ ul li div h3 a {
 
 .navbar-default .navbar-nav>li>a:hover {
   color: #bbb;
+  text-decoration: underline;
 }
 
 .navbar-default .navbar-nav>li>a:active {
@@ -541,6 +542,7 @@ h6.prompter {
 .navbar-header {
   padding-left: 15px;
 }
+
 
 a.navbar-brand {
   font-weight: bold;
