@@ -92,12 +92,14 @@
             
             $ch=$church->find_one_by_md5hash($md5hash);
             
+            
             if (!isset($ch['id'])) {
                 $church->load(['name'=>$rec['name'],'md5hash'=>$md5hash,'country'=>'PL','active'=>1],true);
                 $church->save();
-            } 
-
+            }
             
+            
+            /*
             if (!$church->lat || !$church->lng)
             {
                 $ll=$church2->find_one_by_address($rec['address']);
@@ -108,22 +110,25 @@
                 }
                 
             }
+            */
             
             
-            if ( !$latlng_known && (!$church->lat || !$church->lng) )
+            if ( !$latlng_known && (!strlen($church->lat) || !strlen($church->lng)) )
             {
-                if (++$searches==50) break;
+                //if (++$searches==5) break;
                 
-                echo "Searching google maps for ".$rec['name'].' / '.$rec['address'].'<br/>';
+                echo "$iii. Searching google maps for ".$rec['name'].' / '.$rec['address'].'<br/>';
                 
                 $options=[];
                 $latlng=[];
                 $latlng['latlng']=false;
                 
+                /*
                 if ($rec['latlng']) {
                     $latlng=find_latlng($postal,$rec['latlng']);
                     $rec['latlng']='';
                 }
+                */
                 
                 
                 if (!$latlng['latlng']) {
@@ -139,9 +144,16 @@
                 
                 if ($latlng['latlng']) $rec['latlng']=$latlng['latlng'];
                 
-                if (!$latlng['latlng'] && count($options)) {
+                if (!$latlng['latlng'] && count($options) && $rec['email']) {
+                    $options['0,0']='Nie moge znalezc';
+                
                     die('<pre>'.print_r($rec,1).'</pre>'.form($key,$church->id,$options));
                 }
+                
+                if (!$latlng['latlng'] && (!$rec['email'] || !count($options)) ) {
+                    $rec['latlng']='0,0';
+                }
+                
             }
             
             $church->tel=$phone;
@@ -152,14 +164,15 @@
             
             
             foreach ($rec AS $k=>$v) $church->$k=$v;
-            if ($rec['latlng']){
+            
+            if (strlen($rec['latlng']) && preg_match('/^[0-9,. ]+$/',$rec['latlng'])){
                 $latlng=explode(',',$rec['latlng']);
-                if ($latlng[0] && $latlng[1]) {
+                if (strlen($latlng[0]) && strlen($latlng[1])) {
                     $church->lat=$latlng[0];
                     $church->lng=$latlng[1];
                 }
             }
-            
+    
             $church->save();
             
             $masses=[];
@@ -175,8 +188,9 @@
     }
     
 ?>
-
-<form method="get">
+<a name="ff"></a>
+<form method="get" action="index.php#ff">
+    <input type="hidden" name="t" value="<?php echo time();?>"/>
     <input type="hidden" name="reread" value="0"/>
     <input type="checkbox" name="reread" value="1" <?php if (isset($_GET['reread']) && $_GET['reread']) echo 'checked';?>/>
     Re-Read

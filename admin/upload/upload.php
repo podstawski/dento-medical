@@ -28,20 +28,27 @@ function przecinek2strumien($data)
     return $data;
 }
 
-function compare_postals($p1,$p2)
+function compare_postals($p1,$p2,$c)
 {
-    $p1=str_replace('-','',$p1);
-    $p2=str_replace('-','',$p2);
+    $p1=trim(str_replace('-','',$p1));
+    $p2=trim(str_replace('-','',$p2));
     
-    return abs($p1-$p2)<25;
+
+    
+    if (abs($p1-$p2)<25) return true;
+    
+    if ($c==1 && strlen($p1)==2 && $p1==substr($p2,0,2)) return true;
+    return false;
 }
 
 function find_latlng($postal,$address)
 {
+    $keys=['AIzaSyBMpDPg7BibacB6R8CdznzHS1cZrfLgSv0','AIzaSyBkqSKFVBFadz9ri2N-Kl3b2ZiNff_SHls',Bootstrap::$main->getConfig('maps.server_key')];
 
     $url='https://maps.google.com/maps/api/geocode/json?address='.urlencode($address).'&sensor=false&region=pl';
-    $url.='&key='.Bootstrap::$main->getConfig('maps.server_key');
-
+    //$url.='&key='.Bootstrap::$main->getConfig('maps.server_key');
+    $url.='&key='.$keys[rand(0,count($keys)-1)];
+    
     $token='place:'.md5($url);
     $place=Tools::memcache($token);
     if (!$place)
@@ -51,6 +58,7 @@ function find_latlng($postal,$address)
         if (isset($place['status']) && $place['status']=='OK') Tools::memcache($token,$place);
     }
     
+   
     
     $result=['latlng'=>false];
     $result['addresses']=[];
@@ -68,10 +76,12 @@ function find_latlng($postal,$address)
         foreach( $res['address_components'] AS $compo)
         {
             $a[]=$compo['long_name'];
-            if ($compo['types'][0]=='postal_code' && compare_postals($compo['long_name'],$postal) ) {
+            if (($compo['types'][0]=='postal_code' || $compo['types'][0]=='postal_code_prefix') && compare_postals($compo['long_name'],$postal,count($place['results'])) ) {
                 $result['latlng']=$latlng;
             }
+            
         }
+        if (count($place['results'])==1 && strstr($address,'Warszawa')) $result['latlng']=$latlng;
         $result['addresses'][$latlng]=implode('/',$a);
     }
     

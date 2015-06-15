@@ -102,7 +102,7 @@
 	    
 	}
 
-	$tr.='<tr>';
+	$tr.='<tr class="new-mass-'.$dow.'">';
 	$tr.='<td class="time"><input type="text" name="masses['.$dow.'][_new_][time]" placeholder="godz."/></td>';
 	$tr.='<td class="desc">
 		<input type="text" placeholder="opis" class="desc" name="masses['.$dow.'][_new_][desc]" />
@@ -235,7 +235,7 @@
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
-	    <tbody>
+	    <tbody class="body-0">
 		<?php echo tr_masses(0,$masses);?>
 	    </tbody>
 	</table></div>
@@ -245,7 +245,7 @@
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
-	    <tbody>
+	    <tbody class="body-8">
 		<?php echo tr_masses(8,$masses);?>
 	    </tbody>
 	</table></div>
@@ -256,7 +256,7 @@
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
-	    <tbody>
+	    <tbody class="body-1">
 		<?php echo tr_masses(1,$masses);?>
 	    </tbody>
 	</table></div>
@@ -267,7 +267,7 @@
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
-	    <tbody>
+	    <tbody class="body-2">
 		<?php echo tr_masses(2,$masses);?>
 	    </tbody>
 	</table></div>
@@ -278,7 +278,7 @@
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
-	    <tbody>
+	    <tbody class="body-3">
 		<?php echo tr_masses(3,$masses);?>
 	    </tbody>
 	</table></div>
@@ -288,7 +288,7 @@
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
-	    <tbody>
+	    <tbody class="body-4">
 		<?php echo tr_masses(4,$masses);?>
 	    </tbody>
 	</table></div>
@@ -298,7 +298,7 @@
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
-	    <tbody>
+	    <tbody class="body-5">
 		<?php echo tr_masses(5,$masses);?>
 	    </tbody>
 	</table></div>
@@ -308,7 +308,7 @@
 	    <thead>
 		<?php echo th_masses();?>
 	    </thead>
-	    <tbody>
+	    <tbody class="body-6">
 		<?php echo tr_masses(6,$masses);?>
 	    </tbody>
 	</table></div>

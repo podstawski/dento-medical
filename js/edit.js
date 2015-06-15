@@ -58,11 +58,35 @@ function table_manimupation()
     }
   });
   
-  $('.table .time input').focusout(function(){
+  $('.table .time input').focusout(function(event){
+    if (typeof($(this).attr('out'))!='undefined') return;
+    
+    $(this).attr('out','1');
+    
     if ($(this).val().length==0) {
       var next=$(this).parent().parent().next();
       if (next.length>0) {
         next.remove();
+      }
+    } else {
+      $(this).parent().parent().find('input.month,input.chkall').prop('checked',true);
+      
+      if ($(this).attr('name').indexOf('masses[1]')>=0)
+      {
+        for (var day=2;day<=6;day++) {
+          var tr=$(this).parent().parent().clone();
+          tr.find('input').each(function(){
+            name=$(this).attr('name')+'';
+            if (typeof(name)!='undefined') {
+              name=name.replace('masses[1]','masses['+day+']').replace('_new_','_new_'+day);
+              $(this).attr('name',name);
+              //console.log(name);            
+            }
+          });
+          //$('.new-mass-'+day).insertBefore(tr);
+          tr.insertBefore('.new-mass-'+day);
+        }
+        table_manimupation();
       }
     }
   });
