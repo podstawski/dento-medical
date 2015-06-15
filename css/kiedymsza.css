@@ -539,6 +539,7 @@ h6.prompter {
 .container-fluid {
   padding-left: 0;
   padding-right: 0;
+  overflow-x: hidden;
 }
 
 .navbar-default {

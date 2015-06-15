@@ -81,16 +81,17 @@ function find_latlng($postal,$address)
             }
             
         }
-        if (count($place['results'])==1 && strstr($address,'Warszawa')) $result['latlng']=$latlng;
+        if (count($place['results'])==1 && (strstr($address,'Warszawa') || strstr($address,'Bydgoszcz')  ) ) $result['latlng']=$latlng;
         $result['addresses'][$latlng]=implode('/',$a);
     }
     
     return $result;
 }
 
-function form($key,$id,$options)
+function form($key,$id,$options,$rec=0)
 {
     $result='<form method="GET">';
+    $result.='<input type="hidden" name="startfrom" value="'.$rec.'"/>';
     $result.='<input type="hidden" name="id" value="'.$id.'"/>';
     $result.='<input type="hidden" name="key" value="'.$key.'"/>';
     $result.='<select name="latlng">';

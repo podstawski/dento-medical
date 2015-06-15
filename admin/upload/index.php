@@ -55,6 +55,8 @@
 
         for($iii=1;$iii<count($data);$iii++)
         {
+            if (isset($_GET['startfrom']) && $iii<$_GET['startfrom']) continue;
+            
             $line=explode("|",przecinek2strumien($data[$iii]));
             $rec=[];
             
@@ -147,7 +149,7 @@
                 if (!$latlng['latlng'] && count($options) && $rec['email']) {
                     $options['0,0']='Nie moge znalezc';
                 
-                    die('<pre>'.print_r($rec,1).'</pre>'.form($key,$church->id,$options));
+                    die('<pre>'.print_r($rec,1).'</pre>'.form($key,$church->id,$options,$iii));
                 }
                 
                 if (!$latlng['latlng'] && (!$rec['email'] || !count($options)) ) {
