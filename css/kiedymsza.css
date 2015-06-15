@@ -538,6 +538,14 @@ h6.prompter {
   border-radius: 0;  
 }
 
+.navbar-header {
+  padding-left: 15px;
+}
+
+a.navbar-brand {
+  font-weight: bold;
+}
+
 @media (max-width:480px) {
   .xtable {
     transform: scale(0.70);
