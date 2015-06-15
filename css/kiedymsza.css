@@ -119,7 +119,7 @@ ul li div h3 a {
   width:65%;
 }
 #kiedyMszaForm input.time {
-  width:25%;
+  width:23%;
 }
 
 #kiedyMszaForm div.col-sm-6 {
@@ -185,6 +185,7 @@ ul li div h3 a {
   border-width: 1px 0 0 0;
   font-size: 1.75em;
   text-align: right;
+  padding-top: 0.2em;
 }
 
 #kiedymsza_results .row .church .address {
