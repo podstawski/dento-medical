@@ -20,7 +20,8 @@ google.maps.event.addDomListener(window, 'load', function(){
             position: myLatlng,
             map: map,
             title: $(this).attr('title'),
-            icon: '../img/gmap_icon.png'
+            icon: '../img/gmap_icon.png',
+            draggable:true
         });
         
         followMe(map);
@@ -34,6 +35,16 @@ google.maps.event.addDomListener(window, 'load', function(){
           //map.panTo( new google.maps.LatLng( $('#lat').val(), $('#lng').val() ) );
 
         });
+
+        google.maps.event.addListener(marker, 'dragend', function (event) {
+        
+          $('#lat').val(event.latLng.lat());
+          $('#lng').val(event.latLng.lng());
+          
+          marker.setPosition( new google.maps.LatLng( $('#lat').val(), $('#lng').val() ) );
+
+        });        
+        
         
     });
 

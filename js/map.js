@@ -115,7 +115,7 @@ google.maps.event.addDomListener(window, 'load', function() {
     if (navigator.geolocation && typeof(LATLNG)=='undefined') {
         navigator.geolocation.getCurrentPosition(function (pos) {
             
-            initialize(pos.coords.latitude,pos.coords.longitude,13,true);
+            initialize(pos.coords.latitude,pos.coords.longitude,14,true);
             
         });
         
