@@ -5,7 +5,7 @@ var proceed_prority=0;
 
 
 $(function(){
-    $('.date').pickadate({
+    $('#kiedyMszaForm .date').pickadate({
         onSet:function() {
             proceed_prority=1;
             grid_start('datepicker');
@@ -14,7 +14,7 @@ $(function(){
         selectYears: false,
     });
 
-    $('.time').pickatime({
+    $('#kiedyMszaForm .time').pickatime({
         onSet:function() {
             proceed_prority=1;
             grid_start('timepicker');
