@@ -119,7 +119,7 @@ ul li div h3 a {
   width:65%;
 }
 #kiedyMszaForm input.time {
-  width:23%;
+  width:24%;
 }
 
 #kiedyMszaForm div.col-sm-6 {
@@ -195,6 +195,10 @@ ul li div h3 a {
 
 #kiedymsza_results .row {
   margin: 0;
+}
+
+#kiedymsza_results .row:hover {
+  background-color: #ddd;  
 }
 
 h1 {
