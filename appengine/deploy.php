@@ -26,7 +26,7 @@
         $files[]=$f;
         system($cmd);
         
-	if ($f=='admin' || $f=='rest' || $f=='kosciol' ||$f=='edit' ||$f=='html' ||$f=='o-projekcie' ||$f=='mapa') continue;
+	if ($f=='admin' || $f=='rest' || $f=='kosciol' ||$f=='edit' ||$f=='html' || $f=='o-projekcie' || $f=='mapa' || $f=='konkurs') continue;
 
 	
         if (is_dir("$dir/$f"))
