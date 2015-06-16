@@ -198,4 +198,13 @@ class churchModel extends Model {
 	$sql="SELECT count(*) FROM masses WHERE church=?";
 	return $this->conn->fetchOne($sql,[$id]);
     }
+    
+    public function samephone()
+    {
+	$sql="SELECT tel FROM churches WHERE tel IS NOT NULL GROUP BY tel HAVING count(*)>1 ";
+	//$sql.=" ORDER BY rand()";
+	//$sql.=" ORDER BY tel";
+	$sql.=" ORDER BY max(length(email)) DESC,tel";
+	return $this->conn->fetchColumn($sql);
+    }
 }
