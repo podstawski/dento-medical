@@ -203,8 +203,14 @@ class churchModel extends Model {
     {
 	$sql="SELECT tel FROM churches WHERE tel IS NOT NULL GROUP BY tel HAVING count(*)>1 ";
 	//$sql.=" ORDER BY rand()";
-	//$sql.=" ORDER BY tel";
-	$sql.=" ORDER BY max(length(email)) DESC,tel";
+	$sql.=" ORDER BY tel";
+	//$sql.=" ORDER BY max(length(email)) DESC,tel";
 	return $this->conn->fetchColumn($sql);
+    }
+    
+    public function getMails()
+    {
+	$sql="SELECT id,name,email FROM churches WHERE email LIKE '%@%'";
+	return $this->conn->fetchAll($sql);
     }
 }
