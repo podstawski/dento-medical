@@ -12,19 +12,29 @@
     $_url=explode(',',$url);
     $id=end($_url);
     
-    if ($id+0==0) return;
+    if ($id+0==0) {
+        header("HTTP/1.1 404 Not Found");
+        return;
+    }
     
     $church=new churchModel($id);
+    
+    if (!$church->id) {
+        header("HTTP/1.1 404 Not Found");
+        return;        
+    }
     
     $right_url=Tools::str_to_url($church->name).','.$id;
     
     if (!strstr($_SERVER['REQUEST_URI'],$right_url))
     {
         if ( (isset($_SERVER['HTTP_REFERER']) && strstr(strtolower($_SERVER['HTTP_REFERER']),'google'))
-         || (isset($_SERVER['HTTP_USER_AGENT']) && strstr(strtolower($_SERVER['HTTP_USER_AGENT']),'google')) )
-        {
+         || (isset($_SERVER['HTTP_USER_AGENT']) && strstr(strtolower($_SERVER['HTTP_USER_AGENT']),'google')) ) {
             header("HTTP/1.1 301 Moved Permanently"); 
             header("Location: ".$right_url); 
+        }
+        else {
+            header("HTTP/1.1 404 Not Found");
         }
         return;
     }
@@ -165,10 +175,9 @@
             <h3><b>Święta zniesione:</b> <?php echo $church->fest; ?></h3>
         <?php endif; ?>
         
-        <div class="church-map" title="<?php echo $church->name; ?>" lat="<?php echo $church->lat;?>" lng="<?php echo $church->lng;?>" itemprop="geo">
-            
-            <span itemprop="latitude"><?php echo $church->lat;?></span>
-            <span itemprop="longitude"><?php echo $church->lng;?></span>
+        <div class="church-map" title="<?php echo $church->name; ?>" lat="<?php echo $church->lat;?>" lng="<?php echo $church->lng;?>" itemprop="geo" itemscope itemtype="http://schema.org/GeoCoordinates">
+            <meta itemprop="latitude" content="<?php echo $church->lat;?>"/>
+            <meta itemprop="longitude" content="<?php echo $church->lng;?>"/>            
         </div>
       
         <div class="church-update">

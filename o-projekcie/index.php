@@ -55,6 +55,15 @@
 	    Z góry dziękuję!
 	</p>
 	
+	<h2>Konkurs fotograficzny: “Wakacyjne zdjęcie kościoła”</h2>
+	<p>
+	    Znaleźli się wspaniali ludzie (m.in. Władysław Nielipiński
+	    - fotograf i firma FLY.pl), którzy postanowili wesprzeć projekt.
+	    Ogłosiliśmy zatem <a href="../konkurs">konkurs fotograficzny</a>,
+	    dzięki któremu na stronie
+	    KiedyMsza.pl znajdzie się wiele atrakcyjnych zdjęć parafii.
+	</p>
+	
 	<div>
 	    <br/>
 	    <a href="https://www.facebook.com/podstawski.piotr" target="_blank">Piotr Podstawski</a>
