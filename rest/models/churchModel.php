@@ -213,4 +213,9 @@ class churchModel extends Model {
 	$sql="SELECT id,name,email FROM churches WHERE email LIKE '%@%'";
 	return $this->conn->fetchAll($sql);
     }
+    
+    public function no_http_prefix()
+    {
+	$sql="UPDATE churches SET www=replace(www,'http://','') WHERE www LIKE 'http://%'";
+    }
 }

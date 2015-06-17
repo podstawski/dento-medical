@@ -202,6 +202,7 @@
 ?>
     
 <?php
+    $church->no_http_prefix();
     
     include __DIR__.'/../foot.php';
     
