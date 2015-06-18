@@ -4,4 +4,10 @@ class userModel extends Model {
 	protected $_table='users';
 		
 
+	public function get_editors($gt=0)
+	{
+		$sql="SELECT * FROM users WHERE id>? AND id IN (SELECT change_author FROM churches WHERE change_author>0)";
+		
+		return $this->conn->fetchAll($sql,[$gt]);
+	}
 }

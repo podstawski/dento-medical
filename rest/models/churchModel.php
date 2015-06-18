@@ -217,5 +217,6 @@ class churchModel extends Model {
     public function no_http_prefix()
     {
 	$sql="UPDATE churches SET www=replace(www,'http://','') WHERE www LIKE 'http://%'";
+	$this->conn->execute($sql);
     }
 }
