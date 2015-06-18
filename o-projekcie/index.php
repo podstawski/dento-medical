@@ -13,6 +13,24 @@
     $keywords='msza,msze,kiedy msza,gdzie msza';
     $basedir='..';
 
+    $imageModel=new imageModel();
+      
+    
+    $testimonial=new testimonialModel();
+    $testimonials=$testimonial->join('church','churches')->select([],'churches.id DESC')?:[];
+    
+    
+    foreach ($testimonials AS &$t)
+    {
+	$img=$imageModel->select(['church'=>$t['church'],'active'=>1],'rand()',1)?:[];
+	if (!count($img)) {
+	    $img=[['thumb'=>$basedir.'/img/dodaj.jpg']];
+	}
+	$t['image']=$img[0];
+	$t['url']=$basedir.'/kosciol/'.Tools::str_to_url($t['name']).','.$t['church'];
+    }
+    
+    //mydie($testimonials);
     
 ?>
 <html>
@@ -64,14 +82,76 @@
 	    KiedyMsza.pl znajdzie się wiele atrakcyjnych zdjęć parafii.
 	</p>
 	
+	
+
+
+	
 	<div>
 	    <br/>
 	    <a href="https://www.facebook.com/podstawski.piotr" target="_blank">Piotr Podstawski</a>
+	    <br/><br/>
 	</div>
-	<iframe width="100%" height="500px" src="https://www.youtube.com/embed/f3KS07OyR8A" frameborder="0" allowfullscreen></iframe>
+	
+	
+	
+	
+	
+	
       </div>
-    </div>  
+    </div>
+ 
+    
+    <h2>Referencje</h2>
+    
+	    <div id="carousel-testimonials" class="carousel slide" data-ride="carousel">
+		<!-- Indicators -->
+		<ol class="carousel-indicators">
+		    <?php for($i=0;$i<count($testimonials);$i++):?>
+		    <li data-target="#carousel-testimonials" data-slide-to="<?php echo $i;?>" class="<?php if (!$i) echo 'active';?>"></li>
+		    <?php endfor;?>
+		</ol>
+		<!-- Wrapper for slides -->
+		<div class="carousel-inner">
+		    <?php for($i=0;$i<count($testimonials);$i++):?>
+		    <div class="item <?php if (!$i) echo 'active';?>">
+			<div class="row">
+			    <div class="col-xs-12">
+				<div class="thumbnail adjust1">
+				    <div class="col-md-2 col-sm-2 col-xs-12">
+					<img class="media-object img-rounded img-responsive" src="<?php echo $testimonials[$i]['image']['thumb']?>">
+				    </div>
+				    <div class="col-md-10 col-sm-10 col-xs-12">
+					<div class="caption">
+					    <p><span class="glyphicon glyphicon-thumbs-up"></span> 
+					    <?php echo $testimonials[$i]['testimonial'];?>
+					    </p>
+					    <blockquote class="adjust2"> <p><?php echo $testimonials[$i]['author'];?></p>
+						<small>
+						    <cite>
+							<a href="<?php echo $testimonials[$i]['url'];?>">
+							<?php echo $testimonials[$i]['name'];?>
+							</a>
+						    </cite>
+						</small>
+					    </blockquote>
+					</div>
+				    </div>
+				</div>
+			    </div>
+			</div>
+		    </div>
+		    <?php endfor;?>
+		</div>
+		<!-- Controls -->
+		<a class="left carousel-control" href="#carousel-testimonials" data-slide="prev">
+		    <span class="glyphicon glyphicon-chevron-left"></span>
+		</a>
+		<a class="right carousel-control" href="#carousel-testimonials" data-slide="next">
+		    <span class="glyphicon glyphicon-chevron-right"></span>
+		</a>
+	    </div>
   
+    <iframe width="100%" height="500px" src="https://www.youtube.com/embed/f3KS07OyR8A" frameborder="0" allowfullscreen></iframe>
   </div>
 
 
