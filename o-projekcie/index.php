@@ -47,9 +47,9 @@
   
 </div>
   
-  <div class="container">
+  <div class="container about">
     
-    <div class="row about">
+    <div class="row">
       <div class="col-sm-12">
 	<h1>KiedyMsza.PL - o projekcie</h1>
 	<p>
@@ -101,7 +101,7 @@
     </div>
  
     
-    <h2>Referencje</h2>
+    <h3>Referencje</h3>
     
 	    <div id="carousel-testimonials" class="carousel slide" data-ride="carousel">
 		<!-- Indicators -->
@@ -118,7 +118,9 @@
 			    <div class="col-xs-12">
 				<div class="thumbnail adjust1">
 				    <div class="col-md-2 col-sm-2 col-xs-12">
+					<a href="<?php echo $testimonials[$i]['url'];?>">
 					<img class="media-object img-rounded img-responsive" src="<?php echo $testimonials[$i]['image']['thumb']?>">
+					</a>
 				    </div>
 				    <div class="col-md-10 col-sm-10 col-xs-12">
 					<div class="caption">
@@ -151,6 +153,8 @@
 		</a>
 	    </div>
   
+  
+    <h3>Obejrzyj film: intencje powstania strony, instrukcja ...</h3>
     <iframe width="100%" height="500px" src="https://www.youtube.com/embed/f3KS07OyR8A" frameborder="0" allowfullscreen></iframe>
   </div>
 
