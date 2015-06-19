@@ -17,7 +17,7 @@
       
     
     $testimonial=new testimonialModel();
-    $testimonials=$testimonial->join('church','churches')->select([],'churches.id DESC')?:[];
+    $testimonials=$testimonial->join('church','churches')->select([],'rand()')?:[];
     
     
     foreach ($testimonials AS &$t)
