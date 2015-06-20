@@ -7,8 +7,8 @@ var proceed_prority=0;
 $(function(){
     $('#kiedyMszaForm .date').pickadate({
         onSet:function() {
-            proceed_prority=1;
-            grid_start('datepicker');
+            proceed_prority=2;
+            grid_start('datepicker',2);
         },
         format: 'dddd, dd mmm yyyy',
         selectYears: false,
@@ -16,8 +16,8 @@ $(function(){
 
     $('#kiedyMszaForm .time').pickatime({
         onSet:function() {
-            proceed_prority=1;
-            grid_start('timepicker');
+            proceed_prority=2;
+            grid_start('timepicker',2);
         },        
         format: 'HH:i',
         formatSubmit: 'HH:i',
@@ -27,7 +27,7 @@ $(function(){
     });
     
     setTimeout(function() {
-        if (proceed_prority==0) grid_start('timer');
+        if (proceed_prority==0) grid_start('timer',0);
     },400);
     
     if (navigator.geolocation) {
@@ -37,7 +37,7 @@ $(function(){
             
             if (proceed_prority<=1) { 
                 proceed_prority=1;
-                grid_start('navigator');
+                grid_start('navigator',1);
             }
             
             var geocoder = new google.maps.Geocoder();
@@ -63,7 +63,7 @@ $(function(){
         $('#geo').val(place.geometry.location.lat()+','+place.geometry.location.lng());
 
         proceed_prority=2;
-        grid_start('autocompleted');
+        grid_start('autocompleted',2);
     });
     
     

@@ -34,20 +34,28 @@ var kiedymsza_grid_ajax='';
 var kiedymsza_grid_lazyload=false;
 var kiedymsza_grid_when=0;
 var kiedymsza_grid_winheight=0;
+var kiedymsza_grid_pri=0;
 
 
 
-function kiedymsza_grid_load(txt)
+function kiedymsza_grid_load(pri)
 {
-    if (txt==null) {
-        txt=$('#'+kiedymsza_grid_form).serialize();
-    }
+    if (pri==null) pri=kiedymsza_grid_pri;
+    
+    txt=$('#'+kiedymsza_grid_form).serialize();
     kiedymsza_grid_log('loading offset '+kiedymsza_grid_offset+', when '+kiedymsza_grid_when+', limit '+kiedymsza_grid_limit);
     
     var d = new Date();
-    var url=kiedymsza_grid_ajax+'?now='+d.getHours()+':'+d.getMinutes()+'&limit='+kiedymsza_grid_limit+'&offset='+kiedymsza_grid_offset+'&when='+kiedymsza_grid_when+'&'+txt;
+    var url=kiedymsza_grid_ajax+'?now='+d.getHours()+':'+d.getMinutes()+'&limit='+kiedymsza_grid_limit+'&offset='+kiedymsza_grid_offset+'&when='+kiedymsza_grid_when+'&'+txt+'&pri='+pri;
     
     $.get(url,function (r) {
+        kiedymsza_grid_log(r);
+        if (kiedymsza_grid_pri>r.options.pri) {
+            kiedymsza_grid_log('data with smaller priority');
+            return;
+        }
+        kiedymsza_grid_pri=r.options.pri;
+        
         var html=$('#'+kiedymsza_grid_template).html();
         
         data=r.data;
@@ -73,12 +81,13 @@ function kiedymsza_grid_load(txt)
 }
 
 
-function kiedymsza_grid_reload()
+function kiedymsza_grid_reload(pri)
 {
+
     $('#'+kiedymsza_grid_results).html('');
     kiedymsza_grid_offset=0;
     kiedymsza_grid_when=0;
-    kiedymsza_grid_load();
+    kiedymsza_grid_load(pri);
 }
 
 function kiedymsza_grid_scroll()
@@ -98,7 +107,7 @@ function kiedymsza_grid_scroll()
     if (wS > h3){
         $('#kiedymsza_grid_scroll_to').remove();
         kiedymsza_grid_log('scroller reached');
-        kiedymsza_grid_load(null);
+        kiedymsza_grid_load();
     }
 }
 
@@ -124,19 +133,20 @@ function kiedymsza_grid(form,template,results,limit,ajax,lazyload,req)
     
     
 
-    kiedymsza_grid_load(req);
+    kiedymsza_grid_load();
 
 
 }
 
-function grid_start(why)
+function grid_start(why,pri)
 {
     if (kiedymsza_grid_ajax.length==0) {
         kiedymsza_grid_log(why+': grid init');
+        kiedymsza_grid_pri=pri;
         kiedymsza_grid('kiedyMszaForm','kiedymsza_results_template','kiedymsza_results',15,'rest/church/search',true);
     } else {
         kiedymsza_grid_log(why+': grid reload');
-        kiedymsza_grid_reload();
+        kiedymsza_grid_reload(pri);
     }
     
     

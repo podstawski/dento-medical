@@ -40,6 +40,7 @@ class churchController extends Controller {
     {
         $opt=$this->nav_array(Bootstrap::$main->getConfig('church.search.limit'));
     
+        $opt['pri']=$this->data('pri')+0;
         $distance=Bootstrap::$main->getConfig('church.search.distance');
         $data=[];
     
