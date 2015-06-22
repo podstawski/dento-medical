@@ -1,9 +1,9 @@
 <?php
   $title='Gdzie i kiedy msza św';
-  $description='Łatwo i szybko znajdź najbliższy kościół i mszę św';
+  $description='Katolik na urlopie - łatwo i szybko znajdź najbliższy kościół i mszę św';
   $url='http://www.kiedymsza.pl';
   
-  $keywords='msza św,msze św,kiedy msza,gdzie msza,kościół';
+  $keywords='msza św,msze św,kiedy msza,gdzie msza,kościół, urlop, katolik';
   $basedir='.';
   $image=$basedir.'/img/fb-baner2.jpg';
 ?>
