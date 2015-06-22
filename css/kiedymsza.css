@@ -585,6 +585,10 @@ a.navbar-brand {
   color:#bbb;
 }
 
+i.about {
+  font-size: 0.75em;
+}
+
 @media (max-width:480px) {
   .xtable {
     transform: scale(0.70);
@@ -627,6 +631,7 @@ a.navbar-brand {
 .about .content{ margin-top:20px; }
 .about .adjust1{ float:left; width:100%; margin-bottom:0; }
 .about .adjust2{ margin:0; }
+.about .carousel-indicators {bottom:-5px;}
 .about .carousel-indicators li{ border :1px solid #ccc; }
 .about .carousel-control { color:#31708f; width:5%; }
 .about .carousel-control:hover, .carousel-control:focus{ color:#31708f; }

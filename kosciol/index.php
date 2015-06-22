@@ -29,7 +29,10 @@
     if (!strstr(str_replace('.','',$_SERVER['REQUEST_URI']),$right_url))
     {
         if ( (isset($_SERVER['HTTP_REFERER']) && strstr(strtolower($_SERVER['HTTP_REFERER']),'google'))
-         || (isset($_SERVER['HTTP_USER_AGENT']) && strstr(strtolower($_SERVER['HTTP_USER_AGENT']),'google')) ) {
+         || (isset($_SERVER['HTTP_USER_AGENT']) && strstr(strtolower($_SERVER['HTTP_USER_AGENT']),'google'))
+         || (isset($_SERVER['HTTP_USER_AGENT']) && strstr(strtolower($_SERVER['HTTP_USER_AGENT']),'facebook'))
+         || (isset($_SERVER['HTTP_REFERER']) && strstr(strtolower($_SERVER['HTTP_REFERER']),'facebook'))
+        ) {
             header("HTTP/1.1 301 Moved Permanently"); 
             header("Location: ".$right_url); 
         }
@@ -40,7 +43,7 @@
     }
     
     $title=$church->name;
-    $description='Msze święte w okolicy '.$church->address;
+    $description=$church->about?:'Msze święte w okolicy '.$church->address;
     $image='';
     $keywords='msza,msze,kiedy msza,gdzie msza,'.$church->address;
     $basedir='..';
@@ -145,6 +148,7 @@
           <a class="carousel-control right" href="#churchCarousel" data-slide="next">&rsaquo;</a>
         </div>        
         
+        <i class="about"><?php echo $church->about?></i>
       </div>
       
       <div class="col-sm-6">

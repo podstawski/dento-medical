@@ -223,7 +223,10 @@
 	  <input type="hidden" name="lng" id="lng" value="<?php echo $church->lng;?>"/>
 	  
 
-
+	  <div class="form-group">
+	    <label for="about">Krótki opis kościoła:</label>
+	    <textarea class="form-control" name="about" id="about" placeholder="proszę napisać kilka słów o kościele, takich, które zainteresują katolika w podróży"><?php echo $church->about;?></textarea> 
+	  </div>
 
       </div>
       
