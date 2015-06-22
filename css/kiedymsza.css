@@ -635,6 +635,7 @@ i.about {
 .about .carousel-indicators li{ border :1px solid #ccc; }
 .about .carousel-control { color:#31708f; width:5%; }
 .about .carousel-control:hover, .carousel-control:focus{ color:#31708f; }
+.about #carousel-testimonials p {text-indent:0 ;}
 .about .carousel-control.left, .carousel-control.right { background-image: none; }
 .about .media-object{ margin:auto; margin-top:15%; }
 #carousel-testimonials img {max-width: 100px;}
