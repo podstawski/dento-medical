@@ -33,9 +33,25 @@
     
     if ($id+0==0) return;
     
+    /* zabezpieczenie przed kradzieza */
+    $lasteditedchurch=Bootstrap::$main->session('lasteditedchurch')?:['time'=>0,'id'=>$id,'count'=>1];
     
+
+    if ($lasteditedchurch['id']!=$id && Bootstrap::$main->now-$lasteditedchurch['time']<20) return;
+    if ($lasteditedchurch['count']>25) {
+	Bootstrap::$main->logout();
+	die('<script>history.go(-1);</script>');
+    }
+    
+    if ($lasteditedchurch['id']!=$id) $lasteditedchurch['count']++;
+    $lasteditedchurch['id']=$id;
+    $lasteditedchurch['time']=Bootstrap::$main->now;
+    
+    Bootstrap::$main->session('lasteditedchurch',$lasteditedchurch);
+    /* /zabezpieczenie przed kradzieza */
     
     $church=new churchModel($id);
+    
     
     $title=$church->name;
     $description=$church->address;
