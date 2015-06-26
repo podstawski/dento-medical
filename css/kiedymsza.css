@@ -638,5 +638,6 @@ i.about {
 .about #carousel-testimonials p {text-indent:0 ;}
 .about .carousel-control.left, .carousel-control.right { background-image: none; }
 .about .media-object{ margin:auto; margin-top:15%; }
+.about p.testimonial {height: 40px;}
 #carousel-testimonials img {max-width: 100px;}
 @media screen and (max-width: 768px) { .about .media-object{ margin-top:0; } }

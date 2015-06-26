@@ -124,7 +124,7 @@
 				    </div>
 				    <div class="col-md-10 col-sm-10 col-xs-12">
 					<div class="caption">
-					    <p><span class="glyphicon glyphicon-thumbs-up"></span> 
+					    <p class="testimonial"><span class="glyphicon glyphicon-thumbs-up"></span> 
 					    <?php echo $testimonials[$i]['testimonial'];?>
 					    </p>
 					    <blockquote class="adjust2"> <p><?php echo $testimonials[$i]['author'];?></p>
