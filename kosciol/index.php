@@ -47,7 +47,7 @@
         $church->save();
         $church->get($church->successor);
         $url=Tools::str_to_url($church->name).','.$church->id;
-        //header("HTTP/1.1 301 Moved Permanently"); 
+        header("HTTP/1.1 301 Moved Permanently"); 
         header("Location: ".$url);
         die();
     }

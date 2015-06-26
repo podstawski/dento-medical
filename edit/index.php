@@ -50,6 +50,22 @@
     Bootstrap::$main->session('lasteditedchurch',$lasteditedchurch);
     /* /zabezpieczenie przed kradzieza */
     
+    
+    /* zabezpieczenie przed podwojna edycja */
+    
+    $path=Tools::saveRoot('church-pending');
+    foreach (scandir($path) AS $f)
+    {
+        if ($f[0]=='.') continue;
+        $id2=@end(explode(',',$fname));
+	
+	if ($id2=$id) {
+	    die('<script>alert("Aktualizacja zablokowana do czasu akceptacji przez moderatora poprzednich zmian."); history.go(-1);</script>');
+	}
+	
+    }
+    
+    
     $church=new churchModel($id);
     
     
