@@ -42,6 +42,16 @@
         return;
     }
     
+    if ($church->successor) {
+        $church->active=0;
+        $church->save();
+        $church->get($church->successor);
+        $url=Tools::str_to_url($church->name).','.$church->id;
+        //header("HTTP/1.1 301 Moved Permanently"); 
+        header("Location: ".$url);
+        die();
+    }
+    
     $title=$church->name;
     $description=$church->about?:'Msze święte w okolicy '.$church->address;
     $image='';
@@ -60,8 +70,7 @@
         unset($img['author_id']);
         if (isset($img['author']['id'])) unset($img['author']['id']);
         if (isset($img['author']['email'])) unset($img['author']['email']);
-        
-        
+
     }
     //mydie($images);
     //mydie($church);

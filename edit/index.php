@@ -37,8 +37,8 @@
     $lasteditedchurch=Bootstrap::$main->session('lasteditedchurch')?:['time'=>0,'id'=>$id,'count'=>1];
     
 
-    if ($lasteditedchurch['id']!=$id && Bootstrap::$main->now-$lasteditedchurch['time']<20) return;
-    if ($lasteditedchurch['count']>25) {
+    if ($lasteditedchurch['count']>25 || ($lasteditedchurch['id']!=$id && Bootstrap::$main->now-$lasteditedchurch['time']<20))
+    {
 	Bootstrap::$main->logout();
 	die('<script>history.go(-1);</script>');
     }
