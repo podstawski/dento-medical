@@ -44,18 +44,23 @@ class churchController extends Controller {
         $distance=Bootstrap::$main->getConfig('church.search.distance');
         $data=[];
     
+        $church=new churchModel();
+    
         $geo=explode(',',$this->data('geo'));
         
         if (!isset($geo[1]))
         {
             $geo=Tools::geoip();
             $geo=@[$geo['location']['latitude'],$geo['location']['longitude']];
-        }
+            
+            $warsaw=[52.227492,21.0000383];
+            if (abs($church->distance($geo[0],$geo[1],$warsaw[0],$warsaw[1]))>1000) $geo=$warsaw;
         
+        }
 
         if ($geo[0]+0 && isset($geo[1]) && $geo[1]+0)
         {
-            $church=new churchModel();
+            
         
         
             $when=strtotime(date('Y-m-d'));
