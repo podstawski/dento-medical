@@ -99,7 +99,7 @@
 	<h3>Odbiór nagród</h3>
 	<div class="competition">
 	    <?php if ($user_likes): ?>
-		Konkurs zaczyna się 1 lipca
+		Konkurs zaczyna się 1 lipca!<br/>
 		<?php if (count($competition_images)): ?>
 		    <ul>
 		    <?php foreach($competition_images AS $img): ?>
