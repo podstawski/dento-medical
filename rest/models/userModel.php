@@ -10,4 +10,5 @@ class userModel extends Model {
 		
 		return $this->conn->fetchAll($sql,[$gt]);
 	}
+
 }

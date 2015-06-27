@@ -6,13 +6,16 @@
     $image=new imageModel();
     $user=new userModel();
     
-    if (isset($_GET['trust'])) $image->activateTrusted($_GET['trust']);
+    $codeOrigin='fly';
+    if (isset($_GET['trust'])) $image->activateTrusted($_GET['trust'],$codeOrigin);
     
     if (isset($_GET['mod']) && is_array($_GET['mod'])) {
+        $code=new codeModel();
         foreach ($_GET['mod'] AS $id=>$active)
         {
             $image->get($id);
             $image->active=$active;
+            $image->code=$code->getCode($codeOrigin);
             $image->save();
             $user->get($image->author_id);
             if ($active) $user->trust++;

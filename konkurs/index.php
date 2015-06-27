@@ -13,6 +13,15 @@
     $keywords='msza,msze,kiedy msza,gdzie msza,konkurs';
     $basedir='..';
     $image=$basedir.'/img/konkurs.jpg';
+  
+  
+    $user=new userController();
+    $user_likes=$user->likes();
+    if ($user_likes)
+    {
+	$image=new imageModel();
+	$competition_images=$image->select(['author_id'=>Bootstrap::$main->user['id'],'active'=>1,'code'=>['<>','']])?:[];
+    }
     
 ?>
 <html>
@@ -32,8 +41,8 @@
   <div class="container">
     
     <div class="row about">
-      <div class="col-sm-12">
-	<img src="../img/konkurs.jpg" style="float: right; width:30%"/>
+      <div class="col-md-8">
+	
 	<h1>Konkurs fotograficzny: “Wakacyjne zdjęcie kościoła”</h1>
 	<p>
 	   <b>Organizator:</b> <a href="../o-projekcie">KiedyMsza.pl</a>
@@ -82,6 +91,33 @@
 	<p>
 	    Organizator zastrzega sobie prawo do nieodpłatnego wykorzystywania (z poszanowaniem praw autorskich) wszystkich prac do celów ekspozycyjnych oraz publikacji w formie elektronicznej i drukowanej.
 	</p>
+      </div>
+      
+      <div class="col-md-4">
+	<img src="../img/konkurs.jpg" style="width:100%"/>
+	
+	<h3>Odbiór nagród</h3>
+	<div class="competition">
+	    <?php if ($user_likes): ?>
+		Konkurs zaczyna się 1 lipca
+		<?php if (count($competition_images)): ?>
+		    <ul>
+		    <?php foreach($competition_images AS $img): ?>
+			<li>
+			    <img src="<?php echo $img['thumb'];?>"/>
+			    <i>Twój kod rabatowy:<br/><?php echo $img['code'];?></i>
+			    <hr clear="all"/>
+			    
+			</li>
+		    <?php endforeach; ?>
+		    </ul>
+		<?php else: ?>
+		    Nie wgrano jeszcze żadnego zdjęcia, lub te, które zostały wgrane oczekują na akceptację.
+		<?php endif;?>
+	    <?php else: ?>
+		<a href="<?php echo $basedir;?>/login/" class="a_login">Polub stronę i zaloguj się aby odebrać bon na 100zł</a>
+	    <?php endif;?> 
+	</div>
       </div>
     </div>  
   

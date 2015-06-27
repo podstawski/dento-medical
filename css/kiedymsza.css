@@ -589,6 +589,21 @@ i.about {
   font-size: 0.75em;
 }
 
+.about .competition {
+  text-indent: 0;
+}
+
+.about .competition ul li img {
+  float: right;
+  width: 50px;
+}
+
+.about .competition hr {
+  height: 1px;
+  margin: 0;
+}
+
+
 @media (max-width:480px) {
   .xtable {
     transform: scale(0.70);
