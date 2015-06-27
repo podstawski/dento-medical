@@ -603,6 +603,12 @@ i.about {
   margin: 0;
 }
 
+#kiedymsza_grid_scroll_to {
+  height: 20px;
+  background: url(../img/pending.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+}
 
 @media (max-width:480px) {
   .xtable {
