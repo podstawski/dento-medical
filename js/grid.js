@@ -3,6 +3,11 @@ function kiedymsza_grid_log(txt)
     //console.log(txt);
 }
 
+function kiedymsza_grid_footerlog(txt)
+{
+    //$('.footer-menu a').html(txt);
+}
+
 function smekta(pattern,vars) {
     
     for (key in vars)
@@ -42,8 +47,11 @@ function kiedymsza_grid_load(pri)
 {
     if (pri==null) pri=kiedymsza_grid_pri;
     
+    
     txt=$('#'+kiedymsza_grid_form).serialize();
-    kiedymsza_grid_log('loading offset '+kiedymsza_grid_offset+', when '+kiedymsza_grid_when+', limit '+kiedymsza_grid_limit);
+    dbg='loading offset '+kiedymsza_grid_offset+', when '+kiedymsza_grid_when+', limit '+kiedymsza_grid_limit;
+    kiedymsza_grid_log(dbg);
+    kiedymsza_grid_footerlog(dbg);
     
     var d = new Date();
     var url=kiedymsza_grid_ajax+'?now='+d.getHours()+':'+d.getMinutes()+'&limit='+kiedymsza_grid_limit+'&offset='+kiedymsza_grid_offset+'&when='+kiedymsza_grid_when+'&'+txt+'&pri='+pri;
@@ -103,8 +111,9 @@ function kiedymsza_grid_scroll()
         
     
     var h3=hT+hH-wH;
+    kiedymsza_grid_footerlog(wS+' > '+h3+' : '+(wS > h3));
       
-    if (wS > h3){
+    if (1.3*wS > h3){
         $('#kiedymsza_grid_scroll_to').remove();
         kiedymsza_grid_log('scroller reached');
         kiedymsza_grid_load();
