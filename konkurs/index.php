@@ -96,6 +96,16 @@
       <div class="col-md-4">
 	<img src="../img/konkurs.jpg" style="width:100%"/>
 	
+	<!-- Konkurs -->
+	<ins class="adsbygoogle"
+	     style="display:block"
+	     data-ad-client="ca-pub-3681218186493233"
+	     data-ad-slot="8609440708"
+	     data-ad-format="auto"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+	
 	<h3>Odbiór nagród</h3>
 	<div class="competition">
 	    <?php if ($user_likes): ?>
