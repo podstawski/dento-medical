@@ -53,7 +53,7 @@ class churchController extends Controller {
             $geo=Tools::geoip();
             $geo=@[$geo['location']['latitude'],$geo['location']['longitude']];
             
-            $warsaw=[52.227492,21.0000383];
+            $warsaw=Bootstrap::$main->getConfig('pl.center');
             if (abs($church->distance($geo[0],$geo[1],$warsaw[0],$warsaw[1]))>1000) $geo=$warsaw;
         
         }

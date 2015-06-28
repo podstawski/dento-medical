@@ -24,5 +24,7 @@
     
     "admin.ids": [1],
     
+    "pl.center": [52.227492,21.0000383],
+    
     "maps.server_key":"AIzaSyDCJ19tULhkLmrMjKZ5K5FABTLGvOJG8rc"   
 }

@@ -647,6 +647,14 @@ i.about {
 
 }
 
+.gsc-control-cse {
+  background-color: transparent !important;
+  margin-top: 9px;
+}
+.cse .gsc-control-cse, .gsc-control-cse {
+  background-color: transparent !important;
+}
+
 
 .about .carousel-indicators .active{ background: #31708f; }
 .about .content{ margin-top:20px; }

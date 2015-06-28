@@ -6,6 +6,30 @@
   $keywords='msza św,msze św,kiedy msza,gdzie msza,kościół, urlop, katolik';
   $basedir='.';
   $image=$basedir.'/img/fb-baner2.jpg';
+  
+  $results=[];
+
+  include __DIR__.'/rest/library/backend/include/all.php';    
+  autoload([__DIR__.'/rest/classes',__DIR__.'/rest/models',__DIR__.'/rest/controllers']);
+
+  $config=json_config(__DIR__.'/rest/configs/application.json');
+  $bootstrap = new Bootstrap($config);  
+  
+  $geo=Tools::geoip();
+ 
+  
+  if (isset($geo['location']['country']) && strtoupper($geo['location']['country'])!='PL') {
+    
+    $church=new churchModel();
+    $page=isset($_GET['page'])?$_GET['page']:0;
+    $results=$church->select(['active'=>1],'id',100,$page);
+    $center=Bootstrap::$main->getConfig('pl.center');
+    foreach ($results AS $i=>$row)
+    {
+      $results[$i]['url']=Tools::str_to_url($row['name']).','.$row['id'];
+      $results[$i]['distance']=round($church->distance($row['lat'],$row['lng'],$center[0],$center[1]));
+    }
+  }
 ?>
 <html>
     
@@ -54,7 +78,27 @@
 
 
 
-<div id="kiedymsza_results" class="container-fluid"></div>
+<div id="kiedymsza_results" class="container-fluid">
+<?php foreach($results AS $row): ?>
+  <div class="row distance<?php echo rand(0,9);?>">
+    <div class="col-md-2 col-sm-3 col-xs-3 time">
+      <a href="tel:<?php echo $row['tel'];?>"><?php echo $row['tel'];?></a>
+      <span class="visible-xs visible-sm"><?php echo $row['distance'];?> km</span>
+      <span class="visible-md visible-lg">Dzisiaj</span>
+    </div>
+    <div class="col-md-8 col-sm-9 col-xs-9 church">
+      <div class="mass-desc"></div>
+      <h4><a href="kosciol/<?php echo $row['url'];?>"><?php echo $row['name'];?></a></h4>
+      <span class="address"><?php echo $row['address'];?></span>
+    </div>
+    <div class="col-md-2 hidden-sm hidden-xs distance"><?php echo $row['distance'];?> km</div>
+  </div>
+<?php endforeach;?>
+
+<?php if (count($results)) for($i=0;$i<101;$i++):?>
+<a href="?page=<?php echo $i+1;?>"><?php echo $i+1;?></a> 
+<?php endfor;?>
+</div>
 <div id="kiedymsza_results_template" style="display:none">
   <div class="row distance[distance]" style="display:none">
     <div class="col-md-2 col-sm-3 col-xs-3 time">
@@ -72,6 +116,7 @@
 </div>
 
 
-<?php include __DIR__.'/html/footer.phtml';?> 
+<?php include __DIR__.'/html/footer.phtml';?>
+<!--  geo: <?php echo implode(',',$geo['location']);?>  -->
 </body>
 </html>
