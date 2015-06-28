@@ -603,7 +603,7 @@ i.about {
   margin: 0;
 }
 
-#kiedymsza_grid_scroll_to {
+.kiedymsza_grid_scroll_to_wait {
   height: 20px;
   background: url(../img/pending.gif);
   background-repeat: no-repeat;

@@ -1,8 +1,12 @@
 {
-	"db.dsn":"mysql:host=localhost;charset=utf8;dbname=pudel",
-	"db.user":"root",
-	"db.pass":null
-	
+	"db.dsn4":"mysql:host=localhost;charset=utf8;dbname=pudel",
+	"db.user4":"root",
+	"db.pass4":null
+
+	,
+	"db.dsn":"mysql:host=2001:4860:4864:1:adc9:6147:63cc:15d9;charset=utf8;dbname=podstawski",
+	"db.user":"kiedymsza",
+	"db.pass":"crucemtuam"	
 	,
 	"db.dsn2":"mysql:host=2001:4860:4864:1:adc9:6147:63cc:15d9;charset=utf8;dbname=podstawski",
 	"db.user2":"kiedymsza",

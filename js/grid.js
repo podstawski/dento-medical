@@ -47,7 +47,7 @@ function kiedymsza_grid_load(pri)
 {
     if (pri==null) pri=kiedymsza_grid_pri;
     
-    
+     
     txt=$('#'+kiedymsza_grid_form).serialize();
     dbg='loading offset '+kiedymsza_grid_offset+', when '+kiedymsza_grid_when+', limit '+kiedymsza_grid_limit;
     kiedymsza_grid_log(dbg);
@@ -58,6 +58,8 @@ function kiedymsza_grid_load(pri)
     
     $.get(url,function (r) {
         kiedymsza_grid_log(r);
+        $('.kiedymsza_grid_scroll_to_wait').remove();
+        
         if (kiedymsza_grid_pri>r.options.pri) {
             kiedymsza_grid_log('data with smaller priority');
             return;
@@ -78,7 +80,7 @@ function kiedymsza_grid_load(pri)
         
 
         if (kiedymsza_grid_lazyload && kiedymsza_grid_limit==data.length) {
-            $('#'+kiedymsza_grid_results).append('<div id="kiedymsza_grid_scroll_to"></div>');
+            $('#'+kiedymsza_grid_results).append('<div class="kiedymsza_grid_scroll_to"></div>');
             $(window).scroll(kiedymsza_grid_scroll); 
             kiedymsza_grid_log('waiting to scroll');
         }        
@@ -100,7 +102,7 @@ function kiedymsza_grid_reload(pri)
 
 function kiedymsza_grid_scroll()
 {
-    var scroll_to = $('#kiedymsza_grid_scroll_to');
+    var scroll_to = $('.kiedymsza_grid_scroll_to');
 
     if (typeof(scroll_to.get(0))=='undefined') return; 
     
@@ -114,8 +116,8 @@ function kiedymsza_grid_scroll()
     kiedymsza_grid_footerlog(wS+' > '+h3+' : '+(wS > h3));
       
     if (1.3*wS > h3){
-        $('#kiedymsza_grid_scroll_to').remove();
         kiedymsza_grid_log('scroller reached');
+        $('.kiedymsza_grid_scroll_to').addClass('kiedymsza_grid_scroll_to_wait').removeClass('kiedymsza_grid_scroll_to');
         kiedymsza_grid_load();
     }
 }
