@@ -626,6 +626,8 @@ i.about {
   #kiedymsza_results .row .church .mass-desc {
     font-size:1em;
   }
+  
+  
 }
 
 @media (max-width:991px) {
@@ -644,6 +646,13 @@ i.about {
     font-size: 0.7em;
   }
   
+  .footer-menu {
+    padding: 5px;
+  }
+  
+  .footer-menu ul {
+    margin: 0 5px 0 0;
+  }  
 
 }
 

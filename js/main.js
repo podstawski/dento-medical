@@ -15,6 +15,18 @@ function login_fb()
 
 var user_logged_id=false;
 
+(function() {
+    var cx = '004362178973919568600:w_jsfptrqhk';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+})();
+
+
 $(function() {
     
     
