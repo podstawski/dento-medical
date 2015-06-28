@@ -57,9 +57,10 @@
     foreach (scandir($path) AS $f)
     {
         if ($f[0]=='.') continue;
+	$fname=str_replace('.json','',$f);
         $id2=@end(explode(',',$fname));
 	
-	if ($id2==$id) {
+	if ("$id2"=="$id") {
 	    die('<script>alert("Aktualizacja zablokowana do czasu akceptacji przez moderatora poprzednich zmian."); history.go(-1);</script>');
 	}
 	
