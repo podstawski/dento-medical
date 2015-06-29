@@ -79,15 +79,6 @@
 
 
 <div id="kiedymsza_results" class="container-fluid">
-<!-- Konkurs -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-3681218186493233"
-     data-ad-slot="8609440708"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 <?php foreach($results AS $row): ?>
   <div class="row distance<?php echo rand(0,9);?>">
     <div class="col-md-2 col-sm-3 col-xs-3 time">
@@ -124,6 +115,15 @@
   </div>
 </div>
 
+<!-- Konkurs -->
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-3681218186493233"
+  data-ad-slot="8609440708"
+  data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
 
 <?php include __DIR__.'/html/footer.phtml';?>
 <!--  geo: <?php echo implode(',',$geo['location']);?>  -->
