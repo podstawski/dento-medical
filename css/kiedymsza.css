@@ -627,7 +627,10 @@ i.about {
     font-size:1em;
   }
   
-  
+  .footer-menu {
+    padding: 5px;
+    width:100%;
+  }
 }
 
 @media (max-width:991px) {
@@ -648,6 +651,7 @@ i.about {
   
   .footer-menu {
     padding: 5px;
+    width: 100%
   }
   
   .footer-menu ul {
