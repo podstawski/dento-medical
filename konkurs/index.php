@@ -12,7 +12,7 @@
     
     $keywords='msza,msze,kiedy msza,gdzie msza,konkurs';
     $basedir='..';
-    $image=$basedir.'/img/konkurs.jpg';
+    $image=$basedir.'/img/fly.jpg';
   
   
     $user=new userController();

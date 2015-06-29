@@ -98,6 +98,17 @@
 <?php if (count($results)) for($i=0;$i<101;$i++):?>
 <a href="?page=<?php echo $i+1;?>"><?php echo $i+1;?></a> 
 <?php endfor;?>
+
+<!-- Konkurs -->
+<ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="ca-pub-3681218186493233"
+  data-ad-slot="8609440708"
+  data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
 </div>
 <div id="kiedymsza_results_template" style="display:none">
   <div class="row distance[distance]" style="display:none">
@@ -115,15 +126,7 @@
   </div>
 </div>
 
-<!-- Konkurs -->
-<ins class="adsbygoogle"
-  style="display:block"
-  data-ad-client="ca-pub-3681218186493233"
-  data-ad-slot="8609440708"
-  data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+
 
 <?php include __DIR__.'/html/footer.phtml';?>
 <!--  geo: <?php echo implode(',',$geo['location']);?>  -->
