@@ -43,6 +43,7 @@ $(function(){
             var geocoder = new google.maps.Geocoder();
             
             geocoder.geocode( { 'address': $('#geo').val()}, function(results, status) {
+                //console.log(results);
                 if(status=='OK') $('#where').val(results[0].formatted_address);
                 
             });

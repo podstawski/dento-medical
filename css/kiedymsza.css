@@ -669,6 +669,16 @@ i.about {
 }
 
 
+input.gsc-search-button,input.gsc-search-button:hover, input.gsc-search-button:focus {
+  border-color: #666666;
+  background-color: #38761D;
+  background-image: none;
+  filter: none;
+  box-sizing: content-box;
+}
+
+
+
 .about .carousel-indicators .active{ background: #31708f; }
 .about .content{ margin-top:20px; }
 .about .adjust1{ float:left; width:100%; margin-bottom:0; }
