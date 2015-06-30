@@ -58,7 +58,7 @@ $(function(){
             if(progress == 100){
                 
                 data.context.removeClass('working');
-                $('#drop a').text('Zdjęcie zostanie dodane po weryfikacji. Dziękuję!').attr('rel','');
+                $('#drop a').html('Zdjęcie zostanie dodane po weryfikacji. Dziękuję! <a href="../konkurs">Odbierz bon na 100zł</a>').attr('rel','');
             }
         },
 

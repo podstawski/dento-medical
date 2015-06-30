@@ -591,6 +591,7 @@ i.about {
 
 .about .competition {
   text-indent: 0;
+  margin-bottom: 10px;
 }
 
 .about .competition ul li img {

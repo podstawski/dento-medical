@@ -20,7 +20,7 @@
     if ($user_likes)
     {
 	$image=new imageModel();
-	$competition_images=$image->select(['author_id'=>Bootstrap::$main->user['id'],'active'=>1,'code'=>['<>','']])?:[];
+	$competition_images=$image->join('church','churches')->select(['author_id'=>Bootstrap::$main->user['id'],'images.active'=>1,'d_uploaded'=>['>',strtotime('2015-07-01')]])?:[];
     }
     
 ?>
@@ -99,18 +99,19 @@
 	<h3>Odbiór nagród</h3>
 	<div class="competition">
 	    <?php if ($user_likes): ?>
-		Konkurs zaczyna się 1 lipca!<br/>
+
 		<?php if (count($competition_images)): ?>
 		    <ul>
 		    <?php foreach($competition_images AS $img): ?>
 			<li>
-			    <img src="<?php echo $img['thumb'];?>"/>
-			    <i>Twój kod rabatowy:<br/><?php echo $img['code'];?></i>
+			    <a href="<?php echo $img['url'];?>" title="<?php echo $img['name'].', '.$img['address'];?>" class="fancybox"><img src="<?php echo $img['thumb'];?>"/></a>
+			    <i>Twój kod rabatowy:<br/><b><?php echo 'NW108796078'?></b></i>
 			    <hr clear="all"/>
 			    
 			</li>
 		    <?php endforeach; ?>
 		    </ul>
+		    <a href="http://fly.pl/regulaminkupony/" target="_blank">Jak zrealizować bon wakacyjny?</a>
 		<?php else: ?>
 		    Nie wgrano jeszcze żadnego zdjęcia, lub te, które zostały wgrane oczekują na akceptację.
 		<?php endif;?>
