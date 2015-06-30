@@ -663,9 +663,11 @@ i.about {
 .gsc-control-cse {
   background-color: transparent !important;
   margin-top: 9px;
+  border: 0 !important;
 }
 .cse .gsc-control-cse, .gsc-control-cse {
   background-color: transparent !important;
+  border: 0 !important;
 }
 
 
@@ -677,6 +679,19 @@ input.gsc-search-button,input.gsc-search-button:hover, input.gsc-search-button:f
   box-sizing: content-box;
 }
 
+input.gsc-input {
+  font-size: 0.9em !important;
+
+}
+
+input.gsc-search-button {
+  padding: 5px 27px !important;
+  margin-top: 0 !important; 
+}
+
+td.gsc-input {
+  padding-right: 0px !important;
+}
 
 
 .about .carousel-indicators .active{ background: #31708f; }
