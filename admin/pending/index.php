@@ -163,8 +163,9 @@
         echo '<a target="_blank" href="'.$user->url.'">';
         echo $user->firstname.' '.$user->lastname;
         echo '</a> (';
+        echo '<a href="mailto:'.$user->email.'">';
         echo date('d-m-Y H:i',$church2['change_time']);
-        echo ')</h4>';
+        echo '</a>)</h4>';
         
         
         foreach ($church1 AS $k=>$v)
