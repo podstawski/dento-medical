@@ -26,7 +26,6 @@ handlers:
 - url: /konkurs.*
   script: konkurs/index.php
 
-
 - url: /maga_zakodowany_sajtmap.xml
   script: sitemap.php
 
