@@ -2,7 +2,3 @@
 - url: /
   script: index.php
 
-- url: /.*
-  static_files: err404.html
-  upload: err404.html
-
