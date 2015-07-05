@@ -18,7 +18,7 @@
   $geo=Tools::geoip();
  
   
-  if (isset($geo['location']['country']) && strtoupper($geo['location']['country'])!='PL') {
+  if (false) if (isset($geo['location']['country']) && strtoupper($geo['location']['country'])!='PL') {
     
     $church=new churchModel();
     $page=isset($_GET['page'])?$_GET['page']:0;
