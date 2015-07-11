@@ -30,6 +30,17 @@
     
     $images=$image->select(['images.active'=>null])?:[];
     
+    $images2=[];
+    $images2_cmd='';
+    
+    if (isset($_GET['from']) && isset($_GET['to']))
+    {
+        $where=['images.active'=>1];
+        if ($_GET['from']) $where['d_uploaded']=['>=',strtotime($_GET['from'])];
+        if ($_GET['to']) $where['d_uploaded ']=['<=',strtotime($_GET['to'])];
+        $images2=$image->select($where)?:[];
+    }
+    
     
 ?>
 <style>
@@ -83,11 +94,34 @@
 </span>
 <?php endforeach;?>
 
-<div class="all">
+<div class="all" style="<?php if (!count($images)) echo 'display:none';?>">
     <input type="button" class="b-no" value="No to all"/>
     <input type="button" class="b-yes" value="Yes to all"/>
     
 </div>
+
+<div class="all" style="<?php if (count($images)) echo 'display:none';?>">
+    <form>
+    <input type="date" value="<?php echo isset($_GET['from'])?$_GET['from']:''?>" placeholder="uploaded from" name="from"/>
+    <input type="date" value="<?php echo isset($_GET['to'])?$_GET['to']:''?>" placeholder="uploaded to" name="to"/>
+    <input type="submit" value="search"/>
+    </form>
+</div>
+
+<?php foreach($images2 AS $img): ?>
+<span>
+<a class="fancybox" href="<?php echo $img['url'];?>" title="<?php
+    $user->get($img['author_id']);
+    echo $user->firstname.' '.$user->lastname;
+    $images2_cmd.='mv '.$img['src'].' '.Tools::str_to_url($user->firstname.$user->lastname).substr($user->md5hash,2).'_'.basename($img['src'])."\n";
+?>">
+    <img class="mod-img" src="<?php echo $img['thumb'];?>"/>
+</a>
+</span>
+<?php endforeach;?>
+
+<pre style="margin-top:20px;<?php if (!count($images2)) echo 'display:none';?>"><?php echo $images2_cmd;?></pre>
+
 
 <script>
     
