@@ -31,7 +31,7 @@
     }
   }
 ?>
-<html>
+<html lang="pl">
     
 <head>
   <?php include __DIR__.'/html/head.phtml';?>  
@@ -79,6 +79,7 @@
 
 
 <div id="kiedymsza_results" class="container-fluid">
+<center><h1>Msze święte w miejscowości blisko Ciebie</h1></center>
 <?php foreach($results AS $row): ?>
   <div class="row distance<?php echo rand(0,9);?>">
     <div class="col-md-2 col-sm-3 col-xs-3 time">

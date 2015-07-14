@@ -76,7 +76,7 @@
     //mydie($church);
     if ($church->change_author) $change_author=$user->get($church->change_author);
 ?>
-<html>
+<html lang="pl">
     
 <head>    
     <?php include __DIR__.'/../html/head.phtml';?>

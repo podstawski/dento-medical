@@ -68,7 +68,7 @@
 	$description='Mapa - stan na '.date('d-m-Y',$imgDate);
     }
 ?>
-<html>
+<html lang="pl">
     
 <head>    
     <?php include __DIR__.'/../html/head.phtml';?>

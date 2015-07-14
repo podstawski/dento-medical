@@ -33,7 +33,7 @@
     //mydie($testimonials);
     
 ?>
-<html>
+<html lang="pl">
     
 <head>    
     <?php include __DIR__.'/../html/head.phtml';?>
