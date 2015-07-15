@@ -95,6 +95,15 @@
       
       <div class="col-md-4">
 	<img src="../img/konkurs.jpg" style="width:100%"/>
+	
+	<h3>Jak zgłosić zdjęcie?</h3>
+	<div class="competition">
+	    Należy znaleźć kościół, którego zdjęcie chcemy zgłosić.
+	    Najlepiej znaleźć na <a href="<?php echo $basedir;?>/mapa">mapie</a>.
+	    Kliknąć w niego i po lewej stronie jest rysunek-szkic,
+	    na którym znajduje się guzik umożliwiający dodanie zdjęcia.
+	</div>
+	
 		
 	<h3>Odbiór nagród</h3>
 	<div class="competition">
