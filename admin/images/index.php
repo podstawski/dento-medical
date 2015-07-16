@@ -113,7 +113,7 @@
 <a class="fancybox" href="<?php echo $img['url'];?>" title="<?php
     $user->get($img['author_id']);
     echo $user->firstname.' '.$user->lastname;
-    $images2_cmd.='mv '.$img['src'].' '.Tools::str_to_url($user->firstname.$user->lastname).substr($user->md5hash,2).'_'.str_replace(['?','='],'',basename($img['src'])).(strstr($img['src'],'.jpg')?'':'.jpg')."\n";
+    $images2_cmd.='mv "'.$img['src'].'" '.Tools::str_to_url($user->firstname.$user->lastname).substr($user->md5hash,2).'_'.str_replace(['?','='],'',basename($img['src'])).(strstr($img['src'],'.jpg')?'':'.jpg')."\n";
 ?>">
     <img class="mod-img" src="<?php echo $img['thumb'];?>"/>
 </a>
