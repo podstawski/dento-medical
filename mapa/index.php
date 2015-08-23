@@ -31,7 +31,7 @@
 	}
     
 	$church=new churchModel();
-	$churches=$church->map($_GET['lat1'],$_GET['lat2'],$_GET['lng1'],$_GET['lng2'],0,0,50)?:[];
+	$churches=$church->map($_GET['lat1'],$_GET['lat2'],$_GET['lng1'],$_GET['lng2'],0,0,70)?:[];
 
 	
 	foreach ($churches AS &$ch)

@@ -164,8 +164,9 @@ class churchModel extends Model {
 	
     public function map($lat1,$lat2,$lng1,$lng2,$limit=0,$offset=0,$max_distance)
     {
+		
         $sql="SELECT *  FROM ".$this->_table;
-	$sql.=" WHERE active=1 AND geo_distance($lat1,$lng1,$lat2,$lng2)<$max_distance";
+		$sql.=" WHERE active=1 AND geo_distance($lat1,$lng1,$lat2,$lng2)<$max_distance";
         $sql.=" AND lat BETWEEN ".$lat1." AND ".$lat2;
         $sql.=" AND lng BETWEEN ".$lng1." AND ".$lng2;
 
@@ -180,8 +181,8 @@ class churchModel extends Model {
     
     public function distance($lat1,$lng1,$lat2,$lng2)
     {
-	$sql="SELECT geo_distance($lat1,$lng1,$lat2,$lng2)";
-	return $this->conn->fetchOne($sql);
+		$sql="SELECT geo_distance($lat1,$lng1,$lat2,$lng2)";
+		return $this->conn->fetchOne($sql);
     }
 
     
