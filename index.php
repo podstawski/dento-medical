@@ -76,7 +76,21 @@
   
 </div>
 
-
+<table class="colors hidden-md hidden-lg" cellspacing="0">
+  <tr>
+    <td class="distance0">0 km</td>
+    <td class="distance1">1 km</td>
+    <td class="distance2">2 km</td>
+    <td class="distance3">3 km</td>
+    <td class="distance4">4 km</td>
+    <td class="distance5">5 km</td>
+    <td class="distance6">6 km</td>
+    <td class="distance7">7 km</td>
+    <td class="distance8">8 km</td>
+    <td class="distance9">9 km</td>
+  </tr>
+  
+</table>
 
 <div id="kiedymsza_results" class="container-fluid">
 <center><h1>Msze święte w miejscowości blisko Ciebie</h1></center>

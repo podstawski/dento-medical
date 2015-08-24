@@ -2,7 +2,7 @@
 
 class CreateTableAeras extends Doctrine_Migration_Base
 {
-    private $_tableName = 'aeras';
+    private $_tableName = 'areas';
 
     public function up()
     {
@@ -33,13 +33,13 @@ class CreateTableAeras extends Doctrine_Migration_Base
                       
         ), array('charset'=>'utf8'));
         
-        $this->addColumn('churches', 'aera', 'Integer', null, array('notnull' => false ));
+        $this->addColumn('churches', 'area', 'Integer', null, array('notnull' => false ));
     }
     
     
     public function down()
     {
-        $this->removeColumn('churches', 'aera');
+        $this->removeColumn('churches', 'area');
         $this->dropTable($this->_tableName);
     }
 }

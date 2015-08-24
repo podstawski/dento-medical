@@ -473,17 +473,46 @@ h6.prompter {
   margin: 0 0 4px 0;
 }
 
-#kiedymsza_results .distance0 {
+#kiedymsza_results .distance0, table.colors .distance0 {
   background-color: #5eb81d;
 }
-#kiedymsza_results .distance1 {
-  background-color: #88e649;
+#kiedymsza_results .distance1, table.colors .distance1 {
+  background-color: #75bf37;
 }
-#kiedymsza_results .distance2 {
-  background-color: #9aff73;
+#kiedymsza_results .distance2, table.colors .distance2 {
+  background-color: #8fcc5e;
 }
-#kiedymsza_results .distance3 {
-  background-color: #cbffa3;
+#kiedymsza_results .distance3, table.colors .distance3 {
+  background-color: #99d16b;
+}
+#kiedymsza_results .distance4, table.colors .distance4 {
+  background-color: #acd687;
+}
+
+#kiedymsza_results .distance5, table.colors .distance5 {
+  background-color: #bddba0;
+}
+#kiedymsza_results .distance6, table.colors .distance6 {
+  background-color: #cfe3ba;
+}
+#kiedymsza_results .distance7, table.colors .distance7 {
+  background-color: #d8e6ca;
+}
+#kiedymsza_results .distance8, table.colors .distance8 {
+  background-color: #e1edd5;
+}
+#kiedymsza_results .distance9, table.colors .distance9 {
+  background-color: #f1f7eb;
+}
+
+table.colors {
+  width: 100%;
+}
+
+table.colors td {
+  width:10%;
+  font-size: 10px;
+  text-align: center;
 }
 
 #kiedymsza_results .distance0 .church .mass-desc,
