@@ -34,7 +34,10 @@ class CreateTableAeras extends Doctrine_Migration_Base
         ), array('charset'=>'utf8'));
         
         $this->addColumn('churches', 'area', 'Integer', null, array('notnull' => false ));
+        $this->addIndex('churches','churches_area_key',array('fields'=>array('area')));
+
     }
+    
     
     
     public function down()

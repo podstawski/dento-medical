@@ -76,7 +76,7 @@
   
 </div>
 
-<table class="colors hidden-md hidden-lg" cellspacing="0">
+<table class="colors" cellspacing="0">
   <tr>
     <td class="distance0">0 km</td>
     <td class="distance1">1 km</td>
