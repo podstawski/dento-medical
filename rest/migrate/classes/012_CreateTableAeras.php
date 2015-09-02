@@ -16,7 +16,11 @@ class CreateTableAeras extends Doctrine_Migration_Base
             'name' => array(
                 'type' => 'varchar(200)',
                 'notnull' => false,
-            ),            
+            ),
+            'administrative_area' => array(
+                'type' => 'varchar(200)',
+                'notnull' => false,
+            ),
             'lat' => array(
                 'type' => 'DECIMAL(18,9)',
                 'notnull' => false,

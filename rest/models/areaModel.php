@@ -94,18 +94,18 @@ class areaModel extends Model {
 		return [($minlat+$maxlat)/2,($minlng+$maxlng)/2];
 	}
 	
-	public function deduplicate($echo=false)
+	public function deduplicate($echo=false,$dups=fals)
 	{
 		
 		
 		$sql="SELECT name FROM areas WHERE name IS NOT NULL GROUP BY name HAVING count(*)>1";
-		$dups=$this->conn->fetchColumn($sql);
+		if (!$dups) $dups=$this->conn->fetchColumn($sql);
 		
 		
 		
 		foreach($dups AS $name) {
-			if ($echo) echo "<h3>$name</h3><ul>";
-			$sql="SELECT * FROM areas WHERE name=?";
+			if ($echo) echo "<h3>$name</h3><ol>";
+			$sql="SELECT * FROM areas WHERE name=? ORDER BY rand()";
 			$group=$this->conn->fetchAll($sql,[$name]);
 			
 			for ($i=1;$i<count($group);$i++)
@@ -113,9 +113,9 @@ class areaModel extends Model {
 				$dist=$this->distance($group[0]['lat'],$group[0]['lng'],$group[$i]['lat'],$group[$i]['lng']);
 				$distance_allowed=3*$this->distances[min($group[0]['zoom'],$group[$i]['zoom'])];
 			
-				//if ($name=='Łódź') $distance_allowed=20;
+				if ($distance_allowed==10.5) $distance_allowed=21;
 			
-				if ($echo) echo "<li>$dist < $distance_allowed ?</li>";
+				if ($echo) echo "<li>$dist < $distance_allowed ? [".$group[0]['id'].",".$group[$i]['id']."]</li>";
 				if ($dist<=$distance_allowed)
 				{
 					$area=new areaModel($group[0]);
@@ -126,12 +126,12 @@ class areaModel extends Model {
 					$area->lng=$middle[1];
 					$area->save();
 					
-					$this->remove($group[$i]['id']);
+					//$this->remove($group[$i]['id']);
 					
 					
 				}
 			}
-			if ($echo) echo '</ul>';
+			if ($echo) echo '</ol>';
 			
 
 		}

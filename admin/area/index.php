@@ -3,29 +3,39 @@ require_once __DIR__.'/../base.php';
 
 Header('Content-type: text/html; charset=utf-8');
 
-function getCity($lat,$lng)
+function getCity($lat,$lng,$woj=false)
 {
     $keys=['AIzaSyBMpDPg7BibacB6R8CdznzHS1cZrfLgSv0','AIzaSyBkqSKFVBFadz9ri2N-Kl3b2ZiNff_SHls',Bootstrap::$main->getConfig('maps.server_key')];
     $url='https://maps.google.com/maps/api/geocode/json?address='.urlencode($lat.','.$lng);
-    $url.='&key='.Bootstrap::$main->getConfig('maps.server_key');
-    //$url.='&key='.$keys[rand(0,count($keys)-1)];
+
+    
     
     $token='place:'.md5($url);
     $place=Tools::memcache($token);
     if (!$place)
     {
+        //$url.='&key='.Bootstrap::$main->getConfig('maps.server_key');
+        //$url.='&key='.$keys[rand(0,count($keys)-1)];
+        //$url.='&key='.$keys[2];
+        
         $place=json_decode(file_get_contents($url),true);
         if (isset($place['status']) && $place['status']=='OK') Tools::memcache($token,$place);
     }
     
     if ($place['status']!='OK') {
-        //return false;
+        return null;
         mydie($place,$url);
     }
     
+    
     foreach ($place['results'] AS $r) foreach($r['address_components'] AS $adr)
     {
-        if ( in_array('locality',$adr['types']) )
+        if ( !$woj && in_array('locality',$adr['types']) )
+        {
+            return $adr['long_name'];
+        }
+        
+        if ( $woj && in_array('administrative_area_level_1',$adr['types']) )
         {
             return $adr['long_name'];
         }
@@ -43,13 +53,22 @@ $area=new areaModel();
 //$area->deduplicate(true);
 
 
-//$areas=$area->select(['name'=>null]);
+$areas=$area->select(['administrative_area'=>null]);
 
-$areas=$area->getAll();
+//$areas=$area->getAll();
 
 //mydie($areas);
 foreach($areas AS $a)
 {
+    
+    $area->load($a);
+    $woj=getCity($a['lat'],$a['lng'],true);
+    $area->administrative_area=$woj;
+    $area->save();
+    
+    continue;
+    
+    /*
     $area->load($a);
     $m=$area->middle($a['id']);
     $area->lat=$m[0];
@@ -58,7 +77,7 @@ foreach($areas AS $a)
     $area->save();
     //mydie($area);
     continue;
-    
+    */
     
     if (!$area->churches_count($a['id'])) {
         $area->remove($a['id']);
