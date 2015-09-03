@@ -19,8 +19,8 @@
     $user_likes=$user->likes();
     if ($user_likes)
     {
-	$image=new imageModel();
-	$competition_images=$image->join('church','churches')->select(['author_id'=>Bootstrap::$main->user['id'],'images.active'=>1,'d_uploaded'=>['>',strtotime('2015-07-01')]])?:[];
+		$image=new imageModel();
+		$competition_images=$image->join('church','churches')->select(['author_id'=>Bootstrap::$main->user['id'],'images.active'=>1,'d_uploaded'=>['>',strtotime('2015-07-01')]])?:[];
     }
     
 ?>
@@ -130,7 +130,7 @@
 		    <?php foreach($competition_images AS $img): ?>
 			<li>
 			    <a href="<?php echo $img['url'];?>" title="<?php echo $img['name'].', '.$img['address'];?>" class="fancybox"><img src="<?php echo $img['thumb'];?>"/></a>
-			    <i>Twój kod rabatowy:<br/><b><?php echo 'NW108796078'?></b></i>
+			    <i>Twój kod rabatowy:<br/><b><?php echo $img['code']?:'NW108796078'?></b></i>
 			    <hr clear="all"/>
 			    
 			</li>
