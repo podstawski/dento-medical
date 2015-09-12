@@ -640,6 +640,7 @@ i.about {
   background-position: center;
 }
 
+
 @media (max-width:480px) {
   .xtable {
     transform: scale(0.70);
