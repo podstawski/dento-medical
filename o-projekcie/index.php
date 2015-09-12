@@ -73,6 +73,7 @@
 	    Z góry dziękuję!
 	</p>
 	
+	<?php if(false): ?>
 	<h2>Konkurs fotograficzny: “Wakacyjne zdjęcie kościoła”</h2>
 	<p>
 	    Znaleźli się wspaniali ludzie (m.in. Władysław Nielipiński
@@ -82,7 +83,7 @@
 	    KiedyMsza.pl znajdzie się wiele atrakcyjnych zdjęć parafii.
 	</p>
 	
-	
+	<?php endif; ?>
 
 
 	
@@ -158,15 +159,15 @@
     <iframe width="100%" height="500px" src="https://www.youtube.com/embed/f3KS07OyR8A" frameborder="0" allowfullscreen></iframe>
   
     <a name="wsparcie"></a>
-    <h3>Wsparcie</h3>
-    <p>
-	Projekt jest całkowicie NON-PROFIT. Stworzyłem go w ramach wolnego czasu 
-	z myślą o sobie i swoich znajomych. Jednak rosnąca popularność sprawia, iż za serwery,
-	które utrzymują stronę, płacę z własnych funduszy. Jeżeli chciał(a)byś wesprzeć projekt
-	drobnym datkiem, to będę zobowiązany.<br/><br/>
+    <h3 class="hidden-xs">Wsparcie</h3>
+    <p class="hidden-xs">
+		Projekt jest NON-PROFIT. Stworzyłem go w ramach wolnego czasu 
+		z myślą o sobie i swoich znajomych. Jednak rosnąca popularność sprawia, iż za serwery,
+		które utrzymują stronę, płacę z własnych funduszy. Jeżeli chciał(a)byś wesprzeć projekt
+		drobnym datkiem, to będę zobowiązany.<br/><br/>
 	
-	<a href="https://goo.gl/Mqg2AZ" target="_blank" alt="wsparcie 2zł"><img width="15%" src="<?php echo $basedir;?>/img/2zl.png"/>
-	<a href="https://goo.gl/YPVBw2" target="_blank" alt="wsparcie 5zł"><img width="15%" src="<?php echo $basedir;?>/img/5zl.png"/> 
+		<a href="https://goo.gl/Mqg2AZ" target="_blank" alt="wsparcie 2zł"><img width="15%" src="<?php echo $basedir;?>/img/2zl.png"/>
+		<a href="https://goo.gl/YPVBw2" target="_blank" alt="wsparcie 5zł"><img width="15%" src="<?php echo $basedir;?>/img/5zl.png"/> 
 
     </p>
   </div>
