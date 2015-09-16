@@ -8,6 +8,7 @@ $(function(){
     $('#kiedyMszaForm .date').pickadate({
         onSet:function() {
             proceed_prority=2;
+            ga('send', 'pageview', '/?date');
             grid_start('datepicker',2);
         },
         format: 'dddd, dd mmm yyyy',
@@ -17,6 +18,7 @@ $(function(){
     $('#kiedyMszaForm .time').pickatime({
         onSet:function() {
             proceed_prority=2;
+            ga('send', 'pageview', '/?time');
             grid_start('timepicker',2);
         },        
         format: 'HH:i',
@@ -37,6 +39,7 @@ $(function(){
             
             if (proceed_prority<=1) { 
                 proceed_prority=1;
+                ga('send', 'pageview', '/?navigator');
                 grid_start('navigator',1);
             }
             
@@ -64,6 +67,7 @@ $(function(){
         $('#geo').val(place.geometry.location.lat()+','+place.geometry.location.lng());
 
         proceed_prority=2;
+        ga('send', 'pageview', '/?location');
         grid_start('autocompleted',2);
     });
     

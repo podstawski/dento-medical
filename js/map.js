@@ -42,6 +42,7 @@ function initialize(lat,lng,zoom,here) {
         if (pyt>0) lh=lh.substr(0,pyt);
         lh+='?m='+latlng
         history.pushState('', 'Mapa', lh);
+        ga('send', 'pageview', lh);
         
         var add=lh.replace('/mapa/','/edit/0');
         if(!user_logged_id) add=REST+'/user/facebook?redirect='+encodeURIComponent(add);
