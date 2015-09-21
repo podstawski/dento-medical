@@ -188,36 +188,36 @@ class churchModel extends Model {
     
     public function get_unmassed()
     {
-	$sql="SELECT * FROM churches WHERE (SELECT count(*) FROM masses WHERE churches.id=masses.church)=0 AND sun<>''";
-	return $this->conn->fetchAll($sql);
+		$sql="SELECT * FROM churches WHERE (SELECT count(*) FROM masses WHERE churches.id=masses.church)=0 AND sun<>''";
+		return $this->conn->fetchAll($sql);
     }
     
     public function mass_count($id=null)
     {
-	if (!$id) $id=$this->id;
-	
-	$sql="SELECT count(*) FROM masses WHERE church=?";
-	return $this->conn->fetchOne($sql,[$id]);
+		if (!$id) $id=$this->id;
+		
+		$sql="SELECT count(*) FROM masses WHERE church=?";
+		return $this->conn->fetchOne($sql,[$id]);
     }
     
     public function samephone()
     {
-	$sql="SELECT tel FROM churches WHERE tel IS NOT NULL GROUP BY tel HAVING count(*)>1 ";
-	//$sql.=" ORDER BY rand()";
-	$sql.=" ORDER BY tel";
-	//$sql.=" ORDER BY max(length(email)) DESC,tel";
-	return $this->conn->fetchColumn($sql);
-    }
+		$sql="SELECT tel FROM churches WHERE tel IS NOT NULL GROUP BY tel HAVING count(*)>1 ";
+		//$sql.=" ORDER BY rand()";
+		$sql.=" ORDER BY tel";
+		//$sql.=" ORDER BY max(length(email)) DESC,tel";
+		return $this->conn->fetchColumn($sql);
+	}
     
     public function getMails()
     {
-	$sql="SELECT id,name,email FROM churches WHERE email LIKE '%@%'";
-	return $this->conn->fetchAll($sql);
+		$sql="SELECT id,name,email FROM churches WHERE email LIKE '%@%'";
+		return $this->conn->fetchAll($sql);
     }
     
     public function no_http_prefix()
     {
-	$sql="UPDATE churches SET www=replace(www,'http://','') WHERE www LIKE 'http://%'";
-	$this->conn->execute($sql);
+		$sql="UPDATE churches SET www=replace(www,'http://','') WHERE www LIKE 'http://%'";
+		$this->conn->execute($sql);
     }
 }

@@ -49,7 +49,7 @@ function initialize(lat,lng,zoom,here) {
         if(!user_logged_id) add=REST+'/user/facebook?redirect='+encodeURIComponent(add);
         $('.a_mapadd').attr('href',add);
 
-        if (map.getZoom()>=13) {
+        if (map.getZoom()>=15) {
             $('.a_mapadd').fadeIn();
         } else {
             $('.a_mapadd').fadeOut();

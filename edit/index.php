@@ -13,22 +13,57 @@
     
     
     if (isset(Bootstrap::$main->user['id']) && Bootstrap::$main->user['id'] && isset($_GET['m'])) {
-	$m=explode(',',$_GET['m']);
-	if ($id+0==0 && count($m)>1 && $m[0]+0>0 && $m[1]+0>0) {
-	    $church=new churchModel();
-	    $church->lat=$m[0];
-	    $church->lng=$m[1];
-	    $church->change_author=Bootstrap::$main->user['id'];
-	    $church->change_ip=Bootstrap::$main->ip;
-	    $church->change_time=Bootstrap::$main->now;
-	    $church->md5hash=substr($m[0],0,15).','.substr($m[1],0,15);
-	    $church->save();
-	    $uri=$_SERVER['REQUEST_URI'];
-	    $pos=strpos($uri,'/edit');	    
-	    if (strlen($pos)) $uri=substr($uri,0,$pos);
-	    Header('Location: '.$uri.'/edit/'.$church->id);
-	
-	}
+		
+		// https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyDCJ19tULhkLmrMjKZ5K5FABTLGvOJG8rc&location=52.4639373,17.2083024&radius=5000&keyword=parafia|ko%C5%9Bci%C3%B3%C5%82
+		
+		$m=explode(',',$_GET['m']);
+		if ($id+0==0 && count($m)>1 && $m[0]+0>0 && $m[1]+0>0) {
+			$church=new churchModel();
+			
+			$url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=';
+			$url.=Bootstrap::$main->getConfig('maps.server_key');
+			$url.='&location='.$m[0].','.$m[1];
+			$url.='&radius=1000&keyword=parafia|ko%C5%9Bci%C3%B3%C5%82|bazylika';
+			$nearby=json_decode(file_get_contents($url),true);
+			
+			
+			if (isset($nearby['results']) && count($nearby['results'])) {
+				$results=[];
+				$distanceok=false;
+				foreach($nearby['results'] AS $result)
+				{
+					$distance=$church->distance($m[0],$m[1],$result['geometry']['location']['lat'],$result['geometry']['location']['lng']);
+					$results[$distance]=$result;
+					if ($distance<=1) $distanceok=true;
+				}
+				
+				if ($distanceok) {
+					ksort($results);
+					$result=current($results);
+					$church->name = $result['name'];
+					$church->address = $result['vicinity'];
+					$m[0]=$result['geometry']['location']['lat'];
+					$m[1]=$result['geometry']['location']['lng'];
+				}
+			}
+			
+			
+			
+			$church->lat=$m[0];
+			$church->lng=$m[1];
+			$church->change_author=Bootstrap::$main->user['id'];
+			$church->change_ip=Bootstrap::$main->ip;
+			$church->change_time=Bootstrap::$main->now;
+			$church->md5hash=substr($m[0],0,15).','.substr($m[1],0,15);
+			
+			
+			$church->save();
+			$uri=$_SERVER['REQUEST_URI'];
+			$pos=strpos($uri,'/edit');	    
+			if (strlen($pos)) $uri=substr($uri,0,$pos);
+			Header('Location: '.$uri.'/edit/'.$church->id);
+		
+		}
     }
     
     if ($id+0==0) return;
@@ -237,7 +272,7 @@
 	  </div>	  
 	  <div class="form-group">
 	    <label for="sun">Msze w niedziele i święta (tekst):</label>
-	    <input required="true" title="Msze niedzielne" type="text" class="form-control" name="sun" id="sun" value="<?php echo $church->sun;?>" placeholder="format GG:MM, rozdzielone przecinkiem"/>
+	    <input title="Msze niedzielne" type="text" class="form-control" name="sun" id="sun" value="<?php echo $church->sun;?>" placeholder="format GG:MM, rozdzielone przecinkiem"/>
 	  </div>
 	  <div class="form-group">
 	    <label for="week">Msze w dnie powszednie (tekst):</label>

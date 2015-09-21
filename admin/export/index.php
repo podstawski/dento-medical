@@ -8,7 +8,7 @@
 		foreach (array_keys($c) AS $k) if ($k!='lat' && $k!='lng') unset($c[$k]);
 	}
 	$file='export/heatmap.json';
-        $real_path=Tools::saveRoot($file);
+    $real_path=Tools::saveRoot($file);
 	file_put_contents($real_path,json_encode($all,JSON_NUMERIC_CHECK));
 	unset($all);
 	
