@@ -35,7 +35,11 @@ google.maps.event.addDomListener(window, 'load', function(){
           var url='https://www.google.pl/maps/place/'+myLatlng.lat()+','+myLatlng.lng();
           window.open(url,'_blank');
 
-        });         
+        });
+        
+        
+        var maplink=$('li a[href*="mapa"]');
+        maplink.attr('href',maplink.attr('href')+'?m='+myLatlng.lat()+','+myLatlng.lng()+',14');
         
     });
 

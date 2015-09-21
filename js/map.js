@@ -43,6 +43,7 @@ function initialize(lat,lng,zoom,here) {
         lh+='?m='+latlng
         history.pushState('', 'Mapa', lh);
         ga('send', 'pageview', lh);
+        $('#where').val('');
         
         var add=lh.replace('/mapa/','/edit/0');
         if(!user_logged_id) add=REST+'/user/facebook?redirect='+encodeURIComponent(add);
@@ -104,6 +105,24 @@ function initialize(lat,lng,zoom,here) {
     });        
 
 
+    var input = document.getElementById('where');
+    var options = {
+      types: ['geocode'],
+      componentRestrictions: {country: 'pl'}
+    };    
+    autocomplete = new google.maps.places.Autocomplete(input,options);
+    
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+        var place = autocomplete.getPlace();
+
+        ga('send', 'pageview', '/?location');
+        
+        if (typeof(place.geometry.location)!='undefined') {
+            map.panTo(place.geometry.location);
+            map.setZoom(12);
+        }
+        
+    }); 
 
 
 }
@@ -128,6 +147,6 @@ google.maps.event.addDomListener(window, 'load', function() {
         
     }
     
-    
+   
     
 });

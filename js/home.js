@@ -39,7 +39,7 @@ $(function(){
             
             if (proceed_prority<=1) { 
                 proceed_prority=1;
-                ga('send', 'pageview', '/?navigator');
+                if (typeof(ga)!='undefined') ga('send', 'pageview', '/?navigator');
                 grid_start('navigator',1);
             }
             

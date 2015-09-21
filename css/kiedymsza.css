@@ -585,6 +585,9 @@ table.colors td {
   padding-left: 15px;
 }
 
+.navbar-toggle {
+  margin-right: 25px;
+}
 
 a.navbar-brand {
   font-weight: bold;
@@ -724,6 +727,11 @@ td.gsc-input {
   padding-right: 0px !important;
 }
 
+.navbar .where {
+  font-size: 0.7em;
+  width: 200px;
+  margin: 12px 5px 0px 18px;
+}
 
 .about .carousel-indicators .active{ background: #31708f; }
 .about .content{ margin-top:20px; }

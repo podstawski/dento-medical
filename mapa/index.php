@@ -106,7 +106,10 @@
 <div class="map">
     <div class="head">
 	<?php
-	    $moremenu=['<a style="display:none" href="../edit/0" class="a_mapadd">Dodaj kościół</a>'];
+	    $moremenu=[
+			'<a style="display:none" href="../edit/0" class="a_mapadd">Dodaj kościół</a>',
+			'<input type="text" class="where" placeholder="szukaj miejscowości" id="where"/>'
+		];
 	    include __DIR__.'/../html/topmenu.phtml';
 	?>
     </div>
@@ -126,5 +129,7 @@
     <div id="footer" style="display: none">Przybliż mapę, aby zobaczyć kościoły</div>
     
 </div>
+
+
 </body>
 </html>
