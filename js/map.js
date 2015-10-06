@@ -1,8 +1,41 @@
 
 var heatmap,heatmapVisible=false;
 
+var where_from_latlng=null;
+var where_to_latlng=null;
 
+var map, directionsService, directionsDisplay, markerarray;
 
+function draw_route()
+{
+    if (where_from_latlng!=null && where_to_latlng!=null) {
+        directionsService.route({
+            origin: where_from_latlng,
+            destination: where_to_latlng,
+            travelMode: google.maps.TravelMode.DRIVING,
+            avoidTolls: true
+          }, function(response, status) {
+            if (status === google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+            } else {
+                console.log(status);
+            }
+          });
+    }
+}
+
+function computeTotalDistance(result)
+{
+    console.log(result);
+}
+
+function clear_markers()
+{
+    for (var i = 0; i < markerarray.length; i++) {
+        markerarray[i].setMap(null);
+    }
+    markerarray=[];    
+}
 
 function initialize(lat,lng,zoom,here) {
     var myLatlng = new google.maps.LatLng(lat,lng);
@@ -10,10 +43,19 @@ function initialize(lat,lng,zoom,here) {
         zoom: zoom,
         center: myLatlng
     }
-    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     
     
-
+    directionsService = new google.maps.DirectionsService;
+    directionsDisplay = new google.maps.DirectionsRenderer({
+      draggable: true,
+      map: map
+    });
+    
+    
+    directionsDisplay.addListener('directions_changed', function() {
+        computeTotalDistance(directionsDisplay.getDirections());
+    });
     
     
     $.get('heatmap',function(data) {
@@ -28,7 +70,7 @@ function initialize(lat,lng,zoom,here) {
     
     followMe(map);
     
-    var markerarray=[];
+    markerarray=[];
         
     google.maps.event.addListener(map, 'idle', function(ev){
         var bounds = map.getBounds();
@@ -58,15 +100,15 @@ function initialize(lat,lng,zoom,here) {
         var url='index.php?lat1='+ne.lat()+'&lng1='+ne.lng()+'&lat2='+sw.lat()+'&lng2='+sw.lng();
         
 
-        
+        if (where_from_latlng!=null && where_to_latlng!=null)
+        {
+            clear_markers();           
+        }
 
 
-        $.get(url,function(churches) {
+        if (where_from_latlng==null || where_to_latlng==null) $.get(url,function(churches) {
             
-            for (var i = 0; i < markerarray.length; i++) {
-              markerarray[i].setMap(null);
-            }
-            markerarray=[];
+            clear_markers();
             
 
             if (churches.length==0 && !heatmapVisible) {
@@ -118,13 +160,45 @@ function initialize(lat,lng,zoom,here) {
         ga('send', 'pageview', '/?location');
         
         if (typeof(place.geometry.location)!='undefined') {
+            $('#map_search').modal('hide');
             map.panTo(place.geometry.location);
             map.setZoom(12);
+            
+            
         }
         
     }); 
 
+    
+    var where_from = document.getElementById('where_from');
+    var where_to = document.getElementById('where_to');
 
+    
+    autocomplete_from = new google.maps.places.Autocomplete(where_from,options);
+    autocomplete_to = new google.maps.places.Autocomplete(where_to,options);
+    
+    
+    google.maps.event.addListener(autocomplete_from, 'place_changed', function() {
+        var place = autocomplete_from.getPlace();
+        ga('send', 'pageview', '/?route');
+        
+        if (typeof(place.geometry.location)!='undefined') {
+            where_from_latlng = place.geometry.location;
+            draw_route();
+        }
+        
+    });
+
+    google.maps.event.addListener(autocomplete_to, 'place_changed', function() {
+        var place = autocomplete_to.getPlace();
+        ga('send', 'pageview', '/?route');
+        
+        if (typeof(place.geometry.location)!='undefined') {
+            where_to_latlng = place.geometry.location;
+            draw_route();
+        }
+        
+    }); 
 }
 
 

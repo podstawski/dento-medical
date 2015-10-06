@@ -108,7 +108,7 @@
 	<?php
 	    $moremenu=[
 			'<a style="display:none" href="../edit/0" class="a_mapadd">Dodaj kościół</a>',
-			'<input type="text" class="where" placeholder="szukaj miejscowości" id="where"/>'
+			'<a href="javascript://" onclick="$(\'#map_search\').modal()">Szukaj</a>'
 		];
 	    include __DIR__.'/../html/topmenu.phtml';
 	?>
@@ -123,8 +123,51 @@
 	</ul><?php endif;?>	
   
     <div id="map-canvas">
-        <input id="navigator_missing" title="Proszę wyraź zgodę na udostępnienie swojej lokalizacji" class="button" readonly value="Proszę wyraź zgodę na udostępnienie swojej lokalizacji"/>
+        <input id="navigator_missing"
+			   title="Proszę wyraź zgodę na udostępnienie swojej lokalizacji"
+			   class="button" readonly
+			   value="Proszę wyraź zgodę na udostępnienie swojej lokalizacji"/>
     </div>
+	
+	
+	
+	
+	<div id="map_search" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">Znajdź miejscowość lub zaplanuj trasę</h4>
+				</div>
+				<div class="modal-body">
+				
+					<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+						<li class="active"><a href="#map_search_city" data-toggle="tab">Znajdź miejscowość</a></li>
+						<li><a href="#map_search_route" data-toggle="tab">Zaplanuj trasę</a></li>
+					</ul>
+					<div id="my-tab-content" class="tab-content">
+					
+						<div class="tab-pane active" id="map_search_city">
+						    <input type="text" class="where" placeholder="szukaj miejscowości" id="where"/>
+						</div>
+						
+						<div class="tab-pane" id="map_search_route">
+							
+							<input type="text" placeholder="ruszam z ..." id="where_from"/>
+							&raquo;
+							<input type="text" placeholder="jadę do ..." id="where_to"/>
+						</div>                            
+					
+						
+					
+					</div>
+				
+				 </div>
+				
+			</div>
+		</div>
+		
+	</div>
 	
     <div id="footer" style="display: none">Przybliż mapę, aby zobaczyć kościoły</div>
     
