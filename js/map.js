@@ -26,7 +26,25 @@ function draw_route()
 
 function computeTotalDistance(result)
 {
-    console.log(result);
+    var url='../rest/church/route';
+    
+    var d = new Date();
+    result.routes[0].legs[0].now = d.getHours()+':'+d.getMinutes();
+    var data=JSON.stringify(result.routes[0].legs[0]);
+    
+    
+    $.ajax({
+        type: "POST",
+        data: data,
+        url: url,
+        dataType: 'json',
+        contentType: 'application/json; charset=UTF-8',
+        success: function(result) {
+            console.log(result);
+        }
+    });
+    
+    
 }
 
 function clear_markers()

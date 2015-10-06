@@ -181,4 +181,9 @@ class churchController extends Controller {
         
         return $this->status(['info'=>'Po weryfikacji, dane zostaną opublikowane. Dziękuję!','url'=>$url]);
     }
+    
+    public function post_route()
+    {
+        return $this->status($this->data);
+    }
 }
