@@ -184,6 +184,32 @@ class churchController extends Controller {
     
     public function post_route()
     {
-        return $this->status($this->data);
+        $points=[];
+        $last_distance=0;
+        $last_time=0;
+        foreach ($this->data('steps')?:[] AS $step)
+        {
+            $distance=$step['distance']['value'];
+            $time=$step['duration']['value'];
+            
+            //mydie($step['lat_lngs'],$distance);
+            $i=1;
+            foreach($step['lat_lngs'] AS $latlng)
+            {
+                $ak=array_keys($latlng);
+                $latlng=array($latlng[$ak[0]],$latlng[$ak[1]]);
+                
+                $points[$last_distance+round($i*$distance/count($step['lat_lngs']))] = [
+                    'time'=>$last_time+round($i*$time/count($step['lat_lngs'])),
+                    'latlng'=>$latlng];
+                $i++;
+            }
+            
+            $last_distance+=$distance;
+            $last_time+=$time;
+        }
+        
+        
+        return $this->status([$points,$this->data('steps')]);
     }
 }
