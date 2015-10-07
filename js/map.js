@@ -8,6 +8,8 @@ var map, directionsService, directionsDisplay, markerarray;
 
 var last_route_result=null;
 
+var navigator_pos=null;
+
 function clear_markers()
 {
     for (var i = 0; i < markerarray.length; i++) {
@@ -53,12 +55,11 @@ function computeTotalDistance(result)
     var date=$('input[name="date_submit"]').val();
     if (date.length) data.date_submit=date;
     var time=$('input[name="time_submit"]').val();
-    if (time.length) {
-        data.time_submit=time;
-    } else {
-        var d = new Date();
-        data.time_submit = d.getHours()+':'+d.getMinutes();        
-    }
+    if (time.length) data.time_submit=time;
+    
+    var d = new Date();
+    data.now = d.getHours()+':'+d.getMinutes();        
+    
     
     $('#map_search').modal();
     $('#map_search .modal-footer').fadeIn(500);
@@ -123,6 +124,17 @@ function computeTotalDistance(result)
     });
     
     
+}
+
+function search_map_my_position(pos) {
+    var geocoder = new google.maps.Geocoder();
+    where_from_latlng=new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
+    draw_route(false);
+    geocoder.geocode( { 'address': pos.coords.latitude+','+pos.coords.longitude}, function(results, status) {
+        
+        if(status=='OK') $('#map_search #where_from').val(results[0].formatted_address);
+        
+    });
 }
 
 
@@ -312,21 +324,13 @@ function initialize(lat,lng,zoom,here) {
     
     $('#map_search .glyphicon').click(function(){
         
-        if (navigator.geolocation ) {
-            navigator.geolocation.getCurrentPosition(function (pos) {
-               
-               
-                var geocoder = new google.maps.Geocoder();
-                where_from_latlng=new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
-                geocoder.geocode( { 'address': pos.coords.latitude+','+pos.coords.longitude}, function(results, status) {
-                    
-                    if(status=='OK') $('#map_search #where_from').val(results[0].formatted_address);
-                    
-                });
-               
-           });
-           
-       }
+        if (navigator.geolocation && navigator_pos==null) {
+            navigator.geolocation.getCurrentPosition(search_map_my_position);
+        }
+        
+        if (navigator_pos!=null) {
+            search_map_my_position(navigator_pos);
+        }
     });
     
     
@@ -341,6 +345,7 @@ google.maps.event.addDomListener(window, 'load', function() {
     if (navigator.geolocation && typeof(LATLNG)=='undefined') {
         navigator.geolocation.getCurrentPosition(function (pos) {
             
+            navigator_pos=pos;
             initialize(pos.coords.latitude,pos.coords.longitude,14,true);
             
         });

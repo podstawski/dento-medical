@@ -197,8 +197,8 @@ class churchController extends Controller {
         $dow=$this->change_dow(strtotime($date_submit));
         $month=date('m',strtotime($date_submit));
         
-        $time=$this->data('time_submit')?:date('H:i');
-        if ($this->data('date_submit')) $time='05:30';
+        $time=$this->data('time_submit')?:$this->data('now');
+        if ($this->data('date_submit')) $time='07:00';
         if ($this->data('time_submit')) $time=$this->data('time_submit');
         
         $time_org=$time;
