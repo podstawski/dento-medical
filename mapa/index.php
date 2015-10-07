@@ -89,6 +89,8 @@
 		$image=CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('image_size')]);
 		$description='Mapa - stan na '.date('d-m-Y',$imgDate);
     }
+	
+	if (isset($_GET['route'])) $image=$basedir.'/img/map-route.jpg';
 ?>
 <html lang="pl">
     

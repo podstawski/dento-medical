@@ -110,6 +110,9 @@ ul li div h3 a {
   color: #fff;
 }
 
+.nav li {
+  padding-left: 8px;
+}
 
 #kiedyMszaForm input {
   width:90%;
@@ -704,6 +707,11 @@ i.about {
     left: 255px;
     cursor: pointer;
     color: #909090;
+}
+
+#map_search .modal-footer img {
+  width: 70%;
+  height: 40px;
 }
 
 
