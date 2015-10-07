@@ -90,7 +90,11 @@
 		$description='Mapa - stan na '.date('d-m-Y',$imgDate);
     }
 	
-	if (isset($_GET['route'])) $image=$basedir.'/img/map-route.jpg';
+	if (isset($_GET['route'])) {
+		$title='Kiedy msza św. po drodze';
+		$description='Planujesz wyjazd w niedzielę? Po drodze znajdziesz mszę św.';
+		$image=$basedir.'/img/map-route.jpg';
+	}
 ?>
 <html lang="pl">
     
