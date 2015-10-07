@@ -97,8 +97,17 @@
     <?php
 		if (isset($_GET['m'])) echo '<script>var LATLNG="'.$_GET['m'].'";</script>';    
     ?>
+
+
+	<script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/picker.js"></script>
+	<script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/picker.date.js"></script>
+	<script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/picker.time.js"></script>
+	<script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/legacy.js"></script>  
+	<script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/translations/pl_PL.js"></script>
+
+
     <script src="<?php echo $basedir;?>/js/map.js"></script>
-  
+
 </head>
 
 <body>
@@ -143,7 +152,7 @@
 				
 					<ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
 						<li class="active"><a href="#map_search_city" data-toggle="tab">Znajdź miejscowość</a></li>
-						<li><a href="#map_search_route" data-toggle="tab">Zaplanuj trasę</a></li>
+						<li><a href="#map_search_route" data-toggle="tab">Zaplanuj trasę <sup>BETA</sup></a></li>
 					</ul>
 					<div id="my-tab-content" class="tab-content">
 					
@@ -152,10 +161,15 @@
 						</div>
 						
 						<div class="tab-pane" id="map_search_route">
+							<span class="route_from_to">
+								<input type="text" placeholder="ruszam z ..." id="where_from"/>
+								<i class="glyphicon glyphicon-map-marker"></i>
+								<input type="text" placeholder="jadę do ..." id="where_to"/>
+							</span>
+							<hr/>
+							<input type="text" class="date" placeholder="kiedy ruszam" name="date"/>
+							<input type="text" class="time" placeholder="godz" name="time"/>
 							
-							<input type="text" placeholder="ruszam z ..." id="where_from"/>
-							&raquo;
-							<input type="text" placeholder="jadę do ..." id="where_to"/>
 						</div>                            
 					
 						
@@ -163,6 +177,11 @@
 					</div>
 				
 				 </div>
+				
+				<div class="modal-footer" style="display: none">
+					<img src="<?php echo $basedir;?>/img/pending.gif" alt="Proszę czekać" title="Proszę czekać"/>
+				</div>				
+				
 				
 			</div>
 		</div>
@@ -173,6 +192,13 @@
     
 </div>
 
+<?php if (isset($_GET['route'])) : ?>
+<script>
+	$('#map_search').modal();
+	$('#map_search a[href="#map_search_route"]').click();
+</script>
+
+<?php endif; ?>
 
 </body>
 </html>

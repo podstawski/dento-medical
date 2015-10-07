@@ -6,9 +6,27 @@ var where_to_latlng=null;
 
 var map, directionsService, directionsDisplay, markerarray;
 
-function draw_route()
+var last_route_result=null;
+
+function clear_markers()
 {
+    for (var i = 0; i < markerarray.length; i++) {
+        markerarray[i].setMap(null);
+    }
+    markerarray=[];    
+}
+
+
+function draw_route(use_last)
+{
+    if (use_last && last_route_result!=null) {
+        computeTotalDistance(last_route_result);
+        return;
+    }
+    
+    
     if (where_from_latlng!=null && where_to_latlng!=null) {
+        clear_markers();
         directionsService.route({
             origin: where_from_latlng,
             destination: where_to_latlng,
@@ -28,32 +46,86 @@ function computeTotalDistance(result)
 {
     var url='../rest/church/route';
     
-    var d = new Date();
-    result.routes[0].legs[0].now = d.getHours()+':'+d.getMinutes();
-    var data=JSON.stringify(result.routes[0].legs[0]);
+    last_route_result=result;
     
+    var data=result.routes[0].legs[0];
+    
+    var date=$('input[name="date_submit"]').val();
+    if (date.length) data.date_submit=date;
+    var time=$('input[name="time_submit"]').val();
+    if (time.length) {
+        data.time_submit=time;
+    } else {
+        var d = new Date();
+        data.time_submit = d.getHours()+':'+d.getMinutes();        
+    }
+    
+    $('#map_search').modal();
+    $('#map_search .modal-footer').fadeIn(500);
+    $('#map_search .modal-body').fadeOut(500);
+    
+    clear_markers();
     
     $.ajax({
         type: "POST",
-        data: data,
+        data: JSON.stringify(data),
         url: url,
         dataType: 'json',
         contentType: 'application/json; charset=UTF-8',
         success: function(result) {
-            console.log(result);
+            
+            churches=result.churches;
+            var labelIndex=1;
+            for (var i in churches)
+            {
+                
+                lat=churches[i].lat;
+                lng=churches[i].lng;
+                
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat,lng),
+                    map: map,
+                    label: String(labelIndex++),
+                    time: churches[i].time,
+                    icon: '../img/gmap_icon.png',
+                    title: churches[i].time+' - '+churches[i].name,
+                    name: churches[i].name,
+                    address: churches[i].address,
+                    wait: churches[i].time_difference,
+                    url: '../kosciol/'+churches[i].name_url+','+churches[i].church_id
+                });
+                google.maps.event.addListener(marker, 'click', function() {
+                    //window.location.href = this.url;
+                    
+                    var html='<div class="map_info_win"><h1>'+this.time+'</h1>';
+                    html+='<p><a href="'+this.url+'" target="_blank">'+this.name+'</a></p>';
+                    html+='<p>'+this.address+'</p>';
+                    html+='<p>'+this.wait+' min. przed czasem</p>';
+                    html+='</div>';
+                    var infowindow = new google.maps.InfoWindow({
+                        content: html,
+                        maxWidth: 200,
+                    });                     
+                    
+                    infowindow.open(map, this);
+                });
+                
+                markerarray.push(marker);
+            }
+            
+            
+            $('#map_search .modal-footer').fadeOut(500, function () {
+                $('#map_search .modal-body').show();
+                $('#map_search').modal('hide');
+            });
+            
         }
     });
     
     
 }
 
-function clear_markers()
-{
-    for (var i = 0; i < markerarray.length; i++) {
-        markerarray[i].setMap(null);
-    }
-    markerarray=[];    
-}
+
 
 function initialize(lat,lng,zoom,here) {
     var myLatlng = new google.maps.LatLng(lat,lng);
@@ -120,7 +192,7 @@ function initialize(lat,lng,zoom,here) {
 
         if (where_from_latlng!=null && where_to_latlng!=null)
         {
-            clear_markers();           
+            //clear_markers();           
         }
 
 
@@ -202,7 +274,7 @@ function initialize(lat,lng,zoom,here) {
         
         if (typeof(place.geometry.location)!='undefined') {
             where_from_latlng = place.geometry.location;
-            draw_route();
+            draw_route(false);
         }
         
     });
@@ -213,10 +285,52 @@ function initialize(lat,lng,zoom,here) {
         
         if (typeof(place.geometry.location)!='undefined') {
             where_to_latlng = place.geometry.location;
-            draw_route();
+            draw_route(false);
         }
         
-    }); 
+    });
+    
+    
+    $('#map_search .date').pickadate({
+        onSet:function() {
+            draw_route(true);
+        },
+        format: 'dddd, dd mmm yyyy',
+        selectYears: false,
+    });
+
+    $('#map_search .time').pickatime({
+        onSet:function() {
+            draw_route(true);
+        },        
+        format: 'HH:i',
+        formatSubmit: 'HH:i',
+        min: [5,0],
+        max: [18,0],
+        interval: 60
+    });
+    
+    $('#map_search .glyphicon').click(function(){
+        
+        if (navigator.geolocation ) {
+            navigator.geolocation.getCurrentPosition(function (pos) {
+               
+               
+                var geocoder = new google.maps.Geocoder();
+                where_from_latlng=new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
+                geocoder.geocode( { 'address': pos.coords.latitude+','+pos.coords.longitude}, function(results, status) {
+                    
+                    if(status=='OK') $('#map_search #where_from').val(results[0].formatted_address);
+                    
+                });
+               
+           });
+           
+       }
+    });
+    
+    
+    
 }
 
 

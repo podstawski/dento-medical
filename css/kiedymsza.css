@@ -24,8 +24,8 @@ ul {
   list-style: none;
   padding: 0px;
   margin: 0px;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 
@@ -644,6 +644,69 @@ i.about {
 }
 
 
+#map_search ul.nav-tabs {
+  margin-top: 0;
+}
+
+#map_search #map_search_city,
+#map_search #map_search_route {
+  text-align: center;
+  padding: 30px 0;
+  height: 250px;
+}
+
+#map_search #map_search_route input {
+  padding: 3px;
+  font-size: 14px;
+  margin-bottom: 5px;
+  width: 280px;
+}
+
+#map_search #map_search_route input.date {
+  width:70%;
+}
+#map_search #map_search_route input.time {
+  width:24%;
+}
+
+#map_search .where {
+  width: 90%;
+  margin: 0;
+  padding: 5px;  
+}
+
+.pac-container {
+    z-index: 1051 !important;
+}
+
+#map_search .modal-footer {
+  text-align: center;
+  padding: 0;
+}
+
+
+.picker__holder {
+  overflow: hidden;
+}
+.picker__list-item {
+  font-size: 16px;
+}
+
+#map_search .route_from_to {
+  position: relative;
+}
+
+#map_search .glyphicon {
+    position: absolute;
+    top: 5px;
+    vertical-align: baseline;
+    font-size: 18px;
+    left: 255px;
+    cursor: pointer;
+    color: #909090;
+}
+
+
 @media (max-width:480px) {
   .xtable {
     transform: scale(0.70);
@@ -667,27 +730,6 @@ i.about {
   }
 }
 
-#map_search ul.nav-tabs {
-  margin-top: 0;
-}
-
-#map_search #map_search_city,
-#map_search #map_search_route {
-  text-align: center;
-  padding: 30px 0;
-}
-
-#map_search .where {
-  width: 80%;
-  margin: 0;
-  padding: 5px;
-  
-}
-
-
-.pac-container {
-    z-index: 1051 !important;
-}
 
 @media (max-width:991px) {
   #kiedymsza_results .row .time {
