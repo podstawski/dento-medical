@@ -670,7 +670,13 @@ i.about {
 }
 #map_search #map_search_route input.time {
   width:24%;
+  margin-left: 5px;
 }
+
+#map_search #map_search_route .submit {
+  text-align: right;
+}
+
 
 #map_search .where {
   width: 90%;

@@ -169,13 +169,19 @@
 						<div class="tab-pane" id="map_search_route">
 							<span class="route_from_to">
 								<input type="text" placeholder="ruszam z ..." id="where_from"/>
-								<i class="glyphicon glyphicon-map-marker"></i>
+								<i class="glyphicon glyphicon-map-marker" title="moja lokalizacja"></i>
 								<input type="text" placeholder="jadę do ..." id="where_to"/>
 							</span>
 							<hr/>
 							<input type="text" class="date" placeholder="kiedy ruszam" name="date"/>
+							
 							<input type="text" class="time" placeholder="godz" name="time"/>
 							
+							
+							<div class="submit">
+								<hr/>
+								<button type="button" class="btn btn-primary" data-dismiss="modal">znajdź msze św po drodze</button>
+							</div>
 						</div>                            
 					
 						

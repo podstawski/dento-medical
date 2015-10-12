@@ -19,9 +19,9 @@ function clear_markers()
 }
 
 
-function draw_route(use_last)
+function draw_route()
 {
-    if (use_last && last_route_result!=null) {
+    if (last_route_result!=null) {
         computeTotalDistance(last_route_result);
         return;
     }
@@ -286,7 +286,7 @@ function initialize(lat,lng,zoom,here) {
         
         if (typeof(place.geometry.location)!='undefined') {
             where_from_latlng = place.geometry.location;
-            draw_route(false);
+            last_route_result=null;
         }
         
     });
@@ -297,7 +297,7 @@ function initialize(lat,lng,zoom,here) {
         
         if (typeof(place.geometry.location)!='undefined') {
             where_to_latlng = place.geometry.location;
-            draw_route(false);
+            last_route_result = null;
         }
         
     });
@@ -305,7 +305,7 @@ function initialize(lat,lng,zoom,here) {
     
     $('#map_search .date').pickadate({
         onSet:function() {
-            draw_route(true);
+            //draw_route(true);
         },
         format: 'dddd, dd mmm yyyy',
         selectYears: false,
@@ -313,7 +313,7 @@ function initialize(lat,lng,zoom,here) {
 
     $('#map_search .time').pickatime({
         onSet:function() {
-            draw_route(true);
+            //draw_route(true);
         },        
         format: 'HH:i',
         formatSubmit: 'HH:i',
@@ -333,7 +333,7 @@ function initialize(lat,lng,zoom,here) {
         }
     });
     
-    
+    $('#map_search .submit button').click(draw_route);
     
 }
 
