@@ -50,7 +50,19 @@ function computeTotalDistance(result)
     
     last_route_result=result;
     
+
     var data=result.routes[0].legs[0];
+    
+    for(var i=0;i<data.steps.length;i++)
+    {
+        var lat_lngs=[];
+        for (var j=0; j<data.steps[i].lat_lngs.length; j++)
+        {
+            lat_lngs.push([data.steps[i].lat_lngs[j].lat(),data.steps[i].lat_lngs[j].lng()]);
+        }
+        data.steps[i].lat_lngs=lat_lngs;
+    }
+    
     
     var date=$('input[name="date_submit"]').val();
     if (date.length) data.date_submit=date;

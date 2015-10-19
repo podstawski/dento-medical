@@ -214,8 +214,8 @@ class churchController extends Controller {
             $i=1;
             foreach($step['lat_lngs'] AS $latlng)
             {
-                $ak=array_keys($latlng);
-                $latlng=array($latlng[$ak[0]],$latlng[$ak[1]]);
+                if (!is_array($latlng)) continue;
+                if (count($latlng)<2) continue;
                 
                 $points[$last_distance+round($i*$distance/count($step['lat_lngs']))] = [
                     'time'=>$last_time+round($i*$time/count($step['lat_lngs'])),
