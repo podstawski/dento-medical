@@ -47,13 +47,10 @@ function draw_route()
 function computeTotalDistance(result)
 {
     var url='../rest/church/route';
-    
-    last_route_result=result;
-    
 
     var data=result.routes[0].legs[0];
     
-    for(var i=0;i<data.steps.length;i++)
+    if (typeof(data.steps[0].lat_lngs[0].lat)=='function') for(var i=0;i<data.steps.length;i++)
     {
         var lat_lngs=[];
         for (var j=0; j<data.steps[i].lat_lngs.length; j++)
@@ -63,6 +60,7 @@ function computeTotalDistance(result)
         data.steps[i].lat_lngs=lat_lngs;
     }
     
+    last_route_result=result;
     
     var date=$('input[name="date_submit"]').val();
     if (date.length) data.date_submit=date;
@@ -156,7 +154,7 @@ function initialize(lat,lng,zoom,here) {
     
     $('a.menu_szukaj').click(function () {
         $('#map_search').modal();
-        $('.navbar-toggle').trigger('click');
+        if (!$('.navbar-toggle').hasClass('collapsed')) $('.navbar-toggle').trigger('click');
     });
     
     
@@ -353,7 +351,9 @@ function initialize(lat,lng,zoom,here) {
         }
     });
     
-    $('#map_search .submit button').click(draw_route);
+    $('#map_search .submit button').click(function () {
+        setTimeout(draw_route,100);
+    });
     
 }
 
