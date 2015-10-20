@@ -123,7 +123,7 @@
 	<?php
 	    $moremenu=[
 			'<a style="display:none" href="../edit/0" class="a_mapadd">Dodaj kościół</a>',
-			'<a href="javascript://" onclick="$(\'#map_search\').modal()">Szukaj</a>'
+			'<a href="javascript://" class="menu_szukaj">Szukaj</a>'
 		];
 	    include __DIR__.'/../html/topmenu.phtml';
 	?>

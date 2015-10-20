@@ -152,6 +152,14 @@ function search_map_my_position(pos) {
 
 
 function initialize(lat,lng,zoom,here) {
+    
+    
+    $('a.menu_szukaj').click(function () {
+        $('#map_search').modal();
+        $('.navbar-toggle').trigger('click');
+    });
+    
+    
     var myLatlng = new google.maps.LatLng(lat,lng);
     var mapOptions = {
         zoom: zoom,
