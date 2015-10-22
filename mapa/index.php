@@ -180,7 +180,7 @@
 							
 							<div class="submit">
 								<hr/>
-								<button type="button" class="btn btn-primary" data-dismiss="modal">znajdź msze św po drodze</button>
+								<button type="button" class="btn btn-primary" >znajdź msze św po drodze</button>
 							</div>
 						</div>                            
 					

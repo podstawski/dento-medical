@@ -4,3 +4,6 @@
 [submodule "js/pickadate.js"]
 	path = js/pickadate.js
 	url = git://github.com/amsul/pickadate.js.git
+[submodule "js/lazygrid"]
+	path = js/lazygrid
+	url = https://github.com/podstawski/lazygrid

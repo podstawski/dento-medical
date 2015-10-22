@@ -1,8 +1,5 @@
 
-
 var proceed_prority=0;
-
-
 
 $(function(){
     $('#kiedyMszaForm .date').pickadate({

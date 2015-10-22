@@ -609,6 +609,7 @@ a.navbar-brand {
 
 .footer-menu ul li {
   display: inline-block;
+  color: #fff;
 }
 
 .footer-menu ul li a {
@@ -741,6 +742,7 @@ i.about {
   .footer-menu {
     padding: 5px;
     width:100%;
+    
   }
 }
 

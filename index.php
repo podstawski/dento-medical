@@ -60,7 +60,7 @@
       <div class="col-sm-6">
         
           <input type="text" class="date" placeholder="kiedy msza św..." name="date"/>
-          <input type="text" class="time" placeholder="godz" name="time"/>
+          <input type="text" class="time" placeholder="od godz." name="time"/>
       </div>
      
       <div class="col-sm-6">
