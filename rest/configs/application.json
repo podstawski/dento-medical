@@ -4,11 +4,13 @@
     "church.search.distance":7,
     
     "fest.all.free":["1.01","6.01","3.05","15.08","1.11","25.12","25.12"],
-    "fest.all.work":["2.02","29.06"],
+    "fest.all.work":["2.02","29.06","2.11"],
     
     "fest.2015.free": ["6.04","4.06"],
     "fest.2015.work":[],
     
+    "fest.2016.free": ["28.03","26.05"],
+    "fest.2016.work":["10.02"],
 
 
     "protocol":"http",
