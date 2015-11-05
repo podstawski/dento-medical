@@ -61,8 +61,6 @@ class churchController extends Controller {
         if ($geo[0]+0 && isset($geo[1]) && $geo[1]+0)
         {
             
-        
-        
             $when=strtotime(date('Y-m-d'));
             if ($this->data('date_submit')) $when=strtotime($this->data('date_submit'));
             
@@ -76,7 +74,8 @@ class churchController extends Controller {
             
             if ($this->data('when')) {
                 $when=$this->data('when');
-                $time=date('H:i',$when);
+                //$time=date('H:i',$when);
+                $time=$this->int2time($when);
             }
             
             $time=$this->time2int($time)-1;
