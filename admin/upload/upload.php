@@ -43,11 +43,10 @@ function compare_postals($p1,$p2,$c)
 
 function find_latlng($postal,$address)
 {
-    $keys=['AIzaSyBMpDPg7BibacB6R8CdznzHS1cZrfLgSv0','AIzaSyBkqSKFVBFadz9ri2N-Kl3b2ZiNff_SHls',Bootstrap::$main->getConfig('maps.server_key')];
 
     $url='https://maps.google.com/maps/api/geocode/json?address='.urlencode($address).'&sensor=false&region=pl';
-    //$url.='&key='.Bootstrap::$main->getConfig('maps.server_key');
-    $url.='&key='.$keys[rand(0,count($keys)-1)];
+    $url.='&key='.Bootstrap::$main->getConfig('maps.server_key');
+    //$url.='&key='.$keys[rand(0,count($keys)-1)];
     
     $token='place:'.md5($url);
     $place=Tools::memcache($token);
