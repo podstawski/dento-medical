@@ -180,9 +180,9 @@ class imageController extends Controller {
 	}
 	
 	if ($this->_appengine) {
-	    $model->url = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('image_size')]);
-	    $model->square = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('square_size'),'crop'=>true]);
-	    $model->thumb = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('thumb_size'),'crop'=>true]);
+	    $model->url = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('image_size'),'secure_url'=>true]);
+	    $model->square = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('square_size'),'crop'=>true, 'secure_url'=>true]);
+	    $model->thumb = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('thumb_size'),'crop'=>true,'secure_url'=>true]);
 	
 	} else {
 	    $image=new Image($file);
