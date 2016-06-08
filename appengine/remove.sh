@@ -5,4 +5,5 @@ rm -f js/pickadate.js/*.md
 rm -f js/pickadate.js/lib/translations/*.md
 rm -f js/lazygrid/README.md
 rm -rf rest/tools
+rm -rf ssl
 find . -name .cache | xargs rm -rf
