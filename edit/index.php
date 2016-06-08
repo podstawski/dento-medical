@@ -1,4 +1,5 @@
 <?php
+    include __DIR__.'/../rest/https.php';    
     include __DIR__.'/../rest/library/backend/include/all.php';    
     autoload([__DIR__.'/../rest/classes',__DIR__.'/../rest/models',__DIR__.'/../rest/controllers']);
 
@@ -49,6 +50,8 @@
 			
 			
 			
+			
+			
 			$church->lat=$m[0];
 			$church->lng=$m[1];
 			$church->change_author=Bootstrap::$main->user['id'];
@@ -58,6 +61,9 @@
 			
 			
 			$church->save();
+			
+			//mydie([$result,$distanceok,$m,$church->id]);
+			
 			$uri=$_SERVER['REQUEST_URI'];
 			$pos=strpos($uri,'/edit');	    
 			if (strlen($pos)) $uri=substr($uri,0,$pos);
