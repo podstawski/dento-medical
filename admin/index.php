@@ -1,5 +1,5 @@
 <?php
-    include __DIR__.'/../rest/https.php';    
+    //include __DIR__.'/../rest/https.php';    
 
         $part = substr($_SERVER['REQUEST_URI'], 1+strlen(dirname($_SERVER['SCRIPT_NAME'])));
         if ($pos = strpos($part, '?')) $part = substr($part, 0, $pos);
