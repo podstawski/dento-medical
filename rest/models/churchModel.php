@@ -45,6 +45,38 @@ class churchModel extends Model {
 		
 	}
 	
+	
+	public function search_no_mass($lat,$lng,$distance,$limit=10,$offset=0)
+	{
+	
+		$lat+=0;
+		$lng+=0;
+		$distance+=0;
+
+		$sql="SELECT *,1.3*geo_distance(lat,lng,$lat,$lng) AS distance,churches.id AS church_id";
+		$sql.=" FROM churches";
+		
+		$sql.=" WHERE churches.active=1"; 
+
+		$sql.=" AND lat BETWEEN ".($lat-$distance*0.9/100)." AND ".($lat+$distance*0.9/100);
+		$sql.=" AND lng BETWEEN ".($lng-$distance*1.48/100)." AND ".($lng+$distance*1.48/100);
+		$sql.=" AND geo_distance(lat,lng,$lat,$lng)<$distance";
+		
+		$sql.=" ORDER BY geo_distance(lat,lng,$lat,$lng)";
+
+		
+		$sql.=" LIMIT $limit OFFSET $offset";
+		
+		$churches=$this->conn->fetchAll($sql);
+		
+		//mydie($churches,date('H:i',$time).$sql);
+		
+		return $churches;
+		
+	}
+	
+	
+	
 	protected function find_one_latlng_tel($lat,$lng,$tel)
 	{
 		$distance=3;

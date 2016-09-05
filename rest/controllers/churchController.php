@@ -80,6 +80,9 @@ class churchController extends Controller {
             
             $time=$this->time2int($time)-1;
             
+            $all_churches=$church->search_no_mass($geo[0],$geo[1],$distance);
+            
+            
             while (!count($data))
             {
                 $month=date('m',$when);
@@ -101,6 +104,25 @@ class churchController extends Controller {
                 $when+=24*3600;
 
             }
+            
+            if ($all_churches && count($all_churches)) {
+                
+                
+                if ($data && count($data)) foreach ($data AS $chwm) {
+                    foreach ($all_churches AS $i=>$church2) {
+                        $all_churches[$i]['description']='brak informacji';
+                        $all_churches[$i]['kids']='';
+                        $all_churches[$i]['youth']='';
+                        
+                        if ($church2['church_id'] == $chwm['church_id']) {
+                            unset($all_churches[$i]);
+                        }
+                    }
+                }
+                
+                if (count($all_churches)) $data=array_merge($data,$all_churches);
+            }
+            
             
             $opt['when']=$this->data('when')?:$when+$time;
             $opt['count']=count($data);
@@ -131,6 +153,10 @@ class churchController extends Controller {
             }
             $rec['address']=preg_replace('/[0-9][0-9].[0-9][0-9][0-9]/','',$rec['address']);
             if ($downame) $rec['downame']=$downame;
+            
+            if (!isset($rec['time'])) {
+                $rec['time']='-';
+            }
         }
     }
     
