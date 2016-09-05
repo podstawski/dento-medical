@@ -2,7 +2,7 @@
 
 class churchController extends Controller {
     
-    protected static $dows=['Niedziela','Poniedziałek','Wtorek','Środa','Czwartek','Piątek','Sobota'];
+    protected static $dows=['niedziela','poniedziałek','wtorek','środa','czwartek','piątek','sobota'];
     
     protected function change_dow($when)
     {
@@ -110,7 +110,7 @@ class churchController extends Controller {
                 
                 if ($data && count($data)) foreach ($data AS $chwm) {
                     foreach ($all_churches AS $i=>$church2) {
-                        $all_churches[$i]['description']='brak informacji';
+                        $all_churches[$i]['description']='';
                         $all_churches[$i]['kids']='';
                         $all_churches[$i]['youth']='';
                         
@@ -156,6 +156,9 @@ class churchController extends Controller {
             
             if (!isset($rec['time'])) {
                 $rec['time']='-';
+                $rec['description']=$downame.' brak';
+                
+                
             }
         }
     }
