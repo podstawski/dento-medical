@@ -80,8 +80,8 @@
 
     if ($lasteditedchurch['count']>25 || ($lasteditedchurch['id']!=$id && Bootstrap::$main->now-$lasteditedchurch['time']<20))
     {
-	Bootstrap::$main->logout();
-	die('<script>history.go(-1);</script>');
+		Bootstrap::$main->logout();
+		die('<script>history.go(-1);</script>');
     }
     
     if ($lasteditedchurch['id']!=$id) $lasteditedchurch['count']++;
@@ -98,7 +98,7 @@
     foreach (scandir($path) AS $f)
     {
         if ($f[0]=='.') continue;
-	$fname=str_replace('.json','',$f);
+		$fname=str_replace('.json','',$f);
         $id2=@end(explode(',',$fname));
 	
 	if ("$id2"=="$id") {

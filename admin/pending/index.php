@@ -19,11 +19,51 @@
         return $ret;
     }
 
+    function mail2changer($church_id,$only_zero_masses=false) {
+        
+        $church=new churchModel($church_id);
+        if (!$church->change_author) return;
+        
+        if (!$church->name) return;
+        if (!$church->active) return;
+        if ($church->successor) return;
+        
+        $user=new userModel($church->change_author);
+        if (!$user->email) return;
+        if (!strstr($user->email,'@')) return;
+        
+        $mass=new massModel();
+        
+        $masses=$mass->count(['church'=>$church_id]);
+        
+        if ($only_zero_masses && $masses) return;
+        
+        $msg=Smekta::smektuj(file_get_contents(__DIR__.'/mail.html'),[
+            'church'=>$church->data(),
+            'user'=>$user->data(),
+            'masses'=>$masses,
+            'link'=>'https://www.kiedymsza.pl/kosciol/'.Tools::str_to_url($church->name).','.$church_id
+        ]);
+        
+        //echo $church->name.'<br>'; return;
+  
+        Tools::mail([
+            'from'=>'piotr.podstawski@kiedymsza.pl',
+            'to'=>$user->email,
+            'subject' => 'Zmiana '.$church->name,
+            'msg'=>$msg
+        ]);
+
+        echo $msg;
+    }
     
+    //if (isset($_GET['sendmail'])) mail2changer($_GET['sendmail']);
     
     $church=new churchModel();
     $mass=new massModel();
     $path=Tools::saveRoot('church-pending');
+
+    //$churches=$church->updated(); foreach($churches AS $ch) mail2changer($ch['id'],true);
     
     $user=new userModel();
     
@@ -114,7 +154,9 @@
                 $church2['tel']=substr(preg_replace('/[^0-9]/','',$church2['phone']),0,9);
                 $church2['active']=1;
                 
-                $church->import($church2,true,true,true);
+                $changed=$church->import($church2,true,true,true);
+                
+                mail2changer($changed['data']['id']);
 
                 unlink("$path/$f");
                 

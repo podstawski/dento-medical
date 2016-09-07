@@ -1,0 +1,52 @@
+<p>Dzień dobry, {user.firstname} {user.lastname}</p>
+
+<p>
+    Na wstępie pragnę bardzo serdecznie podziękować za poświęcony czas
+    na aktualizację parafii <a href="{link}">{church.name}</a>
+</p>
+
+{if:!masses}
+    <p>
+    Celem powstania serwisu <a href="https://www.kiedymsza.pl">KiedyMsza</a>
+    było umożliwienia znalezienia Mszy Św. Żeby wyszukiwarka dobrze działała,
+    należy wypełnić tabelkę z Mszami w podziale na miesiące w roku. Niestety
+    w chwili obecnej w "{church.name}" nie ma Mszy i nikt nie będzie mógł 
+    tam trafić. Proszę zatem
+    o ponowną <a href="https://www.kiedymsza.pl/edit/{church.id}">aktualizację</a>
+    i wypełnienie tabelki po prawej stronie zgdonie
+    z <a href="https://www.youtube.com/watch?v=f3KS07OyR8A">instrukcją</a>.
+    </p>
+{endif:!masses}
+
+Wg informacji tekstowej Msze Św. odprawiane są:
+<ul>
+    <li><b>W niedzielę i święta:</b> {church.sun}</li>
+    <li><b>W dni powszednie:</b> {church.week}</li>
+    {if:church.fest}
+    <li><b>W święta zniesione:</b> {church.fest}</li>
+    {endif:church.fest}
+</ul>
+<p>
+    Bardzo ważne jest, aby w/w godziny były dokładnie wprowadzone
+    po prawej stronie w tabelce przy
+    <a href="https://www.kiedymsza.pl/edit/{church.id}">aktualizacji</a>
+</p>
+
+
+{if:masses}
+    <p>
+        Każdej chwili można sprawdzić dane po kliknięciu w
+        <a href="{link}">link</a>. Jeżeli nie wszystko jest jasne,
+        to zachęcam do zapoznania się z
+        <a href="https://www.youtube.com/watch?v=f3KS07OyR8A">instrukcją</a>.
+        <br/>
+        Można też wprowadzać informacje szczegółowe, np suma, msza dla dzieci, itp.
+        - <a href="https://www.youtube.com/watch?v=fRXAKSlWjW8">sprawdź jak to zrobić!</a>
+    </p>
+{endif:masses}
+
+<p>
+    <br/>
+Łączę wyrazy wdzięczności, <br/>
+Piotr Podstawski, KiedyMsza
+</p>

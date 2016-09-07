@@ -252,4 +252,10 @@ class churchModel extends Model {
 		$sql="UPDATE churches SET www=replace(www,'http://','') WHERE www LIKE 'http://%'";
 		$this->conn->execute($sql);
     }
+	
+	public function updated()
+	{
+		$sql="SELECT id,name FROM churches WHERE change_author IS NOT NULL";
+		return $this->conn->fetchAll($sql);
+	}
 }
