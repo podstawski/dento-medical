@@ -80,8 +80,14 @@ class churchController extends Controller {
             
             $time=$this->time2int($time)-1;
             
-            $all_churches=$church->search_no_mass($geo[0],$geo[1],$distance);
+            $token='geo_churches_'.$geo[0].'_'.$geo[1];
+            $all_churches=Tools::memcache($token);
+            if (!$all_churches) {
+                $all_churches=$church->search_no_mass($geo[0],$geo[1],$distance);
+                if ($all_churches) Tools::memcache($token,$all_churches);
+            }
             
+            $masses=new massModel();
             
             while (!count($data))
             {
@@ -105,22 +111,49 @@ class churchController extends Controller {
 
             }
             
-            if ($all_churches && count($all_churches)) {
+            
+            if ($all_churches && count($all_churches) ) {
                 
                 
-                if ($data && count($data)) foreach ($data AS $chwm) {
+                if ( ($data && count($data) && count($data)<$opt['limit'])
+                     ||
+                     ($data && count($data)==0 && $opt['offset']>0)
+                ) {
                     foreach ($all_churches AS $i=>$church2) {
+                        
                         $all_churches[$i]['description']='';
                         $all_churches[$i]['kids']='';
                         $all_churches[$i]['youth']='';
                         
-                        if ($church2['church_id'] == $chwm['church_id']) {
-                            unset($all_churches[$i]);
+                        
+                        $masstoken='masses_'.$church2['church_id'].'_'.$dow;
+                        $masscount=Tools::memcache($masstoken);
+                        if (!$masscount) {
+                            $masscount=$masses->count([
+                                'church'=>$church2['church_id'],
+                                'dow'=>$dow
+                            ]);
+                            Tools::memcache($masstoken,$masscount);
                         }
+                        
+                        
+                        if ($masscount) {
+                            unset($all_churches[$i]);
+                            continue;
+                        }
+                        
+                        $all_churches[$i]['nomassthisday']=1;
+                        
+                        
                     }
+                    
+                    if (count($all_churches)) $data=array_merge($data,$all_churches);
+                    //mydie([count($data),$opt['limit'],count($all_churches),$masscount]);
                 }
                 
-                if (count($all_churches)) $data=array_merge($data,$all_churches);
+                
+                
+                
             }
             
             
@@ -157,8 +190,11 @@ class churchController extends Controller {
             if (!isset($rec['time'])) {
                 $rec['time']='-';
                 $rec['description']=$downame.' brak';
-                
-                
+        
+            }
+            
+            if (!isset($rec['nomassthisday'])) {
+                $rec['nomassthisday']=0;
             }
         }
     }

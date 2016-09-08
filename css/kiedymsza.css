@@ -205,6 +205,11 @@ ul li div h3 a {
   background-color: #ddd;  
 }
 
+#kiedymsza_results .row .church .nomass {
+  font-size: 0.7em;
+  color: #3030A0;
+}
+
 h1 {
   font-size: 1.3em;
   margin-top: 0;

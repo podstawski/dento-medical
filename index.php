@@ -137,6 +137,13 @@
       <div class="mass-desc">[if:description] [description][endif:description][if:kids] dzieci[endif:kids][if:youth] młodzież[endif:youth]</div>
       <h4><a href="kosciol/[name_url],[church_id]">[name]</a></h4>
       <span class="address">[address]</span>
+      [if:nomassthisday]
+      <div class="nomass hidden-xs">
+        Wygląda na to, że w [downame] nie ma tu Mszy Św.
+        Jeżeli uważasz, że to błąd, to
+        <a href="/edit/[church_id]">proszę popraw.</a>
+      </div>
+      [endif:nomassthisday]
     </div>
     <div class="col-md-2 hidden-sm hidden-xs distance">[distance] km</div>
   </div>
