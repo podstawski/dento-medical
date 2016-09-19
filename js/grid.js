@@ -1,5 +1,6 @@
 function kiedymsza_grid_log(txt)
 {
+    $.get('dbg/index.php?ts='+Date.now()+'&tx='+encodeURIComponent(txt))
     //console.log(txt);
 }
 
@@ -57,13 +58,17 @@ function kiedymsza_grid_load(pri)
     var url=kiedymsza_grid_ajax+'?now='+d.getHours()+':'+d.getMinutes()+'&limit='+kiedymsza_grid_limit+'&offset='+kiedymsza_grid_offset+'&when='+kiedymsza_grid_when+'&'+txt+'&pri='+pri;
     
     $.get(url,function (r) {
-        kiedymsza_grid_log(r);
-        $('.kiedymsza_grid_scroll_to_wait').remove();
+        //kiedymsza_grid_log(r);
         
         if (kiedymsza_grid_pri>r.options.pri) {
-            kiedymsza_grid_log('data with smaller priority');
+            kiedymsza_grid_log('data with smaller priority '+kiedymsza_grid_pri+'>'+r.options.pri);
             return;
-        }
+        }        
+        
+        
+        $('.kiedymsza_grid_scroll_to_wait').remove();
+        
+        kiedymsza_grid_log('pri set to '+kiedymsza_grid_pri);
         kiedymsza_grid_pri=r.options.pri;
         
         var html=$('#'+kiedymsza_grid_template).html();
@@ -93,7 +98,7 @@ function kiedymsza_grid_load(pri)
 
 function kiedymsza_grid_reload(pri)
 {
-
+    kiedymsza_grid_log('start new table - '+pri);
     $('#'+kiedymsza_grid_results).html('');
     kiedymsza_grid_offset=0;
     kiedymsza_grid_when=0;
@@ -152,7 +157,7 @@ function kiedymsza_grid(form,template,results,limit,ajax,lazyload,req)
 function grid_start(why,pri)
 {
     if (kiedymsza_grid_ajax.length==0) {
-        kiedymsza_grid_log(why+': grid init');
+        kiedymsza_grid_log(why+': grid init('+pri+')');
         kiedymsza_grid_pri=pri;
         kiedymsza_grid('kiedyMszaForm','kiedymsza_results_template','kiedymsza_results',15,'rest/church/search',true);
     } else {
