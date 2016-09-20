@@ -60,14 +60,18 @@
 			$church->md5hash=substr($m[0],0,15).','.substr($m[1],0,15);
 			
 			
-			$church->save();
-			
+			if ($m[0] && $m[1]) {
+				$church->save();
+				$uri=$_SERVER['REQUEST_URI'];
+				$pos=strpos($uri,'/edit');	    
+				if (strlen($pos)) $uri=substr($uri,0,$pos);
+				Header('Location: '.$uri.'/edit/'.$church->id);			
+			} else {
+				die('<script>history.go(-1)</script>');
+			}
 			//mydie([$result,$distanceok,$m,$church->id]);
 			
-			$uri=$_SERVER['REQUEST_URI'];
-			$pos=strpos($uri,'/edit');	    
-			if (strlen($pos)) $uri=substr($uri,0,$pos);
-			Header('Location: '.$uri.'/edit/'.$church->id);
+			
 		
 		}
     }

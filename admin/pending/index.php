@@ -62,6 +62,8 @@
     $church=new churchModel();
     $mass=new massModel();
     $path=Tools::saveRoot('church-pending');
+    
+    $church->cleanup(Bootstrap::$main->now - 3600*24*5);
 
     //$churches=$church->updated(); foreach($churches AS $ch) mail2changer($ch['id'],true);
     

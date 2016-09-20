@@ -258,4 +258,9 @@ class churchModel extends Model {
 		$sql="SELECT id,name FROM churches WHERE change_author IS NOT NULL";
 		return $this->conn->fetchAll($sql);
 	}
+	
+	public function cleanup($from) {
+		$sql="DELETE FROM churches WHERE active IS NULL AND change_time<?";
+		$this->conn->execute($sql,[$from]);
+	}
 }
