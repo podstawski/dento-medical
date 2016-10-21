@@ -74,6 +74,8 @@ function table_manimupation()
     
     $(this).attr('out','1');
     
+    $(this).parent().parent().attr('time',$(this).val());
+    
     if ($(this).val().length==0) {
       var next=$(this).parent().parent().next();
       if (next.length>0) {
@@ -111,6 +113,16 @@ function table_manimupation()
   $('.table input.chkall').click(function(){
     var ch=$(this).prop('checked');
     $(this).parent().parent().find('input.month').prop('checked',ch);
+    
+    var tr=$(this).closest('tr');
+    if (tr.find('input.month').first().attr('name').indexOf('masses[1]')==-1) return;
+    
+    $('.table tr[time="'+tr.attr('time')+'"] input.month').each(function(){
+      if ($(this).attr('name').indexOf('masses[0]')>=0) return;
+      if ($(this).attr('name').indexOf('masses[1]')>=0) return;
+      if ($(this).attr('name').indexOf('masses[8]')>=0) return;
+      $(this).prop('checked',ch);
+    });
   });
   
   $('.table input.desc').focus(function(){
@@ -121,11 +133,60 @@ function table_manimupation()
     
   });
   
+  //monday repeat desc
+  $('.table input.desc').focusout(function(){
+    if ($(this).attr('name').indexOf('masses[1]')==-1) return;
+    var tr=$(this).closest('tr');
+    var v=$(this).val();
+    
+   
+    $('.table tr[time="'+tr.attr('time')+'"] input.desc').each(function(){
+      if ($(this).attr('name').indexOf('masses[0]')>=0) return;
+      if ($(this).attr('name').indexOf('masses[1]')>=0) return;
+      if ($(this).attr('name').indexOf('masses[8]')>=0) return;
+      $(this).val(v);
+    });
+  });
+  
+  //monday repeat kids
+  $('.table input.kids,.table input.youth').click(function(){
+    if ($(this).attr('name').indexOf('masses[1]')==-1) return;
+    var tr=$(this).closest('tr');
+    var ch=$(this).prop('checked');
+    var cl=$(this).attr('class');
+    
+    $('.table tr[time="'+tr.attr('time')+'"] input.'+cl).each(function(){
+      if ($(this).attr('name').indexOf('masses[0]')>=0) return;
+      if ($(this).attr('name').indexOf('masses[1]')>=0) return;
+      if ($(this).attr('name').indexOf('masses[8]')>=0) return;
+      $(this).prop('checked',ch);
+    });    
+
+  });
+  
   $('.table .desc span a').click(function(){
     $(this).parent().hide();
     $(this).parent().parent().find('input').css('width','');
     $(this).parent().parent().nextAll().fadeIn(300);
     $(this).parent().parent().attr('colspan','');
+  });
+  
+  
+  //monday repeat masses
+  $('.table input.mass').click(function(){
+    if ($(this).attr('name').indexOf('masses[1]')==-1) return;
+    
+    var tr=$(this).closest('tr');
+    var ch=$(this).prop('checked');
+    var cl=$(this).parent().attr('class').replace(' ','.');
+    
+    $('.table tr[time="'+tr.attr('time')+'"] td.'+cl+' input.mass').each(function(){
+      if ($(this).attr('name').indexOf('masses[0]')>=0) return;
+      if ($(this).attr('name').indexOf('masses[1]')>=0) return;
+      if ($(this).attr('name').indexOf('masses[8]')>=0) return;
+      $(this).prop('checked',ch);
+    }); 
+    
   });
 }
 

@@ -245,6 +245,13 @@ class churchController extends Controller {
         
         $url=Tools::str_to_url($church->name).','.$church->id;
         
+        Tools::mail([
+            'from'=>Bootstrap::$main->user['email'],
+            'to'=>'piotr.podstawski@kiedymsza.pl',
+            'subject' => 'Akceptuj '.$church->name,
+            'msg'=>'Zmiana do akceptacji, wejdź na https://www.kiedymsza.pl/admin/pending/'
+        ]);
+        
         return $this->status(['info'=>'Po weryfikacji, dane zostaną opublikowane. Dziękuję!','url'=>$url]);
     }
     

@@ -11,8 +11,9 @@
     if ($pos) $url=substr($url,0,$pos);
     $_url=explode('/',$url);
     $id=end($_url);
-    
-    
+    	
+    if (!isset($_SERVER['SERVER_SOFTWARE']) || !strstr(strtolower($_SERVER['SERVER_SOFTWARE']),'engine')) Bootstrap::$main->user=['id'=>1];
+	
     if (isset(Bootstrap::$main->user['id']) && Bootstrap::$main->user['id'] && isset($_GET['m'])) {
 		
 		// https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=AIzaSyDCJ19tULhkLmrMjKZ5K5FABTLGvOJG8rc&location=52.4639373,17.2083024&radius=5000&keyword=parafia|ko%C5%9Bci%C3%B3%C5%82
@@ -105,9 +106,9 @@
 		$fname=str_replace('.json','',$f);
         $id2=@end(explode(',',$fname));
 	
-	if ("$id2"=="$id") {
-	    die('<script>alert("Aktualizacja zablokowana do czasu akceptacji przez moderatora poprzednich zmian."); history.go(-1);</script>');
-	}
+		if ("$id2"=="$id") {
+			die('<script>alert("Aktualizacja zablokowana do czasu akceptacji przez moderatora poprzednich zmian."); history.go(-1);</script>');
+		}
 	
     }
     
@@ -131,102 +132,102 @@
     
     function tr_masses($dow,$masses)
     {
-	if (!is_array($masses[$dow])) $masses[$dow]=[];
-	
-	$tr='';
-	$mon=['','Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
-	
-	$times=[];
-	foreach ($masses[$dow] AS $mass)
-	{
-	    $t=$mass['time'];
-	    $time=date('H:i',$t+(Bootstrap::$main->appengine?3600:0));
-
-	    if (isset($times[$time])) continue;
-	    $times[$time]=true;
-	    
-	    $kids=$mass['kids']?'checked':'';
-	    $youth=$mass['youth']?'checked':'';
-	    
-	    $tr.='<tr>';
-	    $tr.='<td class="time">'.$time.'</td>';
-	    $tr.='<td class="desc">
-		    <input type="text" value="'.$mass['description'].'" placeholder="opis" class="desc" name="masses['.$dow.']['.$t.'][desc]" />
-		    <span>
-			<input type="checkbox" name="masses['.$dow.']['.$t.'][kids]" value="1" '.$kids.'/> dzieci
-			<input type="checkbox" name="masses['.$dow.']['.$t.'][youth]" value="1" '.$youth.'/> młodzież
-			<a>[ok]</a>
-		    </span>
-		</td>';
-	    
-	    
-	    for ($m=1;$m<=12;$m++)
-	    {
-		$tr.='<td title="'.$mon[$m].'" class="mon m-'.$m.'"><input value="1" type="checkbox"';
-		$tr.=' name="masses['.$dow.']['.$t.'][moy]['.$m.']"';
-		foreach ($masses[$dow] AS $ms)
-		{
-		    if ($ms['time']==$t && $ms['moy']==$m) {
-			$tr.=' checked';
-			break;
-		    }
-		}
+		if (!is_array($masses[$dow])) $masses[$dow]=[];
 		
-		$tr.="/></td>";
-	    }
-	    $tr.='<td class="rm">x</td>';
+		$tr='';
+		$mon=['','Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec','Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
+		
+		$times=[];
+		foreach ($masses[$dow] AS $mass)
+		{
+			$t=$mass['time'];
+			$time=date('H:i',$t+(Bootstrap::$main->appengine?3600:0));
+	
+			if (isset($times[$time])) continue;
+			$times[$time]=true;
+			
+			$kids=$mass['kids']?'checked':'';
+			$youth=$mass['youth']?'checked':'';
+			
+			$tr.='<tr time="'.$time.'">';
+			$tr.='<td class="time">'.$time.'</td>';
+			$tr.='<td class="desc">
+				<input type="text" value="'.$mass['description'].'" placeholder="opis" class="desc" name="masses['.$dow.']['.$t.'][desc]" />
+				<span>
+				<input type="checkbox" class="kids" name="masses['.$dow.']['.$t.'][kids]" value="1" '.$kids.'/> dzieci
+				<input type="checkbox" class="youth" name="masses['.$dow.']['.$t.'][youth]" value="1" '.$youth.'/> młodzież
+				<a>[ok]</a>
+				</span>
+			</td>';
+			
+			
+			for ($m=1;$m<=12;$m++)
+			{
+				$tr.='<td title="'.$mon[$m].'" class="mon m-'.$m.'"><input value="1" class="mass" type="checkbox"';
+				$tr.=' name="masses['.$dow.']['.$t.'][moy]['.$m.']"';
+				foreach ($masses[$dow] AS $ms)
+				{
+					if ($ms['time']==$t && $ms['moy']==$m) {
+					$tr.=' checked';
+					break;
+					}
+				}
+				
+				$tr.="/></td>";
+			}
+			$tr.='<td class="rm">x</td>';
+			
+			$tr.='</tr>';
 	    
-	    $tr.='</tr>';
-	    
-	}
+		}
 
-	$tr.='<tr class="new-mass-'.$dow.'">';
-	$tr.='<td class="time"><input type="text" name="masses['.$dow.'][_new_][time]" placeholder="godz."/></td>';
-	$tr.='<td class="desc">
-		<input type="text" placeholder="opis" class="desc" name="masses['.$dow.'][_new_][desc]" />
-		<span>
-		    <input type="checkbox" name="masses['.$dow.'][_new_][kids]" value="1" /> dzieci
-		    <input type="checkbox" name="masses['.$dow.'][_new_][youth]" value="1" /> młodzież
-		    <a>[ok]</a>
-		</span>
-	    </td>';
+		$tr.='<tr class="new-mass-'.$dow.'" time="">';
+		$tr.='<td class="time"><input type="text" name="masses['.$dow.'][_new_][time]" placeholder="godz."/></td>';
+		$tr.='<td class="desc">
+			<input type="text" placeholder="opis" class="desc" name="masses['.$dow.'][_new_][desc]" />
+			<span>
+				<input type="checkbox" class="kids" name="masses['.$dow.'][_new_][kids]" value="1" /> dzieci
+				<input type="checkbox" class="youth" name="masses['.$dow.'][_new_][youth]" value="1" /> młodzież
+				<a>[ok]</a>
+			</span>
+			</td>';
+		
+		
+		for ($m=1;$m<=12;$m++)
+		{
+			$tr.='<td title="'.$mon[$m].'" class="month-'.$m.'"><input class="month mass" value="1" type="checkbox"';
+			$tr.=' name="masses['.$dow.'][_new_][moy]['.$m.']"/></td>';
+			
+		}
+		$tr.='<td><input type="checkbox" class="chkall"/></td>';
+		
+		$tr.='</tr>';
 	
 	
-	for ($m=1;$m<=12;$m++)
-	{
-	    $tr.='<td title="'.$mon[$m].'" class="month-'.$m.'"><input class="month" value="1" type="checkbox"';
-	    $tr.=' name="masses['.$dow.'][_new_][moy]['.$m.']"/></td>';
-	    
-	}
-	$tr.='<td><input type="checkbox" class="chkall"/></td>';
-	
-	$tr.='</tr>';
-
-
-	return $tr;
+		return $tr;
     }
     
     function th_masses()
     {
-	return '
-	      <tr>
-		<th>Godz</th>
-		<th>Opis</th>
-		<th title="Styczeń">1</th>
-		<th title="Luty">2</th>
-		<th title="Marzec">3</th>
-		<th title="Kwiecień">4</th>
-		<th title="Maj">5</th>
-		<th title="Czerwiec">6</th>
-		<th title="Lipiec">7</th>
-		<th title="Siepień">8</th>
-		<th title="Wrzesień">9</th>
-		<th title="Październik">10</th>
-		<th title="Listopad">11</th>
-		<th title="Grudzień">12</th>
-		<th title="Usuń">x</th>
-	      </tr>	
-	';
+		return '
+			  <tr>
+			<th>Godz</th>
+			<th>Opis</th>
+			<th title="Styczeń">1</th>
+			<th title="Luty">2</th>
+			<th title="Marzec">3</th>
+			<th title="Kwiecień">4</th>
+			<th title="Maj">5</th>
+			<th title="Czerwiec">6</th>
+			<th title="Lipiec">7</th>
+			<th title="Siepień">8</th>
+			<th title="Wrzesień">9</th>
+			<th title="Październik">10</th>
+			<th title="Listopad">11</th>
+			<th title="Grudzień">12</th>
+			<th title="Usuń">x</th>
+			  </tr>	
+		';
 	
     }
     

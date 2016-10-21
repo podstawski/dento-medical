@@ -101,123 +101,129 @@ class imageController extends Controller {
     
     protected function upload_file($tmp,$name,$chunk=0)
     {
-	if (!isset(Bootstrap::$main->user['id'])) return false;
-	
-	if (!file_exists($tmp)) return false;
-	
-	//mydie($this->_media_dir,$this->_media);
-	$ext=@strtolower(end(explode('.',$name)));
-	$user=Bootstrap::$main->user;
-	
-	$original_name=$name;
-	
-	if ($chunk) $name=$this->_prefix.'/'.$user['md5hash'].'/'.md5($name).'.'.abs($chunk);
-	else $name=$this->_prefix.'/'.$user['md5hash'].'/'.md5_file($tmp).'.'.$ext;
-
-	$file=Tools::saveRoot($name);
-	
-	if (file_exists($file) && $chunk>=0) return;
-	
-	
-	move_uploaded_file($tmp,$file);
-	
-	if (!file_exists($file) || !filesize($file)) $this->error(18);
-
-	if ($chunk>0) return;
-	
-	if ($chunk<0) {
-	    $chunk=abs($chunk);
-	    $blob='';
-	    $name=$this->_prefix.'/'.$user['md5hash'].'/'.md5($original_name);
-	    
-	    for ($i=1;$i<=$chunk;$i++) {
-		$file=Tools::saveRoot("$name.$i");
-		if (file_exists($file)) {
-		    $blob.=file_get_contents($file);
-		    unlink($file);
-		}
-	    }
-	    if (!strlen($blob)) return;
-	    $name=$this->_prefix.'/'.$user['md5hash'].'/'.md5($blob).'.'.$ext;
-	    $file=Tools::saveRoot($name);
-	    if (file_exists($file)) return;
-	    file_put_contents($file,$blob);
-	}
-	
-	$model=new imageModel();
-	$model->author_id=$user['id'];
-	$model->src=$name;
-	$model->ip_uploaded=Bootstrap::$main->ip;
-	$model->d_uploaded=Bootstrap::$main->now;
-	$model->church = Bootstrap::$main->session('image-for-church');
-
-	$exif=[];
-	$imagesize=@getimagesize($file,$exif);
-	if (!is_array($imagesize) || !$imagesize[0]) $imagesize=[5000,5000];
-	
-	if (is_array($exif)) foreach ($exif  AS $k=>$a)
-	{
-	    
-	    if (substr($a,0,4)=='Exif')
-	    {
-		$matches=[];
-		preg_match_all('/[0-9]{4}:[0-9]{2}:[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}/',$a,$matches);
-		$d='';
+		if (!isset(Bootstrap::$main->user['id'])) return false;
 		
-		if (isset($matches[0][1])) {
-		    $d=$matches[0][1];
-		} elseif (isset($matches[0][0])) {
-		    $d=$matches[0][0];
+		if (!file_exists($tmp)) return false;
+		
+		//mydie($this->_media_dir,$this->_media);
+		$ext=@strtolower(end(explode('.',$name)));
+		$user=Bootstrap::$main->user;
+		
+		$original_name=$name;
+		
+		if ($chunk) $name=$this->_prefix.'/'.$user['md5hash'].'/'.md5($name).'.'.abs($chunk);
+		else $name=$this->_prefix.'/'.$user['md5hash'].'/'.md5_file($tmp).'.'.$ext;
+	
+		$file=Tools::saveRoot($name);
+		
+		if (file_exists($file) && $chunk>=0) return;
+		
+		
+		move_uploaded_file($tmp,$file);
+		
+		if (!file_exists($file) || !filesize($file)) $this->error(18);
+	
+		if ($chunk>0) return;
+		
+		if ($chunk<0) {
+			$chunk=abs($chunk);
+			$blob='';
+			$name=$this->_prefix.'/'.$user['md5hash'].'/'.md5($original_name);
+			
+			for ($i=1;$i<=$chunk;$i++) {
+			$file=Tools::saveRoot("$name.$i");
+			if (file_exists($file)) {
+				$blob.=file_get_contents($file);
+				unlink($file);
+			}
+			}
+			if (!strlen($blob)) return;
+			$name=$this->_prefix.'/'.$user['md5hash'].'/'.md5($blob).'.'.$ext;
+			$file=Tools::saveRoot($name);
+			if (file_exists($file)) return;
+			file_put_contents($file,$blob);
 		}
-		if ($d)
+		
+		$model=new imageModel();
+		$model->author_id=$user['id'];
+		$model->src=$name;
+		$model->ip_uploaded=Bootstrap::$main->ip;
+		$model->d_uploaded=Bootstrap::$main->now;
+		$model->church = Bootstrap::$main->session('image-for-church');
+	
+		$exif=[];
+		$imagesize=@getimagesize($file,$exif);
+		if (!is_array($imagesize) || !$imagesize[0]) $imagesize=[5000,5000];
+		
+		if (is_array($exif)) foreach ($exif  AS $k=>$a)
 		{
-
-		    $d=preg_replace('/([0-9]{4}):([0-9]{2}):([0-9]{2})/','\1-\2-\3',$d);		    
-		    $model->d_taken=strtotime($d);
+			
+			if (substr($a,0,4)=='Exif')
+			{
+			$matches=[];
+			preg_match_all('/[0-9]{4}:[0-9]{2}:[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}/',$a,$matches);
+			$d='';
+			
+			if (isset($matches[0][1])) {
+				$d=$matches[0][1];
+			} elseif (isset($matches[0][0])) {
+				$d=$matches[0][0];
+			}
+			if ($d)
+			{
+	
+				$d=preg_replace('/([0-9]{4}):([0-9]{2}):([0-9]{2})/','\1-\2-\3',$d);		    
+				$model->d_taken=strtotime($d);
+			}
+			}
+			
 		}
-	    }
-	    
-	}
-	
-	if ($this->_appengine) {
-	    $model->url = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('image_size'),'secure_url'=>true]);
-	    $model->square = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('square_size'),'crop'=>true, 'secure_url'=>true]);
-	    $model->thumb = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('thumb_size'),'crop'=>true,'secure_url'=>true]);
-	
-	} else {
-	    $image=new Image($file);
-	    
-	    $w=$h=0;
-	    if ($imagesize[0] > Bootstrap::$main->getConfig('image_size'))
-	    {
-		$w=Bootstrap::$main->getConfig('image_size');
-		$img=preg_replace("/\.$ext\$/",'-i.'.$ext,$file);
-		$image->min($img,$w,$h,true);
-		$model->url='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.preg_replace("/\.$ext\$/",'-i.'.$ext,$name);
-	    } else $model->url='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.$name;
-
-	    
-	    $w=$h=0;
-	    
-	    $w=$h=Bootstrap::$main->getConfig('square_size');
-	    $square=preg_replace("/\.$ext\$/",'-s.'.$ext,$file);
-	    $image->min($square,$w,$h,false,true);
-	    $model->square='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.preg_replace("/\.$ext\$/",'-s.'.$ext,$name);
-	    
-	    $w=$h=0;
-	    
-	    $w=$h=Bootstrap::$main->getConfig('thumb_size');
-	    $thumb=preg_replace("/\.$ext\$/",'-t.'.$ext,$file);
-	    $image->min($thumb,$w,$h,false,true);
-	    $model->thumb='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.preg_replace("/\.$ext\$/",'-t.'.$ext,$name);	    
-	}
 		
+		if ($this->_appengine) {
+			$model->url = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('image_size'),'secure_url'=>true]);
+			$model->square = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('square_size'),'crop'=>true, 'secure_url'=>true]);
+			$model->thumb = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('thumb_size'),'crop'=>true,'secure_url'=>true]);
+		
+		} else {
+			$image=new Image($file);
+			
+			$w=$h=0;
+			if ($imagesize[0] > Bootstrap::$main->getConfig('image_size'))
+			{
+			$w=Bootstrap::$main->getConfig('image_size');
+			$img=preg_replace("/\.$ext\$/",'-i.'.$ext,$file);
+			$image->min($img,$w,$h,true);
+			$model->url='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.preg_replace("/\.$ext\$/",'-i.'.$ext,$name);
+			} else $model->url='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.$name;
 	
-	$model->save();
-	$ret=$model->data();
-	
-	
-	return $this->status($ret);
+			
+			$w=$h=0;
+			
+			$w=$h=Bootstrap::$main->getConfig('square_size');
+			$square=preg_replace("/\.$ext\$/",'-s.'.$ext,$file);
+			$image->min($square,$w,$h,false,true);
+			$model->square='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.preg_replace("/\.$ext\$/",'-s.'.$ext,$name);
+			
+			$w=$h=0;
+			
+			$w=$h=Bootstrap::$main->getConfig('thumb_size');
+			$thumb=preg_replace("/\.$ext\$/",'-t.'.$ext,$file);
+			$image->min($thumb,$w,$h,false,true);
+			$model->thumb='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.preg_replace("/\.$ext\$/",'-t.'.$ext,$name);	    
+		}
+			
+		
+		$model->save();
+		$ret=$model->data();
+		
+		Tools::mail([
+            'from'=>Bootstrap::$main->user['email'],
+            'to'=>'piotr.podstawski@kiedymsza.pl',
+            'subject' => 'Akceptuj fotke',
+            'msg'=>'Fotka do akceptacji, wejdź na https://www.kiedymsza.pl/admin/images/'
+        ]);
+		
+		return $this->status($ret);
     }
     
     public function put()
