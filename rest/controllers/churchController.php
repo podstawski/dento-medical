@@ -249,7 +249,7 @@ class churchController extends Controller {
             'from'=>Bootstrap::$main->user['email'],
             'to'=>'piotr.podstawski@kiedymsza.pl',
             'subject' => 'Akceptuj '.$church->name,
-            'msg'=>'Zmiana do akceptacji, wejdź na https://www.kiedymsza.pl/admin/pending/'
+            'msg'=>'Zmiana do akceptacji, wejdź na https://www.kiedymsza.pl/admin/pending/<br/><br/>'.Bootstrap::$main->user['firstname'].' '.Bootstrap::$main->user['lastname'].' ['.Bootstrap::$main->user['trust'].']'
         ]);
         
         return $this->status(['info'=>'Po weryfikacji, dane zostaną opublikowane. Dziękuję!','url'=>$url]);

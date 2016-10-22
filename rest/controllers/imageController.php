@@ -220,7 +220,7 @@ class imageController extends Controller {
             'from'=>Bootstrap::$main->user['email'],
             'to'=>'piotr.podstawski@kiedymsza.pl',
             'subject' => 'Akceptuj fotke',
-            'msg'=>'Fotka do akceptacji, wejdź na https://www.kiedymsza.pl/admin/images/'
+            'msg'=>'Fotka do akceptacji, wejdź na https://www.kiedymsza.pl/admin/images/<br/><br/>'.Bootstrap::$main->user['firstname'].' '.Bootstrap::$main->user['lastname'].' ['.Bootstrap::$main->user['trust'].']'
         ]);
 		
 		return $this->status($ret);
