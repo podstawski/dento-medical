@@ -837,3 +837,8 @@ td.gsc-input {
 .about p.testimonial {min-height: 55px;}
 #carousel-testimonials img {max-width: 100px;}
 @media screen and (max-width: 768px) { .about .media-object{ margin-top:0; } }
+
+
+ul.other {
+  margin-left: 20px;
+}

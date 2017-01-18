@@ -76,6 +76,11 @@
     //mydie($images);
     //mydie($church);
     if ($church->change_author) $change_author=$user->get($church->change_author);
+    
+    $neighbours = $church->search_no_mass($church->lat,$church->lng,15,18);
+    if (!$neighbours || !is_array($neighbours) || count($neighbours)==0) $neighbours = $church->search_no_mass($church->lat,$church->lng,50,18);
+    //mydie($neighbours);
+    
 ?>
 <html lang="pl">
     
@@ -134,7 +139,7 @@
             
             <div class="item <?php if(!count($images)) echo 'active';?>">
                 
-		<form id="upload" method="post" action="" enctype="multipart/form-data">
+                <form id="upload" method="post" action="" enctype="multipart/form-data">
                     <div id="drop">
                             <a rel="<?php echo $church->id;?>">Dodaj zdjęcie</a>
                             <input type="file" name="upl" multiple xaccept="image/*" capture="camera"/>
@@ -143,13 +148,22 @@
                     <ul>
                             <!-- The file uploads will be shown here -->
                     </ul>
-
-		</form>
+        
+                </form>
                 
                 <img src="../img/dodaj.jpg"/>
                 
             </div>
             
+            <div class="item">
+                <h2>Rozważ parafie w okolicy:</h2>
+                <ul class="other">
+                    <?php foreach($neighbours AS $n): ?>
+                        <?php if ($n['id']==$church->id) continue; ?>
+                        <li><a href="<?php echo Tools::str_to_url($n['name']).','.$n['id'];?>"><?php echo $n['name'];?></a></li>
+                    <?php endforeach;?>
+                </ul>
+            </div>
 
 
           </div>
