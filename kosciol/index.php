@@ -54,9 +54,9 @@
     }
     
     $title=$church->name;
-    $description=$church->about?:'Gdzie i kiedy msze święte w okolicy '.$church->address;
+    $description=$church->about?:'Gdzie i kiedy msze święte w niedzielę w okolicy '.$church->address;
     $image='';
-    $keywords='msza,msze,kiedy msza,gdzie msza,'.$church->address;
+    $keywords='msza,msze,niedziela,kiedy msza,gdzie msza,'.$church->address;
     $basedir='..';
     
     $user=new userModel();

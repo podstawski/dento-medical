@@ -18,7 +18,7 @@
   $church=new churchModel();
   $churches=$church->getAll();
   
-  $time_change=strtotime('2016-08-29');
+  $time_change=strtotime('2017-01-18');
   
   
   header('Content-type: application/xml; charset=utf-8');
