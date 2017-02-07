@@ -33,10 +33,10 @@
         {
             $yaml.="\n- url: /$f\n  static_dir: $f\n";
         }
-        else
+        elseif ($f=='robots.txt')
         {
-	    continue;
             $yaml.="\n- url: /$f\n  static_files: $f\n  upload: $f\n";
+	    continue;
 	    //if ($f=='index.html') $yaml.="  login: admin\n";
         }
     }
