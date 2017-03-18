@@ -102,7 +102,7 @@ function kiedymsza_grid_load(pri)
 function kiedymsza_grid_reload(pri)
 {
     kiedymsza_grid_log('start new table - '+pri);
-    $('#'+kiedymsza_grid_results).html('');
+    $('#'+kiedymsza_grid_results).html('<div class="kiedymsza_grid_scroll_to_wait"></div>');
     kiedymsza_grid_offset=0;
     kiedymsza_grid_when=0;
     kiedymsza_grid_load(pri);
@@ -143,7 +143,7 @@ function kiedymsza_grid(form,template,results,limit,ajax,lazyload,req)
     kiedymsza_grid_winheight=$(window).height();
     
     
-    $('#'+kiedymsza_grid_results).html('');
+    $('#'+kiedymsza_grid_results).html('<div class="kiedymsza_grid_scroll_to_wait"></div>');
     
     if (lazyload) {
         
