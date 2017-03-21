@@ -77,6 +77,9 @@
   
 </div>
 
+<div class="row" style="margin:0">
+<div class="col-md-9 col-sm-12">
+
 <table class="colors" cellspacing="0">
   <tr>
     <td class="distance0">0 km</td>
@@ -93,38 +96,44 @@
   
 </table>
 
-<div id="kiedymsza_results" class="container-fluid">
-<center><h1>Msze święte w miejscowości blisko Ciebie</h1></center>
-<?php foreach($results AS $row): ?>
-  <div class="row distance<?php echo rand(0,9);?>">
-    <div class="col-md-2 col-sm-3 col-xs-3 time">
-      <a href="tel:<?php echo $row['tel'];?>"><?php echo $row['tel'];?></a>
-      <span class="visible-xs visible-sm"><?php echo $row['distance'];?> km</span>
-      <span class="visible-md visible-lg">Dzisiaj</span>
+  <div id="kiedymsza_results" class="container-fluid">
+  <center><h1>Msze święte w miejscowości blisko Ciebie</h1></center>
+  <?php foreach($results AS $row): ?>
+    <div class="row distance<?php echo rand(0,9);?>">
+      <div class="col-md-2 col-sm-3 col-xs-3 time">
+        <a href="tel:<?php echo $row['tel'];?>"><?php echo $row['tel'];?></a>
+        <span class="visible-xs visible-sm"><?php echo $row['distance'];?> km</span>
+        <span class="visible-md visible-lg">Dzisiaj</span>
+      </div>
+      <div class="col-md-8 col-sm-9 col-xs-9 church">
+        <div class="mass-desc"></div>
+        <h4><a href="kosciol/<?php echo $row['url'];?>"><?php echo $row['name'];?></a></h4>
+        <span class="address"><?php echo $row['address'];?></span>
+      </div>
+      <div class="col-md-2 hidden-sm hidden-xs distance"><?php echo $row['distance'];?> km</div>
     </div>
-    <div class="col-md-8 col-sm-9 col-xs-9 church">
-      <div class="mass-desc"></div>
-      <h4><a href="kosciol/<?php echo $row['url'];?>"><?php echo $row['name'];?></a></h4>
-      <span class="address"><?php echo $row['address'];?></span>
-    </div>
-    <div class="col-md-2 hidden-sm hidden-xs distance"><?php echo $row['distance'];?> km</div>
+  <?php endforeach;?>
+  
+  <?php if (count($results)) for($i=0;$i<101;$i++):?>
+  <a href="?page=<?php echo $i+1;?>"><?php echo $i+1;?></a> 
+  <?php endfor;?>
+  
+
+  
   </div>
-<?php endforeach;?>
-
-<?php if (count($results)) for($i=0;$i<101;$i++):?>
-<a href="?page=<?php echo $i+1;?>"><?php echo $i+1;?></a> 
-<?php endfor;?>
-
-<!-- Konkurs -->
-<ins class="adsbygoogle"
-  style="display:block"
-  data-ad-client="ca-pub-3681218186493233"
-  data-ad-slot="8609440708"
-  data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
+</div>
+<div class="col-md-3 hidden-sm hidden-xs">
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- Homepage right -->
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:100%;height:600px"
+       data-ad-client="ca-pub-3681218186493233"
+       data-ad-slot="3289357103"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+</div>
 </div>
 <div id="kiedymsza_results_template" style="display:none">
   <div class="row distance[distance]" style="display:none">
