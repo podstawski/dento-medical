@@ -28,6 +28,7 @@ class userController extends Controller {
         
 	if ($this->_getParam('redirect')) Bootstrap::$main->session('auth_redirect',$this->_getParam('redirect'));
 	elseif (!Bootstrap::$main->session('auth_redirect')) mydie('redirect parameter missing','error');
+
 	
 	if (isset($_GET['state']) && $_GET['state']==Bootstrap::$main->session('oauth2_state'))
 	{
@@ -39,7 +40,9 @@ class userController extends Controller {
 		$url.='&client_secret='.$config['fb.app_secret'];
 		$url.='&code='.urlencode($_GET['code']);
 		
-		parse_str($this->req($url),$token);
+
+		//parse_str($this->req($url),$token);
+		$token=json_decode($this->req($url),true);
 
 
                 if (isset($token['access_token']))
