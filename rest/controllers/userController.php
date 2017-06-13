@@ -48,8 +48,8 @@ class userController extends Controller {
                 if (isset($token['access_token']))
                 {
 		    Bootstrap::$main->session('access_token',$token['access_token']);
-		    $auth = @json_decode(file_get_contents('https://graph.facebook.com/v2.3/me?format=json&access_token='.$token['access_token']),true);
-                    $picture = @json_decode(file_get_contents('https://graph.facebook.com/v2.3/me/picture?redirect=false&type=normal&access_token='.$token['access_token']),true);
+		    $auth = @json_decode(file_get_contents('https://graph.facebook.com/v2.9/me?format=json&access_token='.$token['access_token']),true);
+                    $picture = @json_decode(file_get_contents('https://graph.facebook.com/v2.9/me/picture?redirect=false&type=normal&access_token='.$token['access_token']),true);
                  
 	    
                     if (isset($auth['id']))
@@ -121,7 +121,7 @@ class userController extends Controller {
             Bootstrap::$main->session('oauth2_state',$state);
 	    
 	    
-	    $url='https://www.facebook.com/v2.3/dialog/oauth';
+	    $url='https://www.facebook.com/v2.9/dialog/oauth';
 	    $url.='?client_id='.$config['fb.app_id'];
 	    $url.='&redirect_uri='.urlencode($uri);
 	    $url.='&state='.$state;

@@ -843,3 +843,8 @@ td.gsc-input {
 ul.other {
   margin-left: 20px;
 }
+
+.fb-page {
+  margin: 3px 0 0 15px;
+  border-bottom: 1px solid #fff;
+}
