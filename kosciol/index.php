@@ -33,6 +33,7 @@
          || (isset($_SERVER['HTTP_USER_AGENT']) && strstr(strtolower($_SERVER['HTTP_USER_AGENT']),'google'))
          || (isset($_SERVER['HTTP_USER_AGENT']) && strstr(strtolower($_SERVER['HTTP_USER_AGENT']),'facebook'))
          || (isset($_SERVER['HTTP_REFERER']) && strstr(strtolower($_SERVER['HTTP_REFERER']),'facebook'))
+         || (isset($_SERVER['HTTP_REFERER']) && strstr(strtolower($_SERVER['HTTP_REFERER']),'kiedymsza'))
         ) {
             header("HTTP/1.1 301 Moved Permanently"); 
             header("Location: ".$right_url); 
