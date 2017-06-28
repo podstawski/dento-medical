@@ -57,7 +57,7 @@ class userController extends Controller {
 							$md5hash='fb.'.$auth['id'];
 							$email=isset($auth['email'])?$this->standarize_email($auth['email'],false):$md5hash;
 							$user=$this->user()->find_one_by_md5hash($md5hash);
-							$fbname=$auth['name'].explode(' ');
+							$fbname=explode(' ',$auth['name']);
 							
 							if (!$user)
 							{
@@ -71,8 +71,8 @@ class userController extends Controller {
 				
 							$model=new userModel($user['id']);
 							
-							if (!$model->firstname) $model->firstname = $fbname[0];
-							if (!$model->lastname) $model->lastname = $fbname[1];
+							$model->firstname = $fbname[0];
+							$model->lastname = $fbname[1];
 							if(strstr($email,'@')) $model->email=$email;
 							
 							if (isset($picture['data']['url']))
