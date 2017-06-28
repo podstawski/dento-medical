@@ -1,8 +1,14 @@
 <?php
 
+if (isset($_SERVER['SERVER_SOFTWARE']) && strstr(strtolower($_SERVER['SERVER_SOFTWARE']),'engine')) {
+    require_once 'google/appengine/api/cloud_storage/CloudStorageTools.php';
+}
+
+use google\appengine\api\cloud_storage\CloudStorageTools;
 
 class userController extends Controller {
     protected $_user;
+	protected $_prefix='users';
     
     /**
      * @return userModel
@@ -75,10 +81,15 @@ class userController extends Controller {
 							$model->lastname = $fbname[1];
 							if(strstr($email,'@')) $model->email=$email;
 							
-							if (isset($picture['data']['url']))
-								if (!$model->photo || strstr($model->photo,'fbcdn'))
-									$model->photo = $picture['data']['url'];
+							if (isset($picture['data']['url'])) {
 					
+								$file=Tools::saveRoot($this->_prefix.'/'.$auth['id'].'.jpg');
+								file_put_contents($file,file_get_contents($picture['data']['url']));
+								$photo=CloudStorageTools::getImageServingUrl($file,['secure_url'=>true]);
+								
+								$model->photo = $photo;
+						
+							}
 				
 							if (!$model->url) $model->url='https://www.facebook.com/'.$auth['id'];
 				

@@ -24,14 +24,14 @@ class imageController extends Controller {
     
     public function init()
     {
-	parent::init();
-	$this->_prefix='images';
-	$this->_appengine=Bootstrap::$main->appengine;
-	if (!$this->_appengine) {
+		parent::init();
+		$this->_prefix='images';
+		$this->_appengine=Bootstrap::$main->appengine;
+		if (!$this->_appengine) {
             $this->_media=$_SERVER['REQUEST_URI'];
             if ($pos=strpos($this->_media,'?')) $this->_media=substr($this->_media,0,$pos);
             $this->_media=dirname(dirname($this->_media)).'/media';
-	}
+		}
     }
     
 
@@ -62,37 +62,37 @@ class imageController extends Controller {
     {
 
 
-	if (isset($_FILES))
-	{
-
-	    foreach ($_FILES AS $name=>$file)
-	    {
-		
-		$chunk=0;
-		if (isset($_SERVER['HTTP_CONTENT_RANGE'])) {
-		    $range=str_replace('bytes ', '', $_SERVER['HTTP_CONTENT_RANGE']);
-		    $range=explode('/',$range);
-		    $range[0]=explode('-',$range[0]);
-		    
-		    $token='chunk_size.'.$file['name'];
-		    $chunk_size=Bootstrap::$main->session($token);
-		    if (!$chunk_size) Bootstrap::$main->session($token,$range[0][1]-$range[0][0]+1);
-		    $chunk=1+floor($range[0][0]/$chunk_size);
-		    if ($range[1]-1 == $range[0][1]) {
-			$chunk*=-1;
-			Bootstrap::$main->session($token,0);    
-		    }
-		}		
-		
-		
-		
-		$f=$this->upload_file($file['tmp_name'],$file['name'],$chunk);
-		if (is_array($f)) return $this->status($f);
-	    }
-	}
+		if (isset($_FILES))
+		{
 	
-	
-	return $this->status();
+			foreach ($_FILES AS $name=>$file)
+			{
+			
+			$chunk=0;
+			if (isset($_SERVER['HTTP_CONTENT_RANGE'])) {
+				$range=str_replace('bytes ', '', $_SERVER['HTTP_CONTENT_RANGE']);
+				$range=explode('/',$range);
+				$range[0]=explode('-',$range[0]);
+				
+				$token='chunk_size.'.$file['name'];
+				$chunk_size=Bootstrap::$main->session($token);
+				if (!$chunk_size) Bootstrap::$main->session($token,$range[0][1]-$range[0][0]+1);
+				$chunk=1+floor($range[0][0]/$chunk_size);
+				if ($range[1]-1 == $range[0][1]) {
+					$chunk*=-1;
+					Bootstrap::$main->session($token,0);    
+				}
+			}		
+			
+			
+			
+			$f=$this->upload_file($file['tmp_name'],$file['name'],$chunk);
+			if (is_array($f)) return $this->status($f);
+			}
+		}
+		
+		
+		return $this->status();
     }
     
 
@@ -190,10 +190,10 @@ class imageController extends Controller {
 			$w=$h=0;
 			if ($imagesize[0] > Bootstrap::$main->getConfig('image_size'))
 			{
-			$w=Bootstrap::$main->getConfig('image_size');
-			$img=preg_replace("/\.$ext\$/",'-i.'.$ext,$file);
-			$image->min($img,$w,$h,true);
-			$model->url='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.preg_replace("/\.$ext\$/",'-i.'.$ext,$name);
+				$w=Bootstrap::$main->getConfig('image_size');
+				$img=preg_replace("/\.$ext\$/",'-i.'.$ext,$file);
+				$image->min($img,$w,$h,true);
+				$model->url='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.preg_replace("/\.$ext\$/",'-i.'.$ext,$name);
 			} else $model->url='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.$name;
 	
 			
