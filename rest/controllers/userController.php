@@ -33,7 +33,7 @@ class userController extends Controller {
         $uri = $config['protocol'].'://' . $_SERVER['HTTP_HOST'] . Bootstrap::$main->getRoot() . 'user/facebook';
         
 		if ($this->_getParam('redirect')) Bootstrap::$main->session('auth_redirect',$this->_getParam('redirect'));
-		elseif (!Bootstrap::$main->session('auth_redirect')) mydie('redirect parameter missing','error');
+		//elseif (!Bootstrap::$main->session('auth_redirect')) mydie('redirect parameter missing','error');
 
 	
 		if (isset($_GET['state']) && $_GET['state']==Bootstrap::$main->session('oauth2_state'))
