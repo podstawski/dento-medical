@@ -217,7 +217,7 @@ function initialize(lat,lng,zoom,here) {
             $('.a_mapadd').fadeOut();
         }
         
-        var url='index.php?lat1='+ne.lat()+'&lng1='+ne.lng()+'&lat2='+sw.lat()+'&lng2='+sw.lng();
+        var url=BASEDIR+'/mapa/index.php?lat1='+ne.lat()+'&lng1='+ne.lng()+'&lat2='+sw.lat()+'&lng2='+sw.lng();
         
 
         if (where_from_latlng!=null && where_to_latlng!=null)

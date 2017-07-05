@@ -163,7 +163,7 @@
     <p class="hidden-xs">
 		Projekt jest NON-PROFIT. Stworzyłem go w ramach wolnego czasu 
 		z myślą o sobie i swoich znajomych. Jednak rosnąca popularność sprawia, iż za serwery,
-		które utrzymują stronę, płacę z własnych funduszy. W wersji na telefon mogą pojawić się
+		które utrzymują stronę, płacę z własnych funduszy. Od pewnego czasu mogą pojawić się
 		reklamy - myślałem, że dzięki temu uda mi się zapłacić za serwery, ale nie wystarcza.
 		Jeżeli chciał(a)byś wesprzeć projekt drobnym datkiem, to będę zobowiązany.<br/><br/>
 	
