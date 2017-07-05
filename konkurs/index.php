@@ -106,19 +106,19 @@
       
       <div class="col-md-4">
 		<a title="I miejsce, autor: Velo Nero" class="fancybox" href="http://lh3.googleusercontent.com/LmU4oszjWeBPXc0iKr4RlA7ZbYAxI9Jfw9V1D-dGiQEDy6FwI9P72F7qrjyspDV77KnjyS8kCi8BhfjxOKtT=s1140">
-			<img src="http://lh3.googleusercontent.com/LmU4oszjWeBPXc0iKr4RlA7ZbYAxI9Jfw9V1D-dGiQEDy6FwI9P72F7qrjyspDV77KnjyS8kCi8BhfjxOKtT=s900-c" style="width:100%; margin-bottom:10px;"/>
+			<img src="https://lh3.googleusercontent.com/LmU4oszjWeBPXc0iKr4RlA7ZbYAxI9Jfw9V1D-dGiQEDy6FwI9P72F7qrjyspDV77KnjyS8kCi8BhfjxOKtT=s900-c" style="width:100%; margin-bottom:10px;"/>
 		</a>
 		
 		<a title="II miejsce, autor: Grzegorz Bień" class="fancybox" href="http://lh3.googleusercontent.com/0VcLd6aImNF0IQXuyvwHjUy_lzkLBi6OsrB04iJjf2ak9898cZ0Hd9SqjzbY5X2LwZHMPb1CsIXS00usHSwtfw=s1140">
-			<img src="http://lh3.googleusercontent.com/0VcLd6aImNF0IQXuyvwHjUy_lzkLBi6OsrB04iJjf2ak9898cZ0Hd9SqjzbY5X2LwZHMPb1CsIXS00usHSwtfw=s900-c" style="width:100%; margin-bottom:10px;"/>
+			<img src="https://lh3.googleusercontent.com/0VcLd6aImNF0IQXuyvwHjUy_lzkLBi6OsrB04iJjf2ak9898cZ0Hd9SqjzbY5X2LwZHMPb1CsIXS00usHSwtfw=s900-c" style="width:100%; margin-bottom:10px;"/>
 		</a>		
 
 		<a title="III miejsce, autor: Piotr Maj" class="fancybox" href="http://lh3.googleusercontent.com/jKS5FQyMjT53Qwz1bEgKmlBIZA8JekS3YiusUZ03rcxL22RLf0UpuqWt0ikTV0meRdMxflDckCoyIklOykE=s1140">
-			<img src="http://lh3.googleusercontent.com/jKS5FQyMjT53Qwz1bEgKmlBIZA8JekS3YiusUZ03rcxL22RLf0UpuqWt0ikTV0meRdMxflDckCoyIklOykE=s900-c" style="width:100%; margin-bottom:10px;"/>
+			<img src="https://lh3.googleusercontent.com/jKS5FQyMjT53Qwz1bEgKmlBIZA8JekS3YiusUZ03rcxL22RLf0UpuqWt0ikTV0meRdMxflDckCoyIklOykE=s900-c" style="width:100%; margin-bottom:10px;"/>
 		</a>
 		
 		<a title="III miejsce, autor: Robert Kozielski" class="fancybox" href="http://lh3.googleusercontent.com/1M_IKJZUywyCxY__FwAPaZDow0v3E7wqZU2sPyteZhcDtIayHOuuvA0dxjX242jRJleLo9Bc4ixkvtjc4NU=s1140">
-			<img src="http://lh3.googleusercontent.com/1M_IKJZUywyCxY__FwAPaZDow0v3E7wqZU2sPyteZhcDtIayHOuuvA0dxjX242jRJleLo9Bc4ixkvtjc4NU=s900-c" style="width:100%; margin-bottom:10px;"/>
+			<img src="https://lh3.googleusercontent.com/1M_IKJZUywyCxY__FwAPaZDow0v3E7wqZU2sPyteZhcDtIayHOuuvA0dxjX242jRJleLo9Bc4ixkvtjc4NU=s900-c" style="width:100%; margin-bottom:10px;"/>
 		</a>			
 		
 	<h3>Odbiór nagród</h3>
@@ -145,16 +145,18 @@
 	    <?php endif;?> 
 	</div>
 	
+
+	
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<!-- Konkurs -->
 	<ins class="adsbygoogle"
-	     style="display:block"
-	     data-ad-client="ca-pub-3681218186493233"
-	     data-ad-slot="8609440708"
-	     data-ad-format="auto"></ins>
+		 style="display:block"
+		 data-ad-client="ca-pub-3681218186493233"
+		 data-ad-slot="8609440708"
+		 data-ad-format="auto"></ins>
 	<script>
 	(adsbygoogle = window.adsbygoogle || []).push({});
 	</script>
-	
 	
       </div>
     </div>  

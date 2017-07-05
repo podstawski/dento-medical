@@ -15,6 +15,9 @@
     {
         $church1->successor = $church2->id;
         $church1->save();
+        
+        $img=new imageModel();
+        $img->transfer($church1->id,$church2->id);
     }
     
     

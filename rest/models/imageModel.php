@@ -27,4 +27,10 @@ class imageModel extends Model {
 		return $this->conn->execute($sql);
 		
 	}
+	
+	public function transfer($src,$dst) {
+		$sql="UPDATE images SET church=? WHERE church=?";
+		
+		return $this->conn->execute($sql,[$dst,$src]);
+	}
 }
