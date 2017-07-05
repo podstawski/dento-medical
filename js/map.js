@@ -178,7 +178,7 @@ function initialize(lat,lng,zoom,here) {
     });
     
     
-    $.get('heatmap',function(data) {
+    $.get(BASEDIR+'/mapa/heatmap',function(data) {
         var latlngData=[];
         for(i=0;i<data.length;i++) latlngData[latlngData.length] = new google.maps.LatLng(data[i].lat, data[i].lng);
         var pointArray = new google.maps.MVCArray(latlngData);

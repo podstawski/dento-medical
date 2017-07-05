@@ -112,9 +112,6 @@
 	<script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/legacy.js"></script>  
 	<script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/translations/pl_PL.js"></script>
 
-	<script>
-		var BASEDIR='<?php echo $basedir;?>';
-	</script>
     <script src="<?php echo $basedir;?>/js/map.js"></script>
 
 </head>
