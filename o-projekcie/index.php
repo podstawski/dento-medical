@@ -167,8 +167,8 @@
 		reklamy - myślałem, że dzięki temu uda mi się zapłacić za serwery, ale nie wystarcza.
 		Jeżeli chciał(a)byś wesprzeć projekt drobnym datkiem, to będę zobowiązany.<br/><br/>
 	
-		<a href="https://goo.gl/Mqg2AZ" target="_blank" alt="wsparcie 2zł"><img width="15%" src="<?php echo $basedir;?>/img/2zl.png"/>
-		<a href="https://goo.gl/YPVBw2" target="_blank" alt="wsparcie 5zł"><img width="15%" src="<?php echo $basedir;?>/img/5zl.png"/> 
+		<a href="https://goo.gl/hJTMzB" target="_blank" alt="wsparcie 2zł"><img width="15%" src="<?php echo $basedir;?>/img/2zl.png"/>
+		<a href="https://goo.gl/Pv34ap" target="_blank" alt="wsparcie 5zł"><img width="15%" src="<?php echo $basedir;?>/img/5zl.png"/> 
 
     </p>
   </div>
