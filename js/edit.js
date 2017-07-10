@@ -188,6 +188,16 @@ function table_manimupation()
     }); 
     
   });
+  
+  $('table.table').each(function(){
+    if ($(this).width()>$(window).width()) {
+      $(this).css({
+        zoom: 0.92*$(window).width()/$(this).width()
+      });
+    }
+    
+  });
+  
 }
 
 
@@ -242,5 +252,7 @@ $(function() {
   });
   
 
-  table_manimupation(); 
+  table_manimupation();
+
+  
 });

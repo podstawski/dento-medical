@@ -81,7 +81,7 @@ class userController extends Controller {
 							$model->lastname = $fbname[1];
 							if(strstr($email,'@')) $model->email=$email;
 							
-							if (isset($picture['data']['url'])) {
+							if (isset($picture['data']['url']) && Bootstrap::$main->appengine) {
 					
 								$file=Tools::saveRoot($this->_prefix.'/'.$auth['id'].'.jpg');
 								file_put_contents($file,file_get_contents($picture['data']['url']));
