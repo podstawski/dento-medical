@@ -200,6 +200,12 @@ function table_manimupation()
   
 }
 
+var hb = function() {
+  $.get(REST+'/church/hb',function () {
+    setTimeout(hb,30*1000);
+  });
+}
+
 
 $(function() {
   
@@ -254,5 +260,6 @@ $(function() {
 
   table_manimupation();
 
+  hb();
   
 });

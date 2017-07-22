@@ -255,6 +255,11 @@ class churchController extends Controller {
         return $this->status(['info'=>'Po weryfikacji, dane zostaną opublikowane. Dziękuję!','url'=>$url]);
     }
     
+    
+    public function get_hb(){
+        return $this->status(['hb'=>true]);
+    }
+    
     public function post_route()
     {
         $masses=[];
