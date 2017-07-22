@@ -85,7 +85,7 @@ class userController extends Controller {
 					
 								$file=Tools::saveRoot($this->_prefix.'/'.$auth['id'].'.jpg');
 								file_put_contents($file,file_get_contents($picture['data']['url']));
-								$photo=CloudStorageTools::getImageServingUrl($file,['secure_url'=>true]);
+								$photo=CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('user_thumb_size'),'crop'=>true,'secure_url'=>true]);
 								
 								$model->photo = $photo;
 						
