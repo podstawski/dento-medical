@@ -256,30 +256,39 @@ class imageController extends Controller {
     
     public function delete()
     {
-	$this->requiresLogin();
-	$user=Bootstrap::$main->user;
-
-	$id=0+$this->id;
-	$data=false;
-	if ($id) $data=$this->image()->get($id);
+		$this->requiresLogin();
+		$user=Bootstrap::$main->user;
 	
-	if (!$data) $this->error(18);
-	if ($data['user']!=$user['id']) $this->error(19);
-	
-	if ($this->_appengine) {
-	    $file='gs://'.CloudStorageTools::getDefaultGoogleStorageBucketName().'/'.$data['src'];
-	    CloudStorageTools::deleteImageServingUrl($file);
-	} else {
-	    $file=$this->_media_dir.'/'.$data['src'];
-	    $ext=@end(explode('.',$file));
-	    @unlink(preg_replace("/\.$ext\$/",'-t.'.$ext,$file));
-	    @unlink(preg_replace("/\.$ext\$/",'-s.'.$ext,$file));
-	}
-	@unlink($file);
-	$this->image()->remove($data['id']);
-	return $this->status();
+		$id=0+$this->id;
+		$data=false;
+		if ($id) $data=$this->image()->get($id);
+		
+		if (!$data) $this->error(18);
+		
+		if ($data['author_id']!=$user['id'] && $user['id']!=1) $this->error(19);
+		
+		
+		
+		if ($this->_appengine) {
+			$file='gs://'.CloudStorageTools::getDefaultGoogleStorageBucketName().'/'.$data['src'];
+			CloudStorageTools::deleteImageServingUrl($file);
+		} else {
+			$file=$this->_media_dir.'/'.$data['src'];
+			$ext=@end(explode('.',$file));
+			@unlink(preg_replace("/\.$ext\$/",'-t.'.$ext,$file));
+			@unlink(preg_replace("/\.$ext\$/",'-s.'.$ext,$file));
+		}
+		
+		@unlink($file);
+		$this->image()->remove($data['id']);
+		
+		return $this->status();
 	
     }
 
-
+	public function get_remove() {
+		return $this->delete();
+	}
+	
+	
 }

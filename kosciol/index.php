@@ -68,10 +68,13 @@
         if (!$image) $image=$img['url'];
         $img['active']=$active?'':'active';
         $active=true;
+        
+        $img['mine'] = isset(Bootstrap::$main->user['id']) && (Bootstrap::$main->user['id']==$img['author_id'] || Bootstrap::$main->user['id']==1) ? true : false;
         $img['author']=$user->get($img['author_id']);
         unset($img['author_id']);
         if (isset($img['author']['id'])) unset($img['author']['id']);
         if (isset($img['author']['email'])) unset($img['author']['email']);
+        
 
     }
     //mydie($images);
@@ -125,6 +128,9 @@
                             ?>">
                     <img itemprop="photo" src="<?php echo str_replace('s960-c','s900-c',$img['square']);?>"/>
                 </a>
+                <?php if($img['mine']): ?>
+                <div class="remove" rel="<?php echo $img['id'];?>">x</div>
+                <?php endif; ?>
                 <?php if(isset($img['author']['url'])): ?>
                 <div class="carousel-caption">
                     <h4>Przesłał(a):
