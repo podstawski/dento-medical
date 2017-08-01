@@ -240,7 +240,7 @@
   
 </head>
 
-<body>
+<body class="edit">
 
 <div class="head">
   
@@ -415,6 +415,7 @@
   
 <?php endif; ?>
 
-<?php include __DIR__.'/../html/footer.phtml';?> 
+<div class="hideall"></div>
+<?php //include __DIR__.'/../html/footer.phtml';?> 
 </body>
 </html>

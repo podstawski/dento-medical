@@ -206,8 +206,16 @@ var hb = function() {
   });
 }
 
+var hideall = function() {
+  $('.hideall').height($('body').height());
+}
+
 
 $(function() {
+  
+  hideall();
+  
+  $('window').resize(hideall);
   
   $('#iamhere').click(function(){
    
@@ -237,6 +245,7 @@ $(function() {
     });
   
     if (!pass) return;
+    $('.hideall').show();
     var data=$('#churchForm').serialize();
     $.post(REST+'/church',data,function (resp) {
       alert(resp.church.info);
