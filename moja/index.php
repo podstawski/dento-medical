@@ -8,12 +8,15 @@
     $config=json_config(__DIR__.'/../rest/configs/application.json');
     $bootstrap = new Bootstrap($config);
 
+	$basedir='..';
 	$u=null;
 	if (isset($_GET['u'])) {
 		$user=new userModel();
 		$u=$user->get_by_fbid($_GET['u']);
 	} elseif (isset(Bootstrap::$main->user) && isset(Bootstrap::$main->user['id'])) {
 		$u=Bootstrap::$main->user;
+	} else {
+		Header('Location: '.$basedir.'/rest/user/facebook?redirect='.urlencode('https://www.kiedymsza.pl'.$_SERVER['REQUEST_URI']));
 	}
 	
 	if (!$u) die();
@@ -33,7 +36,7 @@
     $description='';
     $image='';
     $keywords='msza,msze,kiedy msza,gdzie msza';
-    $basedir='..';
+    
 	
 	
 
