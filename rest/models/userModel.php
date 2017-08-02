@@ -11,4 +11,10 @@ class userModel extends Model {
 		return $this->conn->fetchAll($sql,[$gt]);
 	}
 
+	
+	public function get_by_fbid ($fbid) {
+		$sql="SELECT * FROM users WHERE md5hash=?";
+		
+		return $this->conn->fetchRow($sql,['fb.'.$fbid]);
+	}
 }

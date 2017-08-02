@@ -263,4 +263,12 @@ class churchModel extends Model {
 		$sql="DELETE FROM churches WHERE active IS NULL AND change_time<?";
 		$this->conn->execute($sql,[$from]);
 	}
+
+	public function my_churches ($userId) {
+		$sql="SELECT * FROM churches WHERE active=1 AND successor IS NULL AND (change_author=? OR id IN (SELECT church FROM images WHERE author_id=?))";
+		
+		//mydie($sql,$userId);
+		return $this->conn->fetchAll($sql,[$userId,$userId]);
+	}
+
 }

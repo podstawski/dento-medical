@@ -26,6 +26,9 @@ handlers:
 - url: /mapa.*
   script: mapa/index.php
 
+- url: /moja.*
+  script: moja/index.php
+
 - url: /konkurs.*
   script: konkurs/index.php
 
