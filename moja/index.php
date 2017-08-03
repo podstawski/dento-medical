@@ -67,6 +67,7 @@
     <div class="head">
 	<?php
 	    $moremenu=[
+			'<a target="_blank" href="'.$u['url'].'"><img class="mojefoto" src="'.$u['photo'].'"></a>'
 		];
 	    include __DIR__.'/../html/topmenu.phtml';
 	?>

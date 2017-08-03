@@ -142,7 +142,7 @@
         if (isset($_GET['trust']) && $_GET['trust']>0)
         {
             
-            if ((isset($church2['trust']) && $church2['trust']) || $user->trust>=$_GET['trust'])
+            if ((isset($church2['trust']) && $church2['trust']) || ($user->trust>=$_GET['trust'] && (!$church1['change_author'] || $church1['change_author']==$user->id)))
             {
                 $arch='arch/'.$church1['md5hash'].':'.$id.'/'.date('Ymd-His').'.json';
                 $realarch=Tools::saveRoot($arch);
@@ -248,6 +248,7 @@
     
 <?php
     $church->no_http_prefix();
+    if (isset($_GET['trust']) && $_GET['trust']>0) $user->rank();
     
     include __DIR__.'/../foot.php';
     

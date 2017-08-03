@@ -19,15 +19,17 @@
     $testimonial=new testimonialModel();
     $testimonials=$testimonial->join('church','churches')->select([],'rand()')?:[];
     
-    
+    $user=new userModel();
+	$people=$user->people(20);
+	
     foreach ($testimonials AS &$t)
     {
-	$img=$imageModel->select(['church'=>$t['church'],'active'=>1],'rand()',1)?:[];
-	if (!count($img)) {
-	    $img=[['thumb'=>$basedir.'/img/dodaj.jpg']];
-	}
-	$t['image']=$img[0];
-	$t['url']=$basedir.'/kosciol/'.Tools::str_to_url($t['name']).','.$t['church'];
+		$img=$imageModel->select(['church'=>$t['church'],'active'=>1],'rand()',1)?:[];
+		if (!count($img)) {
+			$img=[['thumb'=>$basedir.'/img/dodaj.jpg']];
+		}
+		$t['image']=$img[0];
+		$t['url']=$basedir.'/kosciol/'.Tools::str_to_url($t['name']).','.$t['church'];
     }
     
     //mydie($testimonials);
@@ -159,18 +161,35 @@
     <iframe width="100%" height="500px" src="https://www.youtube.com/embed/f3KS07OyR8A" frameborder="0" allowfullscreen></iframe>
   
     <a name="wsparcie"></a>
-    <h3 class="hidden-xs">Wsparcie</h3>
-    <p class="hidden-xs">
+    <h3 class="">Wsparcie</h3>
+    <p class="">
 		Projekt jest NON-PROFIT. Stworzyłem go w ramach wolnego czasu 
 		z myślą o sobie i swoich znajomych. Jednak rosnąca popularność sprawia, iż za serwery,
 		które utrzymują stronę, płacę z własnych funduszy. Od pewnego czasu mogą pojawić się
 		reklamy - myślałem, że dzięki temu uda mi się zapłacić za serwery, ale nie wystarcza.
 		Jeżeli chciał(a)byś wesprzeć projekt drobnym datkiem, to będę zobowiązany.<br/><br/>
 	
-		<a href="https://goo.gl/hJTMzB" target="_blank" alt="wsparcie 2zł"><img width="15%" src="<?php echo $basedir;?>/img/2zl.png"/>
-		<a href="https://goo.gl/Pv34ap" target="_blank" alt="wsparcie 5zł"><img width="15%" src="<?php echo $basedir;?>/img/5zl.png"/> 
-
+		<a href="https://goo.gl/hJTMzB" target="_blank" alt="wsparcie 2zł"><img width="15%" src="<?php echo $basedir;?>/img/2zl.png"/></a>
+		<a href="https://goo.gl/Pv34ap" target="_blank" alt="wsparcie 5zł"><img width="15%" src="<?php echo $basedir;?>/img/5zl.png"/></a>
     </p>
+	
+	<h3 class="people">Zespół</h3>
+    <p class="people">
+		Poniżej znajdziesz czołową dwudziestkę osób, które wspierają projekt poprzez dostarczanie
+		zdjęć oraz weryfikowanie danych:
+		
+		<br/>
+		<?php
+			foreach($people AS $person) {
+				echo '<a href="../moja/?u='.str_replace('fb.','',$person['md5hash']).'">';
+				echo '<img title="'.$person['firstname'].'" src="'.$person['photo'].'"/>';
+				echo '</a>';
+			}
+		
+		?>
+		
+    </p>
+	
   </div>
 
 

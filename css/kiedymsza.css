@@ -242,13 +242,21 @@ h3 {
   
 }
 
-.church-update img {
+.church-update img,
+.mojefoto {
   width: 25px;
   heigth: 25px;
   border-radius: 50%;
   transition: all .3s ease;
 }
 
+.people img{
+  width: 50px;
+  heigth: 50px;
+  border-radius: 50%;
+  transition: all .3s ease;
+  margin: 5px;
+}
 
 
 

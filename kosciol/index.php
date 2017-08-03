@@ -135,7 +135,10 @@
                 <div class="carousel-caption">
                     <h4>Przesłał(a):
                         <a href="<?php echo $img['author']['url'];?>" target="_blank">
-                        <img src="<?php echo $img['author']['photo'];?>"/> <?php echo $img['author']['firstname'];?> <?php echo $img['author']['lastname'];?>
+                        <img src="<?php echo $img['author']['photo'];?>"/>
+                        </a>
+                        <a href="../moja/?u=<?php echo str_replace('fb.','',$img['author']['md5hash']);?>">
+                        <?php echo $img['author']['firstname'];?> <?php echo $img['author']['lastname'];?>
                         </a>
                     </h4>
                     
@@ -219,9 +222,10 @@
             <a href="../edit/<?php echo $church->id; ?>" class="a_update a_bottom">Aktualizuj dane</a>
             <?php if ($church->change_author): ?>
             Aktualizował(a): <a href="<?php echo $change_author['url']?>" target="_blank">
-                <img src="<?php echo $change_author['photo']?>"/>
+                <img src="<?php echo $change_author['photo']?>"/></a>
+                <a href="../moja/?u=<?php echo str_replace('fb.','',$change_author['md5hash']);?>">
                 <?php echo $change_author['firstname']?> <?php echo $change_author['lastname']?>
-            </a>
+                </a>
             <?php endif;?>
         </div>
         </div>
