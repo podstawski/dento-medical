@@ -173,6 +173,7 @@
 		<a href="https://goo.gl/Pv34ap" target="_blank" alt="wsparcie 5zł"><img width="15%" src="<?php echo $basedir;?>/img/5zl.png"/></a>
     </p>
 	
+	<a name="team"></a>
 	<h3 class="people">Zespół</h3>
     <p class="people">
 		Poniżej znajdziesz czołową dwudziestkę osób, które wspierają projekt poprzez dostarczanie

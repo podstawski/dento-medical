@@ -46,7 +46,7 @@ class churchModel extends Model {
 	}
 	
 	
-	public function search_no_mass($lat,$lng,$distance,$limit=10,$offset=0)
+	public function search_no_mass($lat,$lng,$distance,$limit=10,$offset=0,$exclude=0,$masses=false)
 	{
 	
 		$lat+=0;
@@ -56,12 +56,22 @@ class churchModel extends Model {
 		$sql="SELECT *,1.3*geo_distance(lat,lng,$lat,$lng) AS distance,churches.id AS church_id";
 		$sql.=" FROM churches";
 		
-		$sql.=" WHERE churches.active=1"; 
+		$sql.=" WHERE churches.active=1 AND successor IS NULL";
+		
+		if ($exclude>0) {
+			$sql.=" AND id<>$exclude";
+		}
 
 		$sql.=" AND lat BETWEEN ".($lat-$distance*0.9/100)." AND ".($lat+$distance*0.9/100);
 		$sql.=" AND lng BETWEEN ".($lng-$distance*1.48/100)." AND ".($lng+$distance*1.48/100);
 		$sql.=" AND geo_distance(lat,lng,$lat,$lng)<$distance";
 		
+		if ($masses) {
+			$sql.=" AND (SELECT count(*) FROM masses WHERE church=churches.id)";
+			if ($masses>0) $sql.='>0';
+			else $sql.='=0';
+		}
+
 		$sql.=" ORDER BY geo_distance(lat,lng,$lat,$lng)";
 
 		
@@ -69,7 +79,7 @@ class churchModel extends Model {
 		
 		$churches=$this->conn->fetchAll($sql);
 		
-		//mydie($churches,date('H:i',$time).$sql);
+		//mydie($churches,$sql);
 		
 		return $churches;
 		
@@ -271,4 +281,18 @@ class churchModel extends Model {
 		return $this->conn->fetchAll($sql,[$userId,$userId]);
 	}
 
+	public function touched($time=0) {
+		$sql="SELECT *,(SELECT count(*) FROM masses WHERE church=churches.id) AS masses
+			FROM churches WHERE active=1 AND successor IS NULL AND
+			((change_author>1 && change_time>?) OR id IN (SELECT church FROM images WHERE church=churches.id AND author_id>1 && d_uploaded>?))";
+			
+		return $this->conn->fetchAll($sql,[$time,$time]);
+	}
+	
+	public function image_authors($church) {
+		$sql="SELECT DISTINCT(author_id) FROM images WHERE church=?";
+		return $this->conn->fetchColumn($sql,[$church]);
+		
+	}
+	
 }
