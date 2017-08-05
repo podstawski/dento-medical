@@ -72,6 +72,7 @@
                 'mail'=>Smekta::smektuj($template,$ch)
             ];
             
+            die($emails[0]['mail']);
         }
 
     }

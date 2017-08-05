@@ -1,11 +1,64 @@
-<p>Dzień dobry {user.firstname},</p>
-
-<p>
-    Piszę do Ciebie, ponieważ w przeszłości dołożyłeś swoją cegiełkę do budowy systemu KiedyMsza.pl.
+<div style="border:2px solid #13be02; width:99%; height:auto; display:block; margin-right:2px">
+    <div style="display:block; border:none; margin:0 auto; clear:both; padding:0px;">
+        <a href="https://www.kiedymsza.pl/"><img border="0" src="https://www.kiedymsza.pl/img/panorama.jpg" width="100%" /> </a>
+    </div>
     
-</p>
-<p>
-    <br/>
-Łączę wyrazy wdzięczności, <br/>
-Piotr Podstawski, KiedyMsza
-</p>
+    <div style="font-family: Tahoma; padding:25px;">
+        
+        <p style="font-size: 1.25em;">Dzień dobry {user.firstname},</p>
+        
+        <p>
+            &nbsp;&nbsp;
+            Piszę do Ciebie, ponieważ w przeszłości
+            {if:user.male}dołożyłeś{endif:user.male}
+            {if:!user.male}dołożyłaś{endif:!user.male}
+            swoją cegiełkę do budowy systemu
+            <a href="https://www.kiedymsza.pl/">KiedyMsza.pl</a>, aktualizując dane parafii:<br/>
+            <a href="https://www.kiedymsza.pl/kosciol/{url}">{name}</a>
+            {if:!masses}
+            <br/>
+            Okazuje się, że w naszym systemie brakuje Mszy Św. dla tego kościoła.
+            Jeżeli masz możliwość zaznaczenia godzin Mszy, to będę bardzo wdzięczny.
+            
+            {endif:!masses}
+            
+        </p>
+        
+        <p>
+            &nbsp;&nbsp;
+            W tym roku okazało się, iż na Mszę do jednego z kościołów w Ustce udało się
+            kilka osób po znalezieniu go w naszym systemie. Niestety adres wskazywał
+            na mieszkanie księdza proboszcza i chętni spotkali się na osiedlu, gdzie
+            kościoła nie było. Z jednej strony jest mi przykro, że osoby te nie dotarły
+            na Mszę, z drugiej cieszę się, że jest już Was tak wielu, którzy korzystacie
+            z systemu. Dlatego będę nudny i znowu Cię poproszę o sprawdzenie, czy
+            kościół jest prawidłowo pokazany na mapie oraz czy zgadzają się godziny Mszy Św.
+        </p>
+        
+  
+        <p>
+            <br/>
+            Łączę wyrazy wdzięczności, <br/>
+            Piotr Podstawski, KiedyMsza
+        </p>
+        
+       
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

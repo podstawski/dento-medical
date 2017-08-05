@@ -11,6 +11,9 @@ handlers:
   script: admin/index.php
   login: admin
   
+- url: /kosciol-dbg/.*
+  script: kosciol-dbg/index.php
+
 - url: /kosciol.*
   script: kosciol/index.php
 
