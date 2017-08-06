@@ -14,7 +14,7 @@ fs.readFile(newsletter,function(err,data){
     
     const send = function(r) {
         transporter.sendMail({
-            to: 'piotr@reseller.webkameleon.com',
+            to: r.to,
             subject: r.subject,
             from: options.nodemailer.from,
             html: r.mail
