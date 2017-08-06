@@ -13,11 +13,11 @@
             {if:user.male}dołożyłeś{endif:user.male}
             {if:!user.male}dołożyłaś{endif:!user.male}
             swoją cegiełkę do budowy systemu
-            <a href="https://www.kiedymsza.pl/">KiedyMsza.pl</a>, aktualizując dane parafii:<br/>
-            <a href="https://www.kiedymsza.pl/kosciol/{url}">{name}</a>
+            <a href="https://www.kiedymsza.pl/">KiedyMsza</a>, aktualizując dane parafii:
+            <a href="https://www.kiedymsza.pl/kosciol/{url}" target="_blank">{name}</a>
             {if:!masses}
             <br/>
-            Okazuje się, że w naszym systemie brakuje Mszy Św. dla tego kościoła.
+            Okazuje się, że w naszym systemie <b>brakuje Mszy Św.</b> dla tego kościoła.
             Jeżeli masz możliwość zaznaczenia godzin Mszy, to będę bardzo wdzięczny.
             
             {endif:!masses}
@@ -33,11 +33,56 @@
             na Mszę, z drugiej cieszę się, że jest już Was tak wielu, którzy korzystacie
             z systemu. Dlatego będę nudny i znowu Cię poproszę o sprawdzenie, czy
             kościół jest prawidłowo pokazany na mapie oraz czy zgadzają się godziny Mszy Św.
+            (chodzi mi o te znaczki w kwadracikach)
         </p>
         
-  
+        {if:neighbours}
         <p>
-            <br/>
+            &nbsp;&nbsp;
+            Jak pokazuje mój radar, wokół <b>{name}</b> zlokalizowane są kościoły, które
+            <b>nie mają informacji o Mszach</b>, jeżeli mieszkasz w okolicy, to rzuć proszę
+            okiem i dodaj Msze Św. tak, aby inni mogli trafić do kościoła:
+            <ul>
+            {loop:neighbours}
+                <li><a href="https://www.kiedymsza.pl/kosciol/{url}" target="_blank">{name}</a></li>
+            {endloop:neighbours}
+            </ul>
+        </p>
+        {endif:neighbours}
+        
+        <p>
+            &nbsp;&nbsp;
+            Razem - <a href="https://www.kiedymsza.pl/o-projekcie/#team">jako zespół</a>
+            - budujemy narzędzie dla katolików poszukujących Mszy św. w czasie podróży.
+            Jestem dumny, iż jest nas już ponad <b>1000 osób </b>współpracujących przy budowie
+            strony.
+            Jak wiecie, jest to projekt NON-PROFIT, ale nasz <i>przyjaciel Google</i> tego
+            nie rozumie i za niezawodne serwery nalicza sobie ok 100zł miesięcznie, im więcej
+            nas jest (tych, którzy korzystamy z tej <i>niezawodności</i>), tym więcej Google
+            nalicza. Przychody z reklam to ok 15zł miesięcznie. Tę różnicę pokrywam z własnej
+            kieszeni. Dużo czy nie dużo - to pojęcie względne, cieszę się, że mogę Wam
+            pomagać pracując i udoskonalając system, szczerze powiedziawszy mam przy tym
+            trochę frajdy ;)<br/>
+            Jeżeli jednak
+            {if:user.male}chciałbyś{endif:user.male}
+            {if:!user.male}chciałabyś{endif:!user.male}
+            wesprzeć fundusz serwerowy, to mam takie małe 2 linki:
+            <a href="https://goo.gl/hJTMzB" target="_blank" alt="wsparcie 2zł">
+                <img 
+                     width="30px" height="30px"
+                     src="https://www.kiedymsza.pl/img/2zl.png"
+                     align="absMiddle" alt="2zł"></a>
+            <a href="https://goo.gl/Pv34ap" target="_blank" alt="wsparcie 5zł">
+                <img 
+                     width="30px" height="30px"
+                     src="https://www.kiedymsza.pl/img/5zl.png"
+                     align="absMiddle" alt="5zł"></a>
+
+        </p>
+  
+        <p style="margin-top:20px;">
+            <a href="https://www.facebook.com/podstawski.piotr"><img style="margin-right:10px; float: left; width: 40px; heigth: 40px; border-radius: 50%;"
+                src="https://lh3.googleusercontent.com/Dwh4MPVAS-QqPbxq9xw2JKv-k3pBLYc1KCSQfYBrMi5EqPy-TIMVPNeihohJK1ogBY_MV6iVANwp9a1oHsNb=s100-c"/></a>
             Łączę wyrazy wdzięczności, <br/>
             Piotr Podstawski, KiedyMsza
         </p>

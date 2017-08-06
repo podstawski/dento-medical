@@ -1,0 +1,14 @@
+{
+  "name": "reminder",
+  "version": "0.0.0",
+  "description": "kiedymsza remider",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Piotr Podstawski",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "nodemailer": "~4.0.1"
+  }
+}

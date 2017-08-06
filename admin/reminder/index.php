@@ -12,7 +12,8 @@
     $user=new userModel();
     $template=file_get_contents(__DIR__.'/mail.html');
     
-    $when=strtotime('2017-07-25');
+    $when=strtotime('2017-08-06');
+    $when=0;
     
     $touched=$church->touched($when);
     
@@ -52,6 +53,7 @@
             if (isset($ch['neighbours_no_mass'])) {
                 $neighbours=$ch['neighbours_no_mass'];
                 foreach($neighbours AS $i=>$neighbour) {
+                    $neighbours[$i]['url']=Tools::str_to_url($neighbour['name']).','.$neighbour['id'];
                     if (isset($churchusers[$neighbour['id']]) && in_array($receiver['id'],$churchusers[$neighbour['id']]) )
                         unset($neighbours[$i]);    
                 }
@@ -66,17 +68,20 @@
             $ch['user']=$receiver;
             
             $emails[]=[
-                'email'=>$receiver['email'],
+                'sent'=>false,
+                'to'=>$receiver['email'],
                 'subject'=>$ch['name'],
                 'masses'=>$ch['masses']>0,
                 'mail'=>Smekta::smektuj($template,$ch)
             ];
             
-            die($emails[0]['mail']);
+            //die($emails[0]['mail']);
         }
 
     }
-    mydie($emails);
+    echo count($emails);
+    file_put_contents(__DIR__.'/newsletter.json',json_encode($emails,JSON_NUMERIC_CHECK));
+    //mydie($emails);
     //mydie($touched);
 ?>
 

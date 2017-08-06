@@ -183,7 +183,7 @@
 		<?php
 			foreach($people AS $person) {
 				echo '<a href="../moja/?u='.str_replace('fb.','',$person['md5hash']).'">';
-				echo '<img title="'.$person['firstname'].'" src="'.$person['photo'].'"/>';
+				echo '<img alt="'.$person['firstname'][0].$person['lastname'][0].'" title="'.$person['firstname'].' '.$person['rank'].' punktów" src="'.$person['photo'].'"/>';
 				echo '</a>';
 			}
 		

@@ -1,2 +1,5 @@
 tmp/
 media
+newsletter.json
+node_modules
+options.js
