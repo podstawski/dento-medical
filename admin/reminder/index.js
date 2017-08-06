@@ -10,7 +10,6 @@ fs.readFile(newsletter,function(err,data){
     var emails=JSON.parse(data);
     var totals=emails.length;
     
-    totals=1;
     
     const send = function(r) {
         transporter.sendMail({
@@ -19,8 +18,11 @@ fs.readFile(newsletter,function(err,data){
             from: options.nodemailer.from,
             html: r.mail
         }, (error, info) => {
+  
             if (error) {
-                return console.log(error);
+                totals--;
+                return console.log('Problem z',r.to);
+                //return console.log(error);
             }
             r.sent=true;
             totals--;
@@ -31,20 +33,26 @@ fs.readFile(newsletter,function(err,data){
     
     
     for (var i=0; i<emails.length; i++) {
-        if (emails[i].sent) continue;
+        if (emails[i].sent) {
+            totals--;
+            continue;
+        }
         send(emails[i]);
         
-        break;
+        //break;
     }
     
     const wait=function() {
         
-        if (totals>0) return setTimeout(wait,500);
-    
         fs.writeFile(newsletter,JSON.stringify(emails),function(err){
-            console.log('Zapisane');
-            process.exit(); 
-        });
+            if (totals>0) {
+                console.log('Zostało',totals);
+                return setTimeout(wait,1000);
+            }
+            process.exit();
+        });   
+
+
     };
     
     wait();
