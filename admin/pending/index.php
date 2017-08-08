@@ -71,6 +71,7 @@
     
     echo '<div><ul id="churches">';
     
+    $fileCount=0;
     foreach (scandir($path) AS $f)
     {
         if ($f[0]=='.') continue;
@@ -161,6 +162,7 @@
                 mail2changer($changed['data']['id']);
 
                 unlink("$path/$f");
+                $fileCount++;
                 
             }
             
@@ -247,8 +249,10 @@
 ?>
     
 <?php
-    $church->no_http_prefix();
-    if (isset($_GET['trust']) && $_GET['trust']>0) $user->rank();
+    if ($fileCount>0) {
+        $church->no_http_prefix();
+        $user->rank();
+    }
     
     include __DIR__.'/../foot.php';
     

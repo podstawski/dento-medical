@@ -20,9 +20,11 @@ class userModel extends Model {
 	
 	public function rank() {
 		$sql="UPDATE users SET
-			rank=(SELECT count(distinct(church)) FROM images WHERE author_id=users.id)
-			+(SELECT count(*) FROM churches WHERE change_author=users.id)
-			+(SELECT count(*) FROM churches WHERE change_author=users.id AND (SELECT count(*) FROM masses WHERE church=churches.id)>0)";
+				rank=(SELECT count(distinct(church)) FROM images WHERE author_id=users.id)
+				+(SELECT count(*) FROM churches WHERE change_author=users.id)
+				+(SELECT count(*) FROM churches WHERE change_author=users.id AND (SELECT count(*) FROM masses WHERE church=churches.id)>0)";
+	
+		return $this->conn->execute($sql);
 	}
 	
 	
