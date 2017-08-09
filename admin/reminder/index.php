@@ -7,12 +7,13 @@
     $churchusers=[];
     $users=[];
     $emails=[];
+    $sent=json_decode(file_get_contents(__DIR__.'/sent.json'),true);
     
     $church=new churchModel();
     $user=new userModel();
     $template=file_get_contents(__DIR__.'/mail.html');
     
-    $when=strtotime('2017-08-06');
+    $when=strtotime('2017-08-09');
     $when=0;
     
     $touched=$church->touched($when);
@@ -34,8 +35,8 @@
             $ch['receiver'][]=$users[$author];
         }
         
-
-        $neighbours_no_mass = $church->search_no_mass($ch['lat'],$ch['lng'],15,10,0,$ch['id'],-1);
+        //było -1: ostatni parametr
+        $neighbours_no_mass = $church->search_no_mass($ch['lat'],$ch['lng'],15,10,0,$ch['id'],0);
         
         if ($neighbours_no_mass && count($neighbours_no_mass)>0) {
             $ch['neighbours_no_mass']=$neighbours_no_mass;
@@ -62,10 +63,13 @@
                 
             }
             
-            if ($ch['masses']>0 || count($ch['neighbours'])==0) continue;
+            //if ($ch['masses']>0 || count($ch['neighbours'])==0) continue;
             if(count($ch['neighbours'])==0) $ch['neighbours']=false;
             
             $ch['user']=$receiver;
+            
+            //$sent[$receiver['email']]=true;
+            if (isset($sent[$receiver['email']])) continue;
             
             $emails[]=[
                 'sent'=>false,
@@ -81,6 +85,8 @@
     }
     echo count($emails);
     file_put_contents(__DIR__.'/newsletter.json',json_encode($emails,JSON_NUMERIC_CHECK));
+    file_put_contents(__DIR__.'/sent.json',json_encode($sent,JSON_NUMERIC_CHECK));
+    
     //mydie($emails);
     //mydie($touched);
 ?>

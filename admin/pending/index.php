@@ -211,7 +211,7 @@
         echo '</a> (';
         echo '<a href="mailto:'.$user->email.'">';
         echo date('d-m-Y H:i',$church2['change_time']);
-        echo '</a>)</h4>';
+        echo '</a>), </h4>';
         
         
         foreach ($church1 AS $k=>$v)
@@ -233,6 +233,10 @@
         if (count($masses1) != count($masses2)){
             echo '<h5>masses: '.count($masses1).' &raquo; '.count($masses2).'</h5>';
         }
+        
+        if ($church1['change_author'] && $church1['change_author']!=$church2['change_author'])
+            echo '<h5>Autor poprzednich zmian: '.$church1['change_author'].'</h5>';
+        
         
         echo '</div>';
         

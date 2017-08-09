@@ -9,6 +9,7 @@
   "author": "Piotr Podstawski",
   "license": "BSD-2-Clause",
   "dependencies": {
-    "nodemailer": "~4.0.1"
+    "nodemailer": "~4.0.1",
+    "sync-request": "^4.1.0"
   }
 }

@@ -35,20 +35,40 @@
             kościół jest prawidłowo pokazany na mapie oraz czy zgadzają się godziny Mszy Św.
             (chodzi mi o te znaczki w kwadracikach)
         </p>
+
         
         {if:neighbours}
         <p>
             &nbsp;&nbsp;
-            Jak pokazuje mój radar, wokół <b>{name}</b> zlokalizowane są kościoły, które
-            <b>nie mają informacji o Mszach</b>, jeżeli mieszkasz w okolicy, to rzuć proszę
-            okiem i dodaj Msze Św. tak, aby inni mogli trafić do kościoła:
+            Jak pokazuje mój radar, wokół <b>{name}</b> zlokalizowane są inne kościoły,
+            jeżeli mieszkasz w okolicy, to rzuć proszę
+            okiem i sprawdź czy zapisane Msze Św. zgadają się ze stanem faktycznym,
+            tak, aby inni mogli trafić do kościoła na czas:
             <ul>
             {loop:neighbours}
                 <li><a href="https://www.kiedymsza.pl/kosciol/{url}" target="_blank">{name}</a></li>
             {endloop:neighbours}
             </ul>
+            Jeżeli wszystko się zgadza, a nie ma podpisu, że ktoś aktualizował,
+            to i tak prosiłbym o zapisanie (aktualizację), bo wtedy
+            będzie wiadomo, że dane są pewne, bo ktoś to sprawdził.
         </p>
         {endif:neighbours}
+        
+        
+        <p>
+            &nbsp;&nbsp;
+            Ostatnio dla Waszej wygody dorobiłem możliwość usunięcia zdjęcia,
+            jeżeli na przykład uznacie, że Wam się nie podoba.
+            Usunąć może tylko autor, więc należy być zalogowanym.
+            Mam nadzieję, że nie macie nic przeciwko temu, że
+            zrobiłem zestawienie
+            <a href="https://www.kiedymsza.pl/o-projekcie/#team">20 osób</a>,
+            które najbardziej przyczyniają się do rozwoju systemu.
+            Po kliknięciu na link ze zdjęciem pokaże się
+            mapa odwiedzonych kościołów. <br/>
+            Mam nadzieję, że nie potraktujecie tego jako zawody ;)
+        </p>
         
         <p>
             &nbsp;&nbsp;
