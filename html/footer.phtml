@@ -35,3 +35,35 @@
     </div>
 </footer>
 
+<?php
+	function alert($t) {
+		echo '<script>alert("'.$t.'");</script>';
+	}
+
+	if (isset($_GET['pretend'])) {
+		$p=$_GET['pretend'];
+		if (!isset(Bootstrap::$main->user['id']))
+			alert('Trzeba się zalogować');
+		elseif (Bootstrap::$main->user['id']!=1)
+			alert('Trzeba być adminem');
+		else {
+			$user=new userModel();
+			$u=null;
+			if(preg_match('/^[0-9]+$/',$p)) {
+				$u=$user->get($p);
+			} elseif (strstr($p,'@')) {
+				$u=$user->find_one_by_email($p);
+			} elseif (strstr($p,'facebook')) {
+				$u=$user->find_one_by_url($p);
+			}
+			
+			if ($u && isset($u['id']) ) {
+				Bootstrap::$main->session('user',$u);
+				alert('Teraz jesteś jak '.$u['firstname'].' '.$u['lastname']);
+			}
+			
+			
+		}
+	}
+?>
+
