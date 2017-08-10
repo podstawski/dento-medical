@@ -24,7 +24,8 @@ fs.readFile(newsletter,function(err,data){
         if (typeof(embedcache[url])!='undefined') return embedcache[url];
         
         var cid=md5(url);
-        var pth=__dirname+'/'+cid;
+        var pth=__dirname+'/cache/'+cid;
+        
         if (!fs.existsSync(pth)){
             var res = request('GET', url);
             fs.writeFileSync(pth,res.getBody());

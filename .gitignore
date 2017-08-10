@@ -3,3 +3,6 @@ media
 newsletter.json
 node_modules
 options.js
+cache/
+package-lock.json
+sent*.json
