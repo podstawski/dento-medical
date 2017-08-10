@@ -81,14 +81,15 @@ fs.readFile(newsletter,function(err,data){
     }
     
     
-    for (var i=0; i<emails.length; i++) {
+    for (var i=0,j=0; i<emails.length; i++) {
         if (emails[i].sent) {
             totals--;
             continue;
         }
+        j++;
         setTimeout(function(ii){
             send(emails[ii]);
-        },(i+1)*500,i);
+        },j*500,i);
         
         
         //break;
