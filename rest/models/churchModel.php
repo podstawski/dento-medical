@@ -274,8 +274,10 @@ class churchModel extends Model {
 		$this->conn->execute($sql,[$from]);
 	}
 
-	public function my_churches ($userId) {
-		$sql="SELECT * FROM churches WHERE active=1 AND successor IS NULL AND (change_author=? OR id IN (SELECT church FROM images WHERE author_id=?))";
+	public function my_churches ($userId,$mass_count=false) {
+		$more_select = $mass_count?',(SELECT count(*) FROM masses WHERE church=churches.id) AS mass_count':'';
+		$sql="SELECT *$more_select FROM churches WHERE active=1 AND successor IS NULL
+				AND (change_author=? OR id IN (SELECT church FROM images WHERE author_id=?))";
 		
 		//mydie($sql,$userId);
 		return $this->conn->fetchAll($sql,[$userId,$userId]);

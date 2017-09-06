@@ -32,7 +32,7 @@ function initialize(lat,lng,zoom,here) {
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(lat,lng),
             map: map,
-            icon: '../img/gmap_icon.png',
+            icon: '../img/'+(churches[i].mass_count>0?'gmap_icon.png':'gmap_icon_red.png'),
             title: churches[i].name,
             url: churches[i].url
         });

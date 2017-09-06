@@ -39,16 +39,19 @@
 					if ($distance<=1) $distanceok=true;
 				}
 				
+				
+				
 				if ($distanceok) {
 					ksort($results);
+					
 					$result=current($results);
 					$church->name = $result['name'];
 					$church->address = $result['vicinity'];
-					$m[0]=$result['geometry']['location']['lat'];
-					$m[1]=$result['geometry']['location']['lng'];
+					if($result['geometry']['location']['lat']) $m[0]=$result['geometry']['location']['lat'];
+					if($result['geometry']['location']['lng']) $m[1]=$result['geometry']['location']['lng'];
+					
 				}
 			}
-			
 			
 			
 			
@@ -58,11 +61,12 @@
 			$church->change_author=Bootstrap::$main->user['id'];
 			$church->change_ip=Bootstrap::$main->ip;
 			$church->change_time=Bootstrap::$main->now;
-			$church->md5hash=substr($m[0],0,15).','.substr($m[1],0,15);
+			$church->md5hash=substr($m[0],0,12).','.substr($m[1],0,12).','.Bootstrap::$main->user['id'];
 			
+			//mydie($church,'a'.($m[0] && $m[1]));
 			
 			if ($m[0] && $m[1]) {
-				$church->save();
+				$saveResult=$church->save();
 				$uri=$_SERVER['REQUEST_URI'];
 				$pos=strpos($uri,'/edit');	    
 				if (strlen($pos)) $uri=substr($uri,0,$pos);

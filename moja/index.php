@@ -22,7 +22,7 @@
 	if (!$u) die();
 	
     $church=new churchModel();
-    $churches=$church->my_churches($u['id']);
+    $churches=$church->my_churches($u['id'],true);
 	
 	foreach ($churches AS &$ch)
 	{
