@@ -66,7 +66,7 @@
 	<div class="row" style="border-top: 1px black solid">
 		<div class="col-sm-3">Razem</div>
 		<div class="col-sm-3" ><?php echo round($suma);?> zł</div>
-		<div class="col-sm-6"></div>
+		<div class="col-sm-6">od początku istnienia strony</div>
 	</div>
 	
 	
