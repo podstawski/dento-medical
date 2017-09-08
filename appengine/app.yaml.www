@@ -26,6 +26,9 @@ handlers:
 - url: /o-projekcie.*
   script: o-projekcie/index.php
     
+- url: /dary.*
+  script: dary/index.php
+    
 - url: /mapa.*
   script: mapa/index.php
 
