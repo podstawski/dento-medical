@@ -19,7 +19,7 @@
     } elseif (isset($_GET['del'])) $payment->remove($_GET['del']);
     
     
-    $all=$payment->select([],'date DESC');
+    $all=$payment->select([],'date DESC,id DESC');
     
     //mydie($all);
 

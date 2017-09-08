@@ -33,6 +33,9 @@
     }
     
     //mydie($testimonials);
+	
+	$payment=new paymentModel();
+	$payments=$payment->select([],'date DESC,id DESC',5);
     
 ?>
 <html lang="pl">
@@ -162,16 +165,42 @@
   
     <a name="wsparcie"></a>
     <h3 class="">Wsparcie</h3>
-    <p class="">
+	<p>
 		Projekt jest NON-PROFIT. Stworzyłem go w ramach wolnego czasu 
 		z myślą o sobie i swoich znajomych. Jednak rosnąca popularność sprawia, iż za serwery,
 		które utrzymują stronę, płacę z własnych funduszy. Od pewnego czasu mogą pojawić się
 		reklamy - myślałem, że dzięki temu uda mi się zapłacić za serwery, ale nie wystarcza.
-		Jeżeli chciał(a)byś wesprzeć projekt drobnym datkiem, to będę zobowiązany.<br/><br/>
+		Jeżeli chciał(a)byś wesprzeć projekt drobnym datkiem, to będę zobowiązany.		
+	</p>
+    <div class="row">
+		
+
+
+		<div class="col-sm-6">
+			<p style="margin-top:2em;">
+			<a href="https://goo.gl/hJTMzB" target="_blank" alt="wsparcie 2zł"><img width="15%" src="<?php echo $basedir;?>/img/2zl.png"/></a>
+			<a href="https://goo.gl/Pv34ap" target="_blank" alt="wsparcie 5zł"><img width="15%" src="<?php echo $basedir;?>/img/5zl.png"/></a>
+			</p>
+		</div>
+		
+		<div class="col-sm-6">
+			<h4 class=""><i><a href="<?php echo $basedir;?>/dary/">Dotychczasowi darczyńcy:</a></i></h4>
+			<?php foreach ($payments AS $p): ?>
+
+			<div class="row">
+				<div class="col-sm-3"><?php echo $p['initials'];?></div>
+				<div class="col-sm-3" ><?php echo round($p['amount']);?> zł</div>
+				<div class="col-sm-6"><?php echo date('d-m-Y',$p['date']);?></div>
+			</div>
+			<?php endforeach;?>
+			<div class="row">
+				<div class="col-sm-12"><a href="<?php echo $basedir;?>/dary/">...</a></div>
+			</div>
+		</div>
+
+
+	</div>
 	
-		<a href="https://goo.gl/hJTMzB" target="_blank" alt="wsparcie 2zł"><img width="15%" src="<?php echo $basedir;?>/img/2zl.png"/></a>
-		<a href="https://goo.gl/Pv34ap" target="_blank" alt="wsparcie 5zł"><img width="15%" src="<?php echo $basedir;?>/img/5zl.png"/></a>
-    </p>
 	
 	<a name="team"></a>
 	<h3 class="people">Zespół</h3>
