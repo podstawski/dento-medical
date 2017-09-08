@@ -70,7 +70,7 @@
 	</div>
 	
 	
-	<h2 class="">Dołączysz?:</h2>
+	<h2 class="">Dołączysz?</h2>
 	
 			<p style="margin-top:2em;">
 				<?php include __DIR__.'/../html/kasa.phtml';?>
