@@ -18,7 +18,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-MS4VGL');</script>
 <!-- End Google Tag Manager -->
 
-
 <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
    
@@ -29,6 +28,23 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                           <span class="icon-bar"></span>
                           <span class="icon-bar"></span>
                         </button>
+                        <?php if (!isset($church_page) || !$church_page ):?>
+                                <form class="menuphoto hidden-sm hidden-lg" id="upload" method="post" action="" enctype="multipart/form-data">
+                                        
+                                        <ul>
+                                                <!-- The file uploads will be shown here -->
+                                        </ul>
+                                        <div id="drop">
+                                                <a rel="0"><img src="<?php echo $basedir;?>/img/photo-camera.svg"/></a>
+                                                <input type="file" name="upl" multiple accept="image/*" capture="camera"/>
+                                        </div>
+        
+                                        
+                
+                                </form>
+                        
+                        <?php endif;?>
+                        
                         <a class="navbar-brand" href="<?php echo $basedir;?>">KiedyMsza.pl</a>
                 
                 </div>

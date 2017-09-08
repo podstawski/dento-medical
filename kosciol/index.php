@@ -85,6 +85,8 @@
     if (!$neighbours || !is_array($neighbours) || count($neighbours)==0) $neighbours = $church->search_no_mass($church->lat,$church->lng,50,18);
     //mydie($neighbours);
     
+    $church_page=true;
+    
 ?>
 <html lang="pl">
     

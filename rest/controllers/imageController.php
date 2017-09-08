@@ -39,55 +39,53 @@ class imageController extends Controller {
     public function get()
     {	
 
+		Bootstrap::$main->session('image-for-church',$this->id);
+		
+		$upload_url=Bootstrap::$main->getRoot().'image';
+		if ($this->_appengine)
+		{
+			$upload_url = CloudStorageTools::createUploadUrl($upload_url, []);
+		}
+		else
+		{
+			$upload_url='http://'.$_SERVER['HTTP_HOST'].$upload_url;
+		}
+		
+		$ret=array('success'=>true,'url'=>$upload_url);
 	
-	Bootstrap::$main->session('image-for-church',$this->id);
-	
-	$upload_url=Bootstrap::$main->getRoot().'image';
-	if ($this->_appengine)
-	{
-	    $upload_url = CloudStorageTools::createUploadUrl($upload_url, []);
-	}
-	else
-	{
-	    $upload_url='http://'.$_SERVER['HTTP_HOST'].$upload_url;
-	}
-	
-	$ret=array('success'=>true,'url'=>$upload_url);
-
-    	
-	return $ret;
+			
+		return $ret;
     }
     
     public function post()
     {
-
-
 		if (isset($_FILES))
 		{
 	
 			foreach ($_FILES AS $name=>$file)
 			{
 			
-			$chunk=0;
-			if (isset($_SERVER['HTTP_CONTENT_RANGE'])) {
-				$range=str_replace('bytes ', '', $_SERVER['HTTP_CONTENT_RANGE']);
-				$range=explode('/',$range);
-				$range[0]=explode('-',$range[0]);
-				
-				$token='chunk_size.'.$file['name'];
-				$chunk_size=Bootstrap::$main->session($token);
-				if (!$chunk_size) Bootstrap::$main->session($token,$range[0][1]-$range[0][0]+1);
-				$chunk=1+floor($range[0][0]/$chunk_size);
-				if ($range[1]-1 == $range[0][1]) {
-					$chunk*=-1;
-					Bootstrap::$main->session($token,0);    
+				$chunk=0;
+				if (isset($_SERVER['HTTP_CONTENT_RANGE'])) {
+					$range=str_replace('bytes ', '', $_SERVER['HTTP_CONTENT_RANGE']);
+					$range=explode('/',$range);
+					$range[0]=explode('-',$range[0]);
+					
+					$token='chunk_size.'.$file['name'];
+					$chunk_size=Bootstrap::$main->session($token);
+					if (!$chunk_size) {
+						$chunk_size=$range[0][1]-$range[0][0]+1;
+						Bootstrap::$main->session($token,$chunk_size);
+					}
+					$chunk=1+floor($range[0][0]/$chunk_size);
+					if ($range[1]-1 == $range[0][1]) {
+						$chunk*=-1;
+						Bootstrap::$main->session($token,0);    
+					}
 				}
-			}		
-			
-			
-			
-			$f=$this->upload_file($file['tmp_name'],$file['name'],$chunk);
-			if (is_array($f)) return $this->status($f);
+	
+				$f=$this->upload_file($file['tmp_name'],$file['name'],$chunk);
+				if (is_array($f)) return $this->status($f);
 			}
 		}
 		
@@ -101,9 +99,11 @@ class imageController extends Controller {
     
     protected function upload_file($tmp,$name,$chunk=0)
     {
-		if (!isset(Bootstrap::$main->user['id'])) return false;
 		
+		if (!isset(Bootstrap::$main->user['id'])) return false;
+
 		if (!file_exists($tmp)) return false;
+		
 		
 		//mydie($this->_media_dir,$this->_media);
 		$ext=@strtolower(end(explode('.',$name)));
@@ -111,17 +111,19 @@ class imageController extends Controller {
 		
 		$original_name=$name;
 		
+		
+		
 		if ($chunk) $name=$this->_prefix.'/'.$user['md5hash'].'/'.md5($name).'.'.abs($chunk);
 		else $name=$this->_prefix.'/'.$user['md5hash'].'/'.md5_file($tmp).'.'.$ext;
 	
 		$file=Tools::saveRoot($name);
 		
-		if (file_exists($file) && $chunk>=0) return;
-		
+
+		if (file_exists($file) && $chunk>0) return;
 		
 		move_uploaded_file($tmp,$file);
-		
-		if (!file_exists($file) || !filesize($file)) $this->error(18);
+
+		if (!file_exists($file) || !filesize($file)) $this->error(18,$file);
 	
 		if ($chunk>0) return;
 		
@@ -131,11 +133,11 @@ class imageController extends Controller {
 			$name=$this->_prefix.'/'.$user['md5hash'].'/'.md5($original_name);
 			
 			for ($i=1;$i<=$chunk;$i++) {
-			$file=Tools::saveRoot("$name.$i");
-			if (file_exists($file)) {
-				$blob.=file_get_contents($file);
-				unlink($file);
-			}
+				$file=Tools::saveRoot("$name.$i");
+				if (file_exists($file)) {
+					$blob.=file_get_contents($file);
+					unlink($file);
+				}
 			}
 			if (!strlen($blob)) return;
 			$name=$this->_prefix.'/'.$user['md5hash'].'/'.md5($blob).'.'.$ext;
@@ -144,45 +146,28 @@ class imageController extends Controller {
 			file_put_contents($file,$blob);
 		}
 		
+		
 		$model=new imageModel();
 		$model->author_id=$user['id'];
 		$model->src=$name;
 		$model->ip_uploaded=Bootstrap::$main->ip;
 		$model->d_uploaded=Bootstrap::$main->now;
-		$model->church = Bootstrap::$main->session('image-for-church');
+		$model->church = Bootstrap::$main->session('image-for-church')+0;
+	
+		
 	
 		$exif=[];
 		$imagesize=@getimagesize($file,$exif);
 		if (!is_array($imagesize) || !$imagesize[0]) $imagesize=[5000,5000];
 		
-		if (is_array($exif)) foreach ($exif  AS $k=>$a)
-		{
-			
-			if (substr($a,0,4)=='Exif')
-			{
-			$matches=[];
-			preg_match_all('/[0-9]{4}:[0-9]{2}:[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}/',$a,$matches);
-			$d='';
-			
-			if (isset($matches[0][1])) {
-				$d=$matches[0][1];
-			} elseif (isset($matches[0][0])) {
-				$d=$matches[0][0];
-			}
-			if ($d)
-			{
-	
-				$d=preg_replace('/([0-9]{4}):([0-9]{2}):([0-9]{2})/','\1-\2-\3',$d);		    
-				$model->d_taken=strtotime($d);
-			}
-			}
-			
-		}
+		$exif='';
 		
 		if ($this->_appengine) {
 			$model->url = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('image_size'),'secure_url'=>true]);
 			$model->square = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('square_size'),'crop'=>true, 'secure_url'=>true]);
 			$model->thumb = CloudStorageTools::getImageServingUrl($file,['size'=>0+Bootstrap::$main->getConfig('thumb_size'),'crop'=>true,'secure_url'=>true]);
+		
+			$exif=$file;
 		
 		} else {
 			$image=new Image($file);
@@ -210,8 +195,40 @@ class imageController extends Controller {
 			$thumb=preg_replace("/\.$ext\$/",'-t.'.$ext,$file);
 			$image->min($thumb,$w,$h,false,true);
 			$model->thumb='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.preg_replace("/\.$ext\$/",'-t.'.$ext,$name);	    
+		
+			$exif='http://'.$_SERVER['HTTP_HOST'].$this->_media.'/'.$name;
 		}
+		
+		$model->lat=0;
+		$model->lng=0;
+		if ($exif) {
+			$url='http://exiftool.webkameleon.com/?fields=gps,date&exif='.urlencode($exif);
+			$exif=json_decode(file_get_contents($url),true);
 			
+			
+			foreach(['CreateDate','Date/TimeOriginal','ModifyDate'] AS $k) {
+				if (isset($exif[$k])) {
+					$model->d_taken=strtotime($exif[$k]);
+					break;
+				}
+			}
+			
+			if (isset($exif['GPSLatitude'])) $model->lat=$exif['GPSLatitude'];
+			if (isset($exif['GPSLongitude'])) $model->lng=$exif['GPSLongitude'];
+		}
+		
+		if ($model->church==0 && $model->lat!=0 && $model->lng!=0) {
+			$church=new churchModel();
+			
+			$churches=$church->search_no_mass($model->lat,$model->lng,1);
+			
+			if ($churches && count($churches)>0) {
+				$model->church = $churches[0]['id'];
+			}
+			
+		}
+		
+		if($model->church==0) $model->church=-1;
 		
 		$model->save();
 		$ret=$model->data();

@@ -1,9 +1,9 @@
 function login_fb()
 {
     var url=REST+'/user/facebook?redirect='+encodeURIComponent(location.href);
-    $('.a_login,#drop a').attr('href',url);
+    $('.a_login,#drop a').addClass('notlogged').attr('href',url);
     
-    $('#drop a').text('Zaloguj się, aby dodać zdjęcie');
+    $('.carousel-inner #drop a').text('Zaloguj się, aby dodać zdjęcie');
     
     $('.a_update').each(function(){
         url=REST+'/user/facebook?redirect='+encodeURIComponent(location.href+'/../'+$(this).attr('href'));
