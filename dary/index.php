@@ -35,8 +35,23 @@
 </div>
   
   <div class="container about">
+	
+	<p>
+		Razem - <a href="https://www.kiedymsza.pl/o-projekcie/#team">jako zespół</a>
+            - budujemy narzędzie dla katolików poszukujących Mszy św. w czasie podróży.
+            Jestem dumny, iż jest nas już ponad <b>1000 osób </b>współpracujących przy budowie
+            strony.
+            Jak wiecie, jest to projekt NON-PROFIT, ale nasz <i>przyjaciel Google</i> tego
+            nie rozumie i za niezawodne serwery nalicza sobie ok 100zł miesięcznie, im więcej
+            nas jest (tych, którzy korzystamy z tej <i>niezawodności</i>), tym więcej Google
+            nalicza. Przychody z reklam to ok 15zł miesięcznie. Tę różnicę pokrywam z własnej
+            kieszeni. Dużo czy nie dużo - to pojęcie względne, cieszę się, że mogę Wam
+            pomagać pracując i udoskonalając system, szczerze powiedziawszy mam przy tym
+            trochę frajdy ;)
+	</p>
+	
     
-	<h2 class=""><i>Nasi darczyńcy:</i></h2>
+	<h2 class="">Nasi darczyńcy:</h2>
 	<?php foreach ($payments AS $p) {
 		$suma+=$p['amount'];
 	?>
@@ -53,6 +68,13 @@
 		<div class="col-sm-3" ><?php echo round($suma);?> zł</div>
 		<div class="col-sm-6"></div>
 	</div>
+	
+	
+	<h2 class="">Dołączysz?:</h2>
+	
+			<p style="margin-top:2em;">
+				<?php include __DIR__.'/../html/kasa.phtml';?>
+			</p>
 
   </div>
 

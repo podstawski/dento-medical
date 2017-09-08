@@ -178,8 +178,7 @@
 
 		<div class="col-sm-6">
 			<p style="margin-top:2em;">
-			<a href="https://goo.gl/hJTMzB" target="_blank" alt="wsparcie 2zł"><img width="15%" src="<?php echo $basedir;?>/img/2zl.png"/></a>
-			<a href="https://goo.gl/Pv34ap" target="_blank" alt="wsparcie 5zł"><img width="15%" src="<?php echo $basedir;?>/img/5zl.png"/></a>
+				<?php include __DIR__.'/../html/kasa.phtml';?>
 			</p>
 		</div>
 		
