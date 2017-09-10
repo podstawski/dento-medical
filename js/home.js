@@ -32,6 +32,8 @@ $(function(){
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (pos) {
             $('#geo').val(pos.coords.latitude+','+pos.coords.longitude);
+            $('#xlat').val(pos.coords.latitude);
+            $('#xlng').val(pos.coords.longitude);
             $('#navigator_missing').attr('found',true).fadeOut();
             
             if (proceed_prority<=1) { 

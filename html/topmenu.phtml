@@ -30,7 +30,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
                         </button>
                         <?php if (!isset($church_page) || !$church_page ):?>
                                 <form class="menuphoto hidden-sm hidden-lg" id="upload" method="post" action="" enctype="multipart/form-data">
-                                        
+                                        <input type="hidden" name="lat" id="xlat" value="0" />
+                                        <input type="hidden" name="lng" id="xlng" value="0" />
                                         <ul>
                                                 <!-- The file uploads will be shown here -->
                                         </ul>

@@ -228,6 +228,9 @@ class imageController extends Controller {
 			
 		}
 		
+		if ($model->lat==0 && isset($_POST['lat']))  $model->lat=$_POST['lat'];
+		if ($model->lng==0 && isset($_POST['lng']))  $model->lng=$_POST['lng'];
+		
 		if($model->church==0) $model->church=-1;
 		
 		$model->save();
