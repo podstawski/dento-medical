@@ -20,6 +20,9 @@ handlers:
 - url: /edit.*
   script: edit/index.php
 
+- url: /vc.*
+  script: vc/index.php
+
 - url: /dbg.*
   script: dbg/index.php
 
