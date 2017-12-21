@@ -23,7 +23,7 @@ handlers:
 - url: /vc.*
   script: vc/index.php
   
-  - url: /pp.*
+- url: /pp.*
   script: pp/index.php
 
 
