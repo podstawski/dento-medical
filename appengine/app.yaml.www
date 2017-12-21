@@ -22,6 +22,10 @@ handlers:
 
 - url: /vc.*
   script: vc/index.php
+  
+  - url: /pp.*
+  script: pp/index.php
+
 
 - url: /dbg.*
   script: dbg/index.php
