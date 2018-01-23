@@ -123,15 +123,18 @@
   </div>
 </div>
 <div class="col-md-3 hidden-sm hidden-xs">
-	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-	<!-- vert -->
-	<ins class="adsbygoogle"
-		 style="display:inline-block;width:300px;height:600px"
-		 data-ad-client="ca-pub-3681218186493233"
-		 data-ad-slot="1169819904"></ins>
-	<script>
-	(adsbygoogle = window.adsbygoogle || []).push({});
-	</script>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <ins class="adsbygoogle"
+       style="display:block"
+       data-ad-format="autorelaxed"
+       data-ad-client="ca-pub-3681218186493233"
+       data-ad-slot="8571592964"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+   
+
+
 
   
 </div>
