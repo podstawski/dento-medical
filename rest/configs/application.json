@@ -15,6 +15,9 @@
     "fest.2017.free": ["17.04","15.06"],
     "fest.2017.work":["01.03"],
 
+    "fest.2018.free": ["02.04","31.05"],
+    "fest.2018.work":["14.02"],
+
     "protocol":"http",
 
     "square_size": 900,
