@@ -40,7 +40,7 @@ class userController extends Controller {
 		{
 				if (isset($_GET['code']))
 				{
-					$url='https://graph.facebook.com/oauth/access_token';
+					$url='https://graph.facebook.com/v2.9/oauth/access_token';
 					$url.='?client_id='.$config['fb.app_id'];
 					$url.='&redirect_uri='.urlencode($uri);
 					$url.='&client_secret='.$config['fb.app_secret'];
@@ -193,7 +193,7 @@ class userController extends Controller {
     {
 	Bootstrap::$main->session('fb_likes',1);
 	if (!Bootstrap::$main->session('access_token')) return false;
-	$url='https://graph.facebook.com/me/likes/'.Bootstrap::$main->getConfig('fb.fanpage').'?access_token='.Bootstrap::$main->session('access_token');
+	$url='https://graph.facebook.com/v2.9/me/likes/'.Bootstrap::$main->getConfig('fb.fanpage').'?access_token='.Bootstrap::$main->session('access_token');
 	$data=@json_decode(file_get_contents($url),true);
         if (!isset($data['data'])) return false;
 	return count($data['data'])>0;
