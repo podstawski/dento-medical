@@ -25,7 +25,7 @@ class userController extends Controller {
     {
 	
 		$config=Bootstrap::$main->getConfig();
-		$scope="email,public_profile,user_about_me";
+		$scope="email,public_profile";
 		
 		if (Bootstrap::$main->session('fb_likes')) $scope.=",user_likes";
 		$this->check_input();
