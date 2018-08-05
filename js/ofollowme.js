@@ -6,20 +6,20 @@ function followMe(map) {
     
             if (typeof(map)=='object') {
         
-                iamhere = new google.maps.Marker({
-                    position: new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude),
-                    map: map,
-                    icon: '../img/iamhere.png',
-                    title: 'Tu jestem'
+                iamhere = marker = L.marker([pos.coords.latitude, pos.coords.longitude], {
+                    title: 'Tu jestem',
+                    icon: L.icon({
+                        iconUrl: '../img/iamhere.png',
+                        iconSize: [12, 12]
+                    })
+                }).addTo(map).on('click',function(){
+                    map.setZoom(14);
+                    map.setView({lat:pos.coords.latitude, lng:pos.coords.longitude});
                 });
                 
-                google.maps.event.addListener(iamhere, 'click', function() {
-                    this.getMap().setZoom(14);
-                    this.getMap().setCenter(new google.maps.LatLng(this.getPosition().lat(),this.getPosition().lng()));
-                    
-                });
+                
             } else {
-                iamhere.setPosition( new google.maps.LatLng( pos.coords.latitude,pos.coords.longitude ) );
+                iamhere.setLatLng({lat:pos.coords.latitude, lng:pos.coords.longitude});
             }
             setTimeout(followMe,15000);
         });
