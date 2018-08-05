@@ -93,7 +93,8 @@
 <head>    
     <?php include __DIR__.'/../html/head.phtml';?>
 
-    <script src="<?php echo $basedir;?>/js/church.js"></script>
+    <script src="<?php echo $basedir;?>/js/church.js?v=2"></script>
+    <script src="<?php echo $basedir;?>/js/church-omap.js"></script>
   
 </head>
 

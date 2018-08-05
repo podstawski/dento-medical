@@ -23,14 +23,19 @@
     <!-- fonts -->
     <link href='//fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <!-- /fonts -->
-    
+    <link rel="stylesheet" href="<?php echo $basedir;?>/css/leaflet.css">
     <link rel="stylesheet" href="<?php echo $basedir;?>/css/kiedymsza.css">
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?libraries=places,visualization&v=3.exp&key=AIzaSyCuhS49N8-uoDHTr6juegvG-xhi5DXFXks"></script>
-
+    
+	<!--
+	<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?libraries=places,visualization&v=3.exp&key=AIzaSyCuhS49N8-uoDHTr6juegvG-xhi5DXFXks"></script>
+	-->
+	
+	<script src="<?php echo $basedir;?>/js/leaflet.js"></script>
+	    
     <script type="text/javascript">
         var REST='<?php echo $basedir;?>/rest';
         var BASEDIR='<?php echo $basedir;?>';
@@ -50,6 +55,7 @@
     <script type="text/javascript" src="<?php echo $basedir;?>/js/jquery.fancybox.js"></script>    
     
     <script type="text/javascript" src="<?php echo $basedir;?>/js/main.js"></script>
+	<script type="text/javascript" src="<?php echo $basedir;?>/js/ofollowme.js"></script>
     
     <script src="<?php echo $basedir;?>/js/ie10-viewport-bug-workaround.js"></script>
     <script src="<?php echo $basedir;?>/js/offcanvas.js"></script>

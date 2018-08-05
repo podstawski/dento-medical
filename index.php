@@ -37,14 +37,18 @@
 <head>
   <?php include __DIR__.'/html/head.phtml';?>  
   
+  <link rel="stylesheet" href="<?php echo $basedir;?>/css/Control.Geocoder.css">
+  
   <script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/picker.js"></script>
   <script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/picker.date.js"></script>
   <script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/picker.time.js"></script>
   <script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/legacy.js"></script>  
   <script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/translations/pl_PL.js"></script>
   
+  <script src="<?php echo $basedir;?>/js/Control.Geocoder.js"></script>
   <script src="<?php echo $basedir;?>/js/grid.js"></script>
   <script src="<?php echo $basedir;?>/js/home.js"></script>
+  <script src="<?php echo $basedir;?>/js/home-omap.js"></script>
 
 
 </head>
@@ -67,17 +71,19 @@
       </div>
      
       <div class="col-sm-6">
-        <input type="text" class="where" placeholder="gdzie jestem ..." id="where"/>
-      
+        <input type="text" class="where" placeholder="gdzie msza św..." id="where"/>
+        
         <input id="navigator_missing" readonly value="Proszę wyraź zgodę na udostępnienie swojej lokalizacji" title="Proszę wyraź zgodę na udostępnienie swojej lokalizacji"/>
       </div>
     </div>  
   
   </div>
   </form>
+  
 
   
 </div>
+<div id="geo_search_results"></div>
 
 <div class="row" style="margin:0">
 <div class="col-md-9 col-sm-12">

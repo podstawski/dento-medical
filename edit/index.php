@@ -22,6 +22,12 @@
 		if ($id+0==0 && count($m)>1 && $m[0]+0>0 && $m[1]+0>0) {
 			$church=new churchModel();
 			
+			
+			//Integrate: https://leafletjs.com/examples/custom-icons/example.html
+			
+			/*
+			 *bye bye Google
+			 *
 			$url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=';
 			$url.=Bootstrap::$main->getConfig('maps.server_key');
 			$url.='&location='.$m[0].','.$m[1];
@@ -52,6 +58,7 @@
 					
 				}
 			}
+			*/
 			
 			
 			
@@ -241,6 +248,7 @@
 <head>
   <?php include __DIR__.'/../html/head.phtml';?>
   <script src="<?php echo $basedir;?>/js/edit.js"></script>
+  <script src="<?php echo $basedir;?>/js/edit-omap.js"></script>
   
 </head>
 

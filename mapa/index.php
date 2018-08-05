@@ -112,7 +112,8 @@
 	<script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/legacy.js"></script>  
 	<script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/translations/pl_PL.js"></script>
 
-    <script src="<?php echo $basedir;?>/js/map.js"></script>
+	<script src="<?php echo $basedir;?>/js/leaflet-heat.js"></script>
+    <script src="<?php echo $basedir;?>/js/omap.js?t=<?php echo time();?>"></script>
 
 </head>
 
@@ -123,7 +124,7 @@
 	<?php
 	    $moremenu=[
 			'<a style="display:none" href="../edit/0" class="a_mapadd">Dodaj kościół</a>',
-			'<a href="javascript://" class="menu_szukaj">Szukaj</a>'
+			'<!--<a href="javascript://" class="menu_szukaj">Szukaj</a>-->'
 		];
 	    include __DIR__.'/../html/topmenu.phtml';
 	?>
