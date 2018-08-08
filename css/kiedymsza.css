@@ -956,13 +956,23 @@ ul.other {
   border-style: inset;
   border-width: 1px;
   border-color: #eee;
-  z-index: 10;
+  z-index: 2000;
   text-align: left;
   padding: 0.5em 0.7em;
   font-size: 0.6em;
+  max-height: 200px;
+  overflow: auto;
 }
 
 #geo_search_results li {
   margin-bottom: 3px;
   cursor: pointer;
+}
+
+.leaflet-routing-container {
+  display: none;
+}
+
+.map_info_win p {
+  margin: 0 !important;
 }

@@ -1,4 +1,6 @@
 
+// wdrozyc: http://www.liedman.net/leaflet-routing-machine/
+
 var heatmap,heatmapVisible=false;
 
 var where_from_latlng=null;
@@ -19,6 +21,29 @@ function clear_markers()
 }
 
 
+function getInstrGeoJson(instr,coord) {
+  var formatter = new L.Routing.Formatter();
+  var instrPts = {
+    type: "FeatureCollection",
+    features: []
+  };
+  for (var i = 0; i < instr.length; ++i) {
+    var g = {
+      "type": "Point",
+      "coordinates": [coord[instr[i].index].lat, coord[instr[i].index].lng]
+    };
+    var p = {
+      "instruction": formatter.formatInstruction(instr[i])
+    };
+    instrPts.features.push({
+      "geometry": g,
+      "time": instr[i].time,
+      "distance": instr[i].distance
+    });
+  }
+  return instrPts;
+}
+
 function draw_route()
 {
     if (last_route_result!=null) {
@@ -29,18 +54,22 @@ function draw_route()
     
     if (where_from_latlng!=null && where_to_latlng!=null) {
         clear_markers();
-        directionsService.route({
-            origin: where_from_latlng,
-            destination: where_to_latlng,
-            travelMode: google.maps.TravelMode.DRIVING,
-            avoidTolls: true
-          }, function(response, status) {
-            if (status === google.maps.DirectionsStatus.OK) {
-                directionsDisplay.setDirections(response);
-            } else {
-                console.log(status);
+        
+        var router=L.Routing.control({
+            waypoints: [
+                where_from_latlng.split(','),
+                where_to_latlng.split(',')
+            ],
+            routeWhileDragging: true,
+            router: L.Routing.mapbox('pk.eyJ1Ijoia2llZHltc3phIiwiYSI6ImNqa2thNHZ4djE2M3kzcHAwZnV4bjc2dzMifQ.CXfAJ42HVG8Z5QWEMO3xGg')
+        }).addTo(map).on('routesfound',function(e){
+            if (e.routes && e.routes[0] && e.routes[0].instructions && e.routes[0].coordinates) {
+                
+                computeTotalDistance(getInstrGeoJson(e.routes[0].instructions,e.routes[0].coordinates).features);
             }
-          });
+        });
+        
+        
     }
 }
 
@@ -48,18 +77,7 @@ function computeTotalDistance(result)
 {
     var url='../rest/church/route';
 
-    var data=result.routes[0].legs[0];
-    
-    if (typeof(data.steps[0].lat_lngs[0].lat)=='function') for(var i=0;i<data.steps.length;i++)
-    {
-        var lat_lngs=[];
-        for (var j=0; j<data.steps[i].lat_lngs.length; j++)
-        {
-            lat_lngs.push([data.steps[i].lat_lngs[j].lat(),data.steps[i].lat_lngs[j].lng()]);
-        }
-        data.steps[i].lat_lngs=lat_lngs;
-    }
-    
+    var data={steps:result};
     last_route_result=result;
     
     var date=$('input[name="date_submit"]').val();
@@ -84,7 +102,6 @@ function computeTotalDistance(result)
         dataType: 'json',
         contentType: 'application/json; charset=UTF-8',
         success: function(result) {
-            
             churches=result.churches;
             var labelIndex=1;
             for (var i in churches)
@@ -93,11 +110,37 @@ function computeTotalDistance(result)
                 lat=churches[i].lat;
                 lng=churches[i].lng;
                 
+                
+                var marker = L.marker([lat, lng], {
+                    title: churches[i].name,
+                    url: churches[i].url,
+                    icon: L.icon({
+                        iconUrl: '../img/gmap_icon.png',
+                        iconSize: [23, 43],
+                        iconAnchor: [11, 43]
+                    })
+                }).addTo(map);
+                
+                var html='<div class="map_info_win"><h1>'+churches[i].time+'</h1>';
+                    html+='<p><a href="'+'../kosciol/'+churches[i].name_url+','+churches[i].church_id+'" target="_blank">'+churches[i].name+'</a></p>';
+                    html+='<p>'+churches[i].address+'</p>';
+                    html+='<p>'+churches[i].time_difference+' min. przed czasem</p>';
+                    html+='</div>';
+                    
+                marker.bindPopup(html);
+                marker.on('click',function(){
+                    this.openPopup();
+                });
+                
+                
+                markerarray.push(marker);
+                
+                /*
                 var marker = new google.maps.Marker({
                     position: new google.maps.LatLng(lat,lng),
                     map: map,
                     label: String(labelIndex++),
-                    time: churches[i].time,
+                    time: ,
                     icon: '../img/gmap_icon.png',
                     title: churches[i].time+' - '+churches[i].name,
                     name: churches[i].name,
@@ -108,11 +151,7 @@ function computeTotalDistance(result)
                 google.maps.event.addListener(marker, 'click', function() {
                     //window.location.href = this.url;
                     
-                    var html='<div class="map_info_win"><h1>'+this.time+'</h1>';
-                    html+='<p><a href="'+this.url+'" target="_blank">'+this.name+'</a></p>';
-                    html+='<p>'+this.address+'</p>';
-                    html+='<p>'+this.wait+' min. przed czasem</p>';
-                    html+='</div>';
+                    
                     var infowindow = new google.maps.InfoWindow({
                         content: html,
                         maxWidth: 200,
@@ -121,7 +160,7 @@ function computeTotalDistance(result)
                     infowindow.open(map, this);
                 });
                 
-                markerarray.push(marker);
+                */
             }
             
             
@@ -137,14 +176,14 @@ function computeTotalDistance(result)
 }
 
 function search_map_my_position(pos) {
-    var geocoder = new google.maps.Geocoder();
-    where_from_latlng=new google.maps.LatLng(pos.coords.latitude,pos.coords.longitude);
+    
+    where_from_latlng=pos.coords.latitude+','+pos.coords.longitude;
     draw_route(false);
-    geocoder.geocode( { 'address': pos.coords.latitude+','+pos.coords.longitude}, function(results, status) {
-        
-        if(status=='OK') $('#map_search #where_from').val(results[0].formatted_address);
-        
+    
+    geocoder.geocode(pos.coords.latitude+','+pos.coords.longitude, function(results) {
+        if(results.length>0) $('#map_search #where_from').val(results[0].name);
     });
+    
 }
 
 
@@ -199,10 +238,7 @@ function initialize(lat,lng,zoom,here) {
         
     
         var url=BASEDIR+'/mapa/index.php?lat1='+ne.lat+'&lng1='+ne.lng+'&lat2='+sw.lat+'&lng2='+sw.lng;
-        
-
-
-        
+    
 
         if (where_from_latlng==null || where_to_latlng==null) $.get(url,function(churches) {
             
@@ -255,81 +291,29 @@ function initialize(lat,lng,zoom,here) {
     });
     
     
-    return;
-    
-    directionsService = new google.maps.DirectionsService;
-    directionsDisplay = new google.maps.DirectionsRenderer({
-      draggable: true,
-      map: map
-    });
-    
-    
-    directionsDisplay.addListener('directions_changed', function() {
-        computeTotalDistance(directionsDisplay.getDirections());
-    });
-    
-    
-    
-
-    
     followMe(map);
     
-    markerarray=[];
-
-    
-    var input = document.getElementById('where');
-    var options = {
-      types: ['geocode'],
-      componentRestrictions: {country: 'pl'}
-    };    
-    autocomplete = new google.maps.places.Autocomplete(input,options);
-    
-    google.maps.event.addListener(autocomplete, 'place_changed', function() {
-        var place = autocomplete.getPlace();
-
+    where_autocomplete('where',function(rel){
         ga('send', 'pageview', '/?location');
-        
-        if (typeof(place.geometry.location)!='undefined') {
-            $('#map_search').modal('hide');
-            map.panTo(place.geometry.location);
-            map.setZoom(12);
-            
-            
-        }
-        
-    }); 
-
-    
-    var where_from = document.getElementById('where_from');
-    var where_to = document.getElementById('where_to');
-
-    
-    autocomplete_from = new google.maps.places.Autocomplete(where_from,options);
-    autocomplete_to = new google.maps.places.Autocomplete(where_to,options);
+        map.setZoom(12);
+        map.panTo(rel.split(','));
+        $('#map_search').modal('hide');
+    },0.992,1.5);
     
     
-    google.maps.event.addListener(autocomplete_from, 'place_changed', function() {
-        var place = autocomplete_from.getPlace();
+    where_autocomplete('where_from',function(rel){
         ga('send', 'pageview', '/?route');
-        
-        if (typeof(place.geometry.location)!='undefined') {
-            where_from_latlng = place.geometry.location;
-            last_route_result=null;
-        }
-        
-    });
-
-    google.maps.event.addListener(autocomplete_to, 'place_changed', function() {
-        var place = autocomplete_to.getPlace();
-        ga('send', 'pageview', '/?route');
-        
-        if (typeof(place.geometry.location)!='undefined') {
-            where_to_latlng = place.geometry.location;
-            last_route_result = null;
-        }
-        
-    });
+        where_from_latlng = rel;
+        last_route_result=null;
+    },0.98,1.5);
     
+    where_autocomplete('where_to',function(rel){
+        ga('send', 'pageview', '/?route');
+        where_to_latlng = rel;
+        last_route_result=null;
+    },0.98,1.5);
+        
+    markerarray=[];
     
     $('#map_search .date').pickadate({
         onSet:function() {

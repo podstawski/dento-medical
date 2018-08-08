@@ -105,7 +105,8 @@
 		if (isset($_GET['m'])) echo '<script>var LATLNG="'.$_GET['m'].'";</script>';    
     ?>
 
-
+	<link rel="stylesheet" href="<?php echo $basedir;?>/css/leaflet-routing-machine.css">
+	
 	<script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/picker.js"></script>
 	<script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/picker.date.js"></script>
 	<script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/picker.time.js"></script>
@@ -113,7 +114,9 @@
 	<script src="<?php echo $basedir;?>/js/pickadate.js/lib/compressed/translations/pl_PL.js"></script>
 
 	<script src="<?php echo $basedir;?>/js/leaflet-heat.js"></script>
-    <script src="<?php echo $basedir;?>/js/omap.js?t=<?php echo time();?>"></script>
+	<script src="<?php echo $basedir;?>/js/Control.Geocoder.js"></script>
+	<script src="<?php echo $basedir;?>/js/leaflet-routing-machine.min.js"></script>
+    <script src="<?php echo $basedir;?>/js/omap.js?v=4"></script>
 
 </head>
 
@@ -124,7 +127,7 @@
 	<?php
 	    $moremenu=[
 			'<a style="display:none" href="../edit/0" class="a_mapadd">Dodaj kościół</a>',
-			'<!--<a href="javascript://" class="menu_szukaj">Szukaj</a>-->'
+			'<a href="javascript://" class="menu_szukaj">Szukaj</a>'
 		];
 	    include __DIR__.'/../html/topmenu.phtml';
 	?>
@@ -164,14 +167,14 @@
 					<div id="my-tab-content" class="tab-content">
 					
 						<div class="tab-pane active" id="map_search_city">
-						    <input type="text" class="where" placeholder="szukaj miejscowości" id="where"/>
+						    <input type="text" class="where" autocomplete="off" placeholder="szukaj miejscowości" id="where"/>
 						</div>
 						
 						<div class="tab-pane" id="map_search_route">
 							<span class="route_from_to">
-								<input type="text" placeholder="ruszam z ..." id="where_from"/>
+								<input type="text" autocomplete="nope-<?php echo time();?>" placeholder="ruszam z ..." id="where_from"/>
 								<i class="glyphicon glyphicon-map-marker" title="moja lokalizacja"></i>
-								<input type="text" placeholder="jadę do ..." id="where_to"/>
+								<input type="text" autocomplete="nope-<?php echo time();?>" placeholder="jadę do ..." id="where_to"/>
 							</span>
 							<hr/>
 							<input type="text" class="date" placeholder="kiedy ruszam" name="date"/>

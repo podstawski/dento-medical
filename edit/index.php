@@ -247,7 +247,7 @@
     
 <head>
   <?php include __DIR__.'/../html/head.phtml';?>
-  <script src="<?php echo $basedir;?>/js/edit.js"></script>
+  <script src="<?php echo $basedir;?>/js/edit.js?v=2"></script>
   <script src="<?php echo $basedir;?>/js/edit-omap.js"></script>
   
 </head>

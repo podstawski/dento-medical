@@ -98,3 +98,74 @@ function navigator_request_blinker() {
         });
     });
 }
+
+var where_autocomplete_cb={};
+var geocoder;
+function where_autocomplete(id,cb,scaleW,scaleH) {
+    if (Object.keys(where_autocomplete_cb).length==0) {
+        geocoder = new L.Control.Geocoder.Nominatim();
+        
+        $(document).on('click', '#geo_search_results li', function(e){
+            $('#geo_search_results').fadeOut();
+            var id=$('#geo_search_results').attr('rel');
+            $('#'+id).val($(this).text());
+            
+            
+            if (typeof(where_autocomplete_cb[id])=='function') 
+                where_autocomplete_cb[id]($(this).attr('rel'));
+            
+            
+        });
+    }
+
+    where_autocomplete_cb[id]=cb;
+    if ($('#geo_search_results').length==0) {
+        $('body').append('<div id="geo_search_results"></div>');
+    }
+    
+    var lastKeypress = 0;
+    
+    if (!scaleW) scaleW=1;
+    if (!scaleH) scaleH=1;
+    
+    $('#'+id).keypress(function (e) {
+        var self = $(this);
+        if (self.val().trim().length==0) return true;
+        
+        if (e.which != 13 && (lastKeypress==0 || Date.now()-lastKeypress<1000) ) {
+            lastKeypress = Date.now();
+            return true;
+        }
+        
+        self.addClass('searching');
+        geocoder.geocode(self.val().trim(), function(results) {
+            self.removeClass('searching');
+            
+            if (results.length==0) {
+                //code      
+                
+                return;
+            }
+            
+            $('#geo_search_results').fadeIn().width(self.width()*scaleW).css({
+                left: self.offset().left,
+                top:self.offset().top + self.height()*scaleH
+            }).attr('rel',id);
+            
+            var html='<ul>';
+            for (var i=0;i<results.length; i++){
+                html+='<li rel="'+results[i].center.lat+','+results[i].center.lng+'">';
+                html+=results[i].name;
+                html+='</li>';
+            }
+            html+='</ul>';
+            
+            $('#geo_search_results').html(html);
+
+        });
+        
+        return true;
+    });
+    
+}
+

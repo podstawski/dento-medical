@@ -260,7 +260,7 @@ class churchController extends Controller {
         return $this->status(['hb'=>true]);
     }
     
-    public function post_route()
+    public function post_route_gmap()
     {
         $masses=[];
         $points=[];
@@ -316,6 +316,95 @@ class churchController extends Controller {
             
             $mass=$church->search($point['latlng'][0],$point['latlng'][1],$step/1000,$time+$point['time'],$month,$dow,$time+$point['time'],1,0)?:[];
             
+            if (count($mass) && !isset($masses[$mass[0]['church_id']]) )
+            {
+                $time_difference=$mass[0]['time']-$time-$point['time'];
+                $mass[0]['time_difference']=$time_difference;
+                $this->clear_data($mass);
+                
+                $church_id=$mass[0]['church_id'];
+                
+                if (!isset($masses[$church_id]) || $masses[$church_id]['distance']>$mass[0]['distance']) $masses[$church_id] = $mass[0];
+            }
+            
+        }
+        
+        $masses2=[];
+        $distances=0;
+        foreach($masses AS $mass)
+        {
+            $time_difference=$mass['time_difference'];
+            while(isset($masses2[$time_difference])) $time_difference++;
+            $masses2[$time_difference]=$mass;
+            $distances+=$mass['distance'];
+        }
+        if (count($masses)) $avg_distance=$distances/count($masses);
+        
+        ksort($masses2);
+        
+        $i=0;
+        $ak2=array_keys($masses2);
+        foreach($ak2 AS $k) {
+            $masses2[$k]['time_difference']=round($masses2[$k]['time_difference']/60);
+            if ($i++>=2 && $masses2[$k]['distance'] > $avg_distance) unset($masses2[$k]);
+            if ($i>9) unset($masses2[$k]);
+        }
+        
+        return $this->status($masses2,true,'churches');
+    }
+    
+    public function post_route()
+    {
+        
+        
+        
+        $masses=[];
+        $points=[];
+        $last_distance=0;
+        $last_time=0;
+        
+        $church=new churchModel();
+        
+        $date_submit=$this->data('date_submit')?:date('Y-m-d');
+        $dow=$this->change_dow(strtotime($date_submit));
+        $month=date('m',strtotime($date_submit));
+        
+        $time=$this->data('time_submit')?:$this->data('now');
+        if ($this->data('date_submit')) $time='07:00';
+        if ($this->data('time_submit')) $time=$this->data('time_submit');
+        
+        $time_org=$time;
+        
+        
+        
+        foreach (isset($this->data['steps'])?$this->data['steps']:[] AS $step)
+        {
+            $distance=$step['distance'];
+            $time=$step['time'];
+            
+            $points[$last_distance+$distance] = [
+                'time'=>$last_time+$time,
+                'latlng'=>$step['geometry']['coordinates']
+            ];
+            
+            
+            $last_distance+=$distance;
+            $last_time+=$time;
+        }
+        
+        $time=$this->time2int($time_org)-1;  
+        $last_distance=0;
+        $step=1000;
+  
+        
+        foreach ($points AS $distance=>$point)
+        {
+            if ($distance-$last_distance<$step) continue;
+            $last_distance=$distance;
+            
+            $mass=$church->search($point['latlng'][0],$point['latlng'][1],$step/1000,$time+$point['time'],$month,$dow,$time+$point['time'],1,0)?:[];
+            
+            //mydie([$mass,$point['latlng'],$time,$time+$point['time'],$month,$dow,$time+$point['time']]);
             if (count($mass) && !isset($masses[$mass[0]['church_id']]) )
             {
                 $time_difference=$mass[0]['time']-$time-$point['time'];
