@@ -28,7 +28,7 @@
   
     
     
-    $images=$image->select(['images.active'=>null])?:[];
+    $images=$image->select(['active'=>null])?:[];
     
     $images2=[];
     $images2_cmd='';
