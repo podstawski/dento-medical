@@ -57,7 +57,7 @@
 		echo '</script>';    
     ?>
 
-    <script src="<?php echo $basedir;?>/js/omine.js"></script>
+    <script src="<?php echo $basedir;?>/js/omine.js?v=<?php echo time()?>"></script>
 
 </head>
 

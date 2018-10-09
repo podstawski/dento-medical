@@ -34,6 +34,8 @@ function initialize(lat,lng,zoom,here) {
 	}).addTo(map);
     
 
+    map.setView([lat, lng], zoom);
+    
     markerarray=[];
 
     for(var i=0;i<churches.length; i++)
