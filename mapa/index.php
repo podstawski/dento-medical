@@ -116,7 +116,7 @@
 	<script src="<?php echo $basedir;?>/js/leaflet-heat.js"></script>
 	<script src="<?php echo $basedir;?>/js/Control.Geocoder.js"></script>
 	<script src="<?php echo $basedir;?>/js/leaflet-routing-machine.min.js"></script>
-    <script src="<?php echo $basedir;?>/js/omap.js?v=4"></script>
+    <script src="<?php echo $basedir;?>/js/omap.js"></script>
 
 </head>
 

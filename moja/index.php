@@ -57,7 +57,7 @@
 		echo '</script>';    
     ?>
 
-    <script src="<?php echo $basedir;?>/js/mine.js"></script>
+    <script src="<?php echo $basedir;?>/js/omine.js"></script>
 
 </head>
 
