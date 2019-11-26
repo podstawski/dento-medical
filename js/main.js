@@ -35,7 +35,7 @@ $(function() {
             user_logged_id=true;
             $('.a_login').html('Wyloguj').click(function(){
                 $.get(REST+'/user/logout',function(data) {
-                     $('.a_login').html('Login');
+                     $('.a_login').html('Login-Facebook');
                     login_fb();
                 });
                 return false;
