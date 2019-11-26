@@ -26,7 +26,8 @@ $(function(){
     });
     
     setTimeout(function() {
-        if (proceed_prority==0) grid_start('timer',0);
+        if (proceed_prority==0)
+            grid_start('timer',0);
     },400);
     
     

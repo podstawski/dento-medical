@@ -128,43 +128,59 @@ function where_autocomplete(id,cb,scaleW,scaleH) {
     if (!scaleW) scaleW=1;
     if (!scaleH) scaleH=1;
     
-    $('#'+id).keypress(function (e) {
+    $('#'+id).on('input',function (e) {
         var self = $(this);
-        if (self.val().trim().length==0) return true;
         
-        if (e.which != 13 && (lastKeypress==0 || Date.now()-lastKeypress<1000) ) {
-            lastKeypress = Date.now();
-            return true;
-        }
-        
-        self.addClass('searching');
-        geocoder.geocode(self.val().trim(), function(results) {
-            self.removeClass('searching');
+        setTimeout(function(){
+            var selfVal = self.val().trim();
+            var selfLength = selfVal.length;
             
-            if (results.length==0) {
-                //code      
+            //console.log(proceed_prority,selfLength,e);
+            
+            
+            if (selfLength===0) {
+                if (typeof proceed_prority!=='undefined') {
+                    proceed_prority=0;
+                }
+                return true;
+            }
+            
+            if (typeof proceed_prority!=='undefined') {
+                proceed_prority=2;
+            }
+            
+            if (e.which != 13 && (lastKeypress==0 || Date.now()-lastKeypress<1000)) {
+                lastKeypress = Date.now();
+                return true;
+            }
+            
+            self.addClass('searching');
+            geocoder.geocode(selfVal, function(results) {
+                self.removeClass('searching');
+                console.log('searched',selfVal,results.length)
+                if (results.length==0) {
+                    return;
+                }
                 
-                return;
-            }
+                $('#geo_search_results').fadeIn().width(self.width()*scaleW).css({
+                    left: self.offset().left,
+                    top:self.offset().top + self.height()*scaleH
+                }).attr('rel',id);
+                
+                var html='<ul>';
+                for (var i=0;i<results.length; i++){
+                    html+='<li rel="'+results[i].center.lat+','+results[i].center.lng+'">';
+                    html+=results[i].name;
+                    html+='</li>';
+                }
+                html+='</ul>';
+                
+                $('#geo_search_results').html(html);
+    
+            });
             
-            $('#geo_search_results').fadeIn().width(self.width()*scaleW).css({
-                left: self.offset().left,
-                top:self.offset().top + self.height()*scaleH
-            }).attr('rel',id);
-            
-            var html='<ul>';
-            for (var i=0;i<results.length; i++){
-                html+='<li rel="'+results[i].center.lat+','+results[i].center.lng+'">';
-                html+=results[i].name;
-                html+='</li>';
-            }
-            html+='</ul>';
-            
-            $('#geo_search_results').html(html);
-
-        });
-        
-        return true;
+            return true;
+        },250,e);
     });
     
 }
