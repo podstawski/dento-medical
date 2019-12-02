@@ -25,7 +25,7 @@ class userController extends Controller {
     {
 	
 		$config=Bootstrap::$main->getConfig();
-		$scope="email,public_profile";
+		$scope="email,public_profile,user_link";
 		
 		if (Bootstrap::$main->session('fb_likes')) $scope.=",user_likes";
 		$this->check_input();
@@ -54,10 +54,9 @@ class userController extends Controller {
 					if (isset($token['access_token']))
 					{
 						Bootstrap::$main->session('access_token',$token['access_token']);
-						$auth = @json_decode(file_get_contents('https://graph.facebook.com/v2.9/me?fields=id,email,name&format=json&access_token='.$token['access_token']),true);
+						$auth = @json_decode(file_get_contents('https://graph.facebook.com/v2.9/me?fields=id,email,name,link&format=json&access_token='.$token['access_token']),true);
 						$picture = @json_decode(file_get_contents('https://graph.facebook.com/v2.9/me/picture?redirect=false&type=normal&access_token='.$token['access_token']),true);
 					 
-						
 						if (isset($auth['id']))
 						{
 							$md5hash='fb.'.$auth['id'];
@@ -91,7 +90,7 @@ class userController extends Controller {
 						
 							}
 				
-							if (!$model->url) $model->url='https://www.facebook.com/'.$auth['id'];
+							if ($auth['link']) $model->url=$auth['link'];
 				
 							$model->save();
 				

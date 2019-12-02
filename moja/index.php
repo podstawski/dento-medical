@@ -19,10 +19,13 @@
 		Header('Location: '.$basedir.'/rest/user/facebook?redirect='.urlencode('https://www.kiedymsza.pl'.$_SERVER['REQUEST_URI']));
 	}
 	
-	if (!$u) die();
+	if (!$u) die('<script>history.go(-1);</script>');
 	
     $church=new churchModel();
     $churches=$church->my_churches($u['id'],true);
+	
+
+	if (!$churches) die('<script>history.go(-1);</script>');
 	
 	foreach ($churches AS &$ch)
 	{
