@@ -30,10 +30,11 @@
 	foreach ($churches AS &$ch)
 	{
 		$ch['url']='../kosciol/'.Tools::str_to_url($ch['name']).','.$ch['id'];
+		$ch['name']=str_replace('"','',$ch['name']);
 		foreach(explode(',','id,email,md5hash,www,password,phone,about,address,active,change_author,change_ip,change_time,successor,sun,fest,week,rector,area,country,city,tel,postal') AS $k) unset($ch[$k]);
 	}
 	
-    if (count($churches)==0) die();
+    if (count($churches)==0) die('<script>history.go(-1);</script>');
 	
     $title='KiedyMsza - użytkownika';
     $description='';
@@ -41,12 +42,14 @@
     $keywords='msza,msze,kiedy msza,gdzie msza';
     
 	
-	
+	//mydie($churches);
 
     $imagePath=Tools::saveRoot('maps');
 	$latlang=implode(',',$config['pl.center']).',6';
     
 	if (isset($_GET['m']) && count(explode(',',$_GET['m']))==3) $latlang=$_GET['m'];
+	
+	
 	
 ?>
 <html lang="pl">
