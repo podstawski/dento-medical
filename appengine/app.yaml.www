@@ -4,44 +4,56 @@ api_version: 1
 handlers:
 - url: /rest/.*
   script: rest/index.php
+  secure: always
 
 - url: /admin.*
   script: admin/index.php
   login: admin
+  secure: always
   
 - url: /kosciol-dbg/.*
   script: kosciol-dbg/index.php
+  secure: always
 
 - url: /kosciol.*
   script: kosciol/index.php
+  secure: always
 
 - url: /edit.*
   script: edit/index.php
+  secure: always
 
 - url: /vc.*
   script: vc/index.php
+  secure: always
   
 - url: /pp.*
   script: pp/index.php
-
+  secure: always
 
 - url: /dbg.*
   script: dbg/index.php
+  secure: always
 
 - url: /o-projekcie.*
   script: o-projekcie/index.php
+  secure: always
     
 - url: /dary.*
   script: dary/index.php
+  secure: always
     
 - url: /mapa.*
   script: mapa/index.php
+  secure: always
 
 - url: /moja.*
   script: moja/index.php
+  secure: always
 
 - url: /konkurs.*
   script: konkurs/index.php
+  secure: always
 
 - url: /maga_zakodowany_sajtmap.xml
   script: sitemap.php

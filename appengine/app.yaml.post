@@ -1,4 +1,5 @@
 
 - url: /
   script: index.php
+  secure: always
 
