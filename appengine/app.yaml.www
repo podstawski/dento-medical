@@ -46,3 +46,5 @@ handlers:
 - url: /maga_zakodowany_sajtmap.xml
   script: sitemap.php
 
+- url: /ads.txt
+  static_files: /ads.txt
