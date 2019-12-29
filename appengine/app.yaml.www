@@ -60,3 +60,4 @@ handlers:
 
 - url: /ads.txt
   static_files: /ads.txt
+  upload: /ads.txt
