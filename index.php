@@ -132,7 +132,7 @@
 </div>
 <div class="col-md-3 hidden-sm hidden-xs">
    
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
 <!-- Prawa szpalta -->
 <ins class="adsbygoogle"
      style="display:inline-block;width:300px;height:1050px"
