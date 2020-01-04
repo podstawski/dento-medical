@@ -21,6 +21,9 @@
     "fest.2019.free": ["22.04","20.06"],
     "fest.2019.work":["6.03"],
 
+    "fest.2020.free": ["13.04","11.06"],
+    "fest.2020.work":["26.02"],
+
     "protocol":"http",
 
     "square_size": 900,
