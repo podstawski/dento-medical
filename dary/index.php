@@ -72,9 +72,10 @@
 	
 	<h2 class="">Dołączysz?</h2>
 	
-			<p style="margin-top:2em;">
-				<?php include __DIR__.'/../html/kasa.phtml';?>
-			</p>
+			<a href="https://patronite.pl/kiedymsza" target="_blank">
+				<img src="<?php echo $basedir;?>/img/patronite-logo.svg" alt="Logo Patronite" style="width:50%; margin-top:30px;"/>
+				<br/>https://patronite.pl/kiedymsza
+			</a>
 
   </div>
 

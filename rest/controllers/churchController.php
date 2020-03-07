@@ -1,5 +1,7 @@
 <?php
 
+const SPECIAL_DOW_WORKDAYFEST = 8;
+
 class churchController extends Controller {
     
     protected static $dows=['niedziela','poniedziałek','wtorek','środa','czwartek','piątek','sobota'];
@@ -29,7 +31,7 @@ class churchController extends Controller {
         foreach($fests AS $fest)
         {
             $s=explode('.',$fest);
-            if ($d==$s[0] && $m==$s[1]) $dow=8;
+            if ($d==$s[0] && $m==$s[1]) $dow=SPECIAL_DOW_WORKDAYFEST;
         }        
         
         return $dow;

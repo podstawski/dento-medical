@@ -137,7 +137,7 @@
     
     $masses=[];
     for($d=0;$d<7;$d++)
-	$masses[$d]=$mass->select(['church'=>$church->id,'dow'=>$d],'time');
+		$masses[$d]=$mass->select(['church'=>$church->id,'dow'=>$d],'time');
     $masses[8]=$mass->select(['church'=>$church->id,'dow'=>8],'time');
 
     
