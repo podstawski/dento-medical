@@ -27,7 +27,8 @@ class userController extends Controller {
 		$config=Bootstrap::$main->getConfig();
 		$scope="email,public_profile,user_link";
 		
-		if (Bootstrap::$main->session('fb_likes')) $scope.=",user_likes";
+		if (Bootstrap::$main->session('fb_likes'))
+			$scope.=",user_likes";
 		$this->check_input();
 	
         $uri = $config['protocol'].'://' . $_SERVER['HTTP_HOST'] . Bootstrap::$main->getRoot() . 'user/facebook';
@@ -40,7 +41,7 @@ class userController extends Controller {
 		{
 				if (isset($_GET['code']))
 				{
-					$url='https://graph.facebook.com/v2.9/oauth/access_token';
+					$url='https://graph.facebook.com/'.$config['fbver'].'/oauth/access_token';
 					$url.='?client_id='.$config['fb.app_id'];
 					$url.='&redirect_uri='.urlencode($uri);
 					$url.='&client_secret='.$config['fb.app_secret'];
@@ -54,8 +55,8 @@ class userController extends Controller {
 					if (isset($token['access_token']))
 					{
 						Bootstrap::$main->session('access_token',$token['access_token']);
-						$auth = @json_decode(file_get_contents('https://graph.facebook.com/v2.9/me?fields=id,email,name,link&format=json&access_token='.$token['access_token']),true);
-						$picture = @json_decode(file_get_contents('https://graph.facebook.com/v2.9/me/picture?redirect=false&type=normal&access_token='.$token['access_token']),true);
+						$auth = @json_decode(file_get_contents('https://graph.facebook.com/'.$config['fbver'].'/me?fields=id,email,name,link&format=json&access_token='.$token['access_token']),true);
+						$picture = @json_decode(file_get_contents('https://graph.facebook.com/'.$config['fbver'].'/me/picture?redirect=false&type=normal&access_token='.$token['access_token']),true);
 					 
 						if (isset($auth['id']))
 						{
@@ -134,7 +135,7 @@ class userController extends Controller {
 				Bootstrap::$main->session('oauth2_state',$state);
 			
 			
-				$url='https://www.facebook.com/v2.9/dialog/oauth';
+				$url='https://www.facebook.com/'.$config['fbver'].'/dialog/oauth';
 				$url.='?client_id='.$config['fb.app_id'];
 				$url.='&redirect_uri='.urlencode($uri);
 				$url.='&state='.$state;
@@ -181,21 +182,21 @@ class userController extends Controller {
     
     protected function add($data)
     {
-	$data['trust']=0;	
+		$data['trust']=0;	
         $this->user()->load($data,true);
-	$data=$this->user()->save();
+		$data=$this->user()->save();
 
         return $data;	
     }
     
     public function likes()
     {
-	Bootstrap::$main->session('fb_likes',1);
-	if (!Bootstrap::$main->session('access_token')) return false;
-	$url='https://graph.facebook.com/v2.9/me/likes/'.Bootstrap::$main->getConfig('fb.fanpage').'?access_token='.Bootstrap::$main->session('access_token');
-	$data=@json_decode(file_get_contents($url),true);
-        if (!isset($data['data'])) return false;
-	return count($data['data'])>0;
+		Bootstrap::$main->session('fb_likes',1);
+		if (!Bootstrap::$main->session('access_token')) return false;
+		$url='https://graph.facebook.com/'.$config['fbver'].'/me/likes/'.Bootstrap::$main->getConfig('fb.fanpage').'?access_token='.Bootstrap::$main->session('access_token');
+		$data=@json_decode(file_get_contents($url),true);
+			if (!isset($data['data'])) return false;
+		return count($data['data'])>0;
     }
     
 }
