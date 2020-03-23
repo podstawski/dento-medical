@@ -51,6 +51,11 @@ handlers:
   script: moja/index.php
   secure: always
 
+- url: /online.*
+  script: online/index.php
+  secure: always
+
+
 - url: /konkurs.*
   script: konkurs/index.php
   secure: always
