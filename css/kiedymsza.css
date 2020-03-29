@@ -976,3 +976,22 @@ ul.other {
 .map_info_win p {
   margin: 0 !important;
 }
+
+a.online {
+  position: absolute;
+  z-index: 10;
+  right: 30;
+  top: 15;
+}
+
+a.online img {
+  width: 100px;
+  border-radius: 4px;
+}
+
+a.live img {
+  width: 60px;
+  border-radius: 4px;
+  margin-left: 5px;
+  margin-top: 3px;
+}

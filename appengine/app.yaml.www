@@ -55,6 +55,9 @@ handlers:
   script: online/index.php
   secure: always
 
+- url: /live.*
+  script: live/index.php
+  secure: always
 
 - url: /konkurs.*
   script: konkurs/index.php

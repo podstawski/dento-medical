@@ -28,7 +28,12 @@
 <url>
     <loc>https://www.kiedymsza.pl/</loc>
 </url>
-
+<url>
+    <loc>https://www.kiedymsza.pl/o-projekcie/</loc>
+</url>
+<url>
+    <loc>https://www.kiedymsza.pl/online/</loc>
+</url>
 <?php foreach($churches AS $ch): ?>
   <url>
     <loc>https://www.kiedymsza.pl/kosciol/<?php echo Tools::str_to_url($ch['name'])?>,<?php echo $ch['id'];?></loc>

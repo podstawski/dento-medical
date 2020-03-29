@@ -87,6 +87,10 @@
     
     $church_page=true;
     
+    $hash=md5($config['online.salt'].$church->id.'listMasses'.'1');
+    $url=$config['online.url'].'?json=1&action=listMasses&userId=1&hash='.$hash.'&churchId='.$church->id;
+    $online=json_decode(file_get_contents($url),true);
+     
 ?>
 <html lang="pl">
     
@@ -114,6 +118,9 @@
     <div class="row">
       <div class="col-sm-6">
 
+        <?php if (count($online)): ?>
+        <a class="online" target="_blank" href="<?php echo $online[0]['link'];?>"><img src="../img/live.png"/></a>
+        <?php endif; ?>
         <div id="churchCarousel" class="carousel slide">
 
           <!-- Carousel items -->
@@ -222,6 +229,7 @@
         </div>
       
         <div class="church-update">
+            <a href="../live/<?php echo $church->id; ?>" class="a_update a_bottom live"><img align="absMiddle" src="../img/live.png" alt="Na żywo" /></a>
             <a href="../edit/<?php echo $church->id; ?>" class="a_update a_bottom">Aktualizuj dane</a>
             <?php if ($church->change_author): ?>
             Aktualizował(a): <a href="<?php echo $change_author['url']?>" target="_blank">

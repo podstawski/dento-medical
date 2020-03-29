@@ -23,46 +23,7 @@
 			$church=new churchModel();
 			
 			
-			//Integrate: https://leafletjs.com/examples/custom-icons/example.html
-			
-			/*
-			 *bye bye Google
-			 *
-			$url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=';
-			$url.=Bootstrap::$main->getConfig('maps.server_key');
-			$url.='&location='.$m[0].','.$m[1];
-			$url.='&radius=1000&keyword=parafia|ko%C5%9Bci%C3%B3%C5%82|bazylika';
-			$nearby=json_decode(file_get_contents($url),true);
-			
-			
-			if (isset($nearby['results']) && count($nearby['results'])) {
-				$results=[];
-				$distanceok=false;
-				foreach($nearby['results'] AS $result)
-				{
-					$distance=$church->distance($m[0],$m[1],$result['geometry']['location']['lat'],$result['geometry']['location']['lng']);
-					$results[$distance]=$result;
-					if ($distance<=1) $distanceok=true;
-				}
-				
-				
-				
-				if ($distanceok) {
-					ksort($results);
-					
-					$result=current($results);
-					$church->name = $result['name'];
-					$church->address = $result['vicinity'];
-					if($result['geometry']['location']['lat']) $m[0]=$result['geometry']['location']['lat'];
-					if($result['geometry']['location']['lng']) $m[1]=$result['geometry']['location']['lng'];
-					
-				}
-			}
-			*/
-			
-			
-			
-			
+		
 			$church->lat=$m[0];
 			$church->lng=$m[1];
 			$church->change_author=Bootstrap::$main->user['id'];
