@@ -8,8 +8,8 @@
 
     
     $title='KiedyMsza św - lista Mszy ONLINE';
-    $description='';
-    $image='';
+    $description='Lista Mszy Św ONLINE w Twojej okolicy';
+    $image='https://www.kiedymsza.pl/img/online.jpg';
     $keywords='msza,msze,kiedy msza,gdzie msza, online';
     $basedir='..';
 	
