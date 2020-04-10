@@ -80,7 +80,7 @@
   
 </div>
   
-  <?php foreach($online AS $live) :?>
+  <?php foreach($online AS &$live) :?>
   
   <div class="container about">
 	<div class="row" style="margin-bottom: 10px;">
