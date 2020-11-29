@@ -25,7 +25,7 @@ class userController extends Controller {
     {
 	
 		$config=Bootstrap::$main->getConfig();
-		$scope="email,public_profile,user_link";
+		$scope="email,public_profile";
 		
 		if (Bootstrap::$main->session('fb_likes'))
 			$scope.=",user_likes";
@@ -79,7 +79,8 @@ class userController extends Controller {
 							
 							$model->firstname = $fbname[0];
 							$model->lastname = $fbname[1];
-							if(strstr($email,'@')) $model->email=$email;
+							if(strstr($email,'@'))
+								$model->email=$email;
 							
 							if (isset($picture['data']['url']) && Bootstrap::$main->appengine) {
 					
@@ -91,15 +92,18 @@ class userController extends Controller {
 						
 							}
 				
-							if ($auth['link']) $model->url=$auth['link'];
+							if (isset($auth['link']))
+								$model->url=$auth['link'];
 				
 							$model->save();
+							
 				
 							$data=$model->data();
 				
 							Tools::log('fb-login',['get'=>$_GET,'token'=>$token,'auth'=>$auth, 'user'=>$data]);
 							
-							if(isset($data['password'])) unset($data['password']);
+							if(isset($data['password']))
+								unset($data['password']);
 							Bootstrap::$main->session('user',$data);
 							Bootstrap::$main->session('auth', $auth);
 							

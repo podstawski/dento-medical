@@ -94,7 +94,7 @@
 	
 	<div>
 	    <br/>
-	    <a href="https://www.facebook.com/podstawski.piotr" target="_blank">Piotr Podstawski</a>
+	    <a href="https://piotr.podstawski.com" target="_blank">Piotr Podstawski</a>
 	    <br/><br/>
 	</div>
 	
