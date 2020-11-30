@@ -11,7 +11,7 @@
 						style="width:50%;float: right;" align="absMiddle"/>
 				</a>
 				
-				<video controls="" loop="" 
+				<video controls="" loop="" class="activetalk"
 					   onloadeddata="if ( $(this).parent().css('display')!=='none' ) this.play();" playsinline="" preload="auto"
 					   style="width:30%">
 					<source src="https://www.activetalk.pl/att/video/activetalk.mov" type="video/mp4" />
@@ -38,20 +38,10 @@
             
             <div class="col-md-4 hidden-xs footer-menu" style="padding:2px">
 				
-				<video controls="" loop=""
-					   onloadeddata="if ( $(this).parent().css('display')!=='none' ) this.play();" playsinline="" preload="auto"
-					   style="width:30%">
+				<video controls="" loop="" class="activetalk" playsinline="" preload="auto">
 					<source src="https://www.activetalk.pl/att/video/activetalk.mov" type="video/mp4" />
 					Your browser does not support the video tag.
 				</video>
-				
-				<a href="https://www.youtube.com/watch?v=sxlg49YzFLM" target="_blank" style="position: absolute;
-					display: block;
-					width: 30%;
-					left: 0; top:0;
-					height: 100%;"
-				
-				onclick="$('video').each(function(){this.pause()})"></a>
 				
 				
                 <ul style="padding-top: 20px">

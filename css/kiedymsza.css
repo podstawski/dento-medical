@@ -995,3 +995,20 @@ a.live img {
   margin-left: 5px;
   margin-top: 3px;
 }
+
+
+video {
+  width: 100%;
+}
+
+#footer video.activetalk {
+  width: 30%;
+}
+
+#footer a.activetalk {
+  position: absolute;
+  display: block;
+  width: 30%;
+  left: 0; top:0;
+  height: 100%
+}

@@ -27,8 +27,45 @@ var user_logged_id=false;
 })();
 
 
+
+var userStartedInteraction = false;
+
 $(function() {
     
+    $('body').click(function(e){
+        userStartedInteraction = true;
+    }); 
+    
+    $('video.activetalk').each(function(){
+        const self=this;
+        
+        if ( $(self).css('display')==='none' || $(self).parent().css('display')==='none' )
+            return;
+        
+        self.onloadeddata = function(){
+            const activetalk = window.localStorage.getItem('activetalk');
+            if (activetalk && Date.now()-parseInt(activetalk)<24*3600*1000)
+                return;
+            
+            function play() {
+                if (!userStartedInteraction)
+                    return setTimeout(play,500);
+                self.play();
+            }
+            play();
+            setTimeout(function(){
+                userStartedInteraction = true;
+            },5000);
+            
+        };
+        
+        $(self).after('<a class="activetalk" href="https://www.activetalk.pl/o-nas/o-activetalk/" target="_blank"/>');
+    
+        $(self).parent().find('a.activetalk').click(function(){
+            window.localStorage.setItem('activetalk',Date.now().toString());
+            self.pause();
+        });
+    });
     
     $.get(REST+'/user',function(data) {
         if (data.status) {
@@ -87,6 +124,10 @@ $(function() {
     $(".fancybox").fancybox();
     
     setTimeout(navigator_request_blinker,2000);
+    
+    
+    
+    
 });
 
 
