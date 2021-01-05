@@ -40,16 +40,44 @@
         if ($_GET['to']) $where['d_uploaded ']=['<=',strtotime($_GET['to'])];
         $images2=$image->select($where)?:[];
     }
-    
+   
+    foreach ($images AS $i=>$img) {
+	if ($img['lat'])
+		$images[$i]['mapurl']='../../mapa/?m='.$img['lat'].','.$img['lng'].',14';
+	if ($img['church']<=0)
+		continue;
+	$church=new churchModel($img['church']);
+	$images[$i]['churl']='../../kosciol/'.Tools::str_to_url($church->name).','.$church->id;
+    }
     
 ?>
 <style>
+    .square {
+	position: relative;
+	float: left;
+	margin: 4px;
+    }
     .mod-box {
         position: absolute;
         width:150px;
         display: inline-block;
         padding:4px;
         background-color: rgba(0,0,0,0.5);
+    }
+
+    .link {
+        position: absolute;
+        width:150px;
+        display: inline-block;
+	bottom: 0;
+        padding:4px;
+        background-color: rgba(0,0,0,0.5);
+	text-align: center;
+    }
+    .link a {
+	text-decoration: none;
+	color: white;
+	font-size: 11px;
     }
     
     .mod-box a.no {
@@ -80,10 +108,15 @@
 
 
 <?php foreach($images AS $img): ?>
-<span>
+<div class="square">
 <div class="mod-box" rel="<?php echo $img['id'];?>">
     <a class="no">NO</a>
     <a class="yes">YES</a>
+</div>
+<div class="link">
+	<a target="_blank" href="<?php echo $img['churl'];?>">LINK</a>
+	&nbsp;
+	<a target="_blank" href="<?php echo $img['mapurl'];?>">MAPA</a>
 </div>
 <a class="fancybox" href="<?php echo $img['url'];?>" title="<?php
     $user->get($img['author_id']);
@@ -91,8 +124,11 @@
 ?>">
     <img class="mod-img" src="<?php echo $img['thumb'];?>"/>
 </a>
-</span>
+</div>
 <?php endforeach;?>
+
+<br clear="all"/>
+
 
 <div class="all" style="<?php if (!count($images)) echo 'display:none';?>">
     <input type="button" class="b-no" value="No to all"/>

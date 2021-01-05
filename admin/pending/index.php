@@ -156,6 +156,9 @@
                 $church2['md5hash']=$church1['md5hash'];
                 $church2['tel']=substr(preg_replace('/[^0-9]/','',$church2['phone']),0,9);
                 $church2['active']=1;
+
+		if ( isset($church2['change_author']) && $church2['change_author']==1 && isset($church1['change_author']) )
+			$church2['change_author'] = $church1['change_author'];
                 
                 $changed=$church->import($church2,true,true,true);
                 
